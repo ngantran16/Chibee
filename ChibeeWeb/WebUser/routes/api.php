@@ -19,9 +19,10 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['namespace' => 'App', 'as' => 'api.'], function () {
-    Route::get('/ip', 'Http\Controllers\StoriesController@index')->name('index');
-    // Route::post('/', 'PostController@store')->name('store');
-    // Route::get('/{id}', 'PostController@show')->name('show');
+    Route::get('/stories', 'Http\Controllers\StoriesController@storiesList')->name('index');
+
+    Route::post('/stories', 'Http\Controllers\StoriesController@add')->name('store');
+    Route::get('/stories/{id}', 'Http\Controllers\StoriesController@show')->name('show');
     // Route::put('/', 'PostController@update')->name('update');
-    // Route::delete('/{id}', 'PostController@destroy')->name('destroy');
+    Route::delete('/stories/{id}', 'Http\Controllers\StoriesController@delete')->name('destroy');
 });

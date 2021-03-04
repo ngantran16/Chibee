@@ -30,23 +30,23 @@ const styles = StyleSheet.create({
   layoutInput: {
     flex: 1,
     marginBottom: 5,
-    marginTop: 10,
   },
   titleInput: {
     color: 'gray',
     fontSize: 15,
     marginTop: 15,
+    marginBottom: 5,
   },
   textInput: {
     height: 45,
-    borderColor: '#dddddd',
+    borderColor: '#ACA9A9',
     borderWidth: 1,
-    paddingBottom: 20,
+    paddingBottom: 15,
   },
   showPassword: {
     position: 'absolute',
     right: 10,
-    top: 45,
+    top: 55,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',

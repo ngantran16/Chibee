@@ -27,8 +27,9 @@ const styleInput = StyleSheet.create({
   },
   textInput: {
     height: 45,
-    borderColor: '#dddddd',
+    borderColor: '#ACA9A9',
     borderWidth: 1,
+    marginBottom: 15,
   },
 });
 export default TextInputItem;

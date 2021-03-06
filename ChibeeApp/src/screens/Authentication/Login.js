@@ -23,6 +23,9 @@ const Login = () => {
   const onClose = () => {
     NavigationUtils.pop();
   };
+  const onLogin = () => {
+    NavigationUtils.push({ screen: 'HomePage', isTopBarEnable: false });
+  };
   return (
     <ScrollView style={styles.container}>
       <View style={styles.layoutTitle}>
@@ -36,14 +39,14 @@ const Login = () => {
         onChangePass={(val) => setPassword(val)}
       />
       <View style={styles.layoutButton}>
-        <TouchableOpacity style={styles.loginButton}>
+        <TouchableOpacity style={styles.loginButton} onPress={onLogin}>
           <Text style={styles.textSignUp}> Đăng nhập </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.signupButton} onPress={onSignUpHandel}>
           <Text> Đăng ký </Text>
         </TouchableOpacity>
       </View>
-      <Text style={styles.policy}> Quên mật khẩu </Text>
+      <Text style={styles.policy}> Quên mật khẩu? </Text>
     </ScrollView>
   );
 };
@@ -73,7 +76,7 @@ const styles = StyleSheet.create({
   layoutButton: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: 20,
+    marginTop: 30,
     paddingHorizontal: 20,
   },
   loginButton: {
@@ -97,7 +100,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     color: 'gray',
     textAlign: 'center',
-    fontSize: 18,
+    fontSize: 16,
   },
 });
 export default Login;

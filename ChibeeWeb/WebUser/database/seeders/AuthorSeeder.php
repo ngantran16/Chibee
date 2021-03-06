@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class AuthorSeeder extends Seeder
 {
@@ -11,10 +12,11 @@ class AuthorSeeder extends Seeder
      *
      * @return void
      */
+
     public function run()
     {
         DB::table('author')->insert([
-            'name'=>'Truyện cổ tích', 
+            'author_name'=>'Truyện cổ tích', 
             'country'=>'Việt Nam'    
         ]);
        

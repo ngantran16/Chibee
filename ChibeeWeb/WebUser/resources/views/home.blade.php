@@ -11,17 +11,14 @@
 <body>
 <div >
 
-@foreach ($stories as $s)
+
 <div>
     <div class="container">
-        <p>{{$s->name}}</p>
-        <p>{{$s->author}}</p>
-        <p>{{$s->type}}</p>
-        <p>{{$s->video}}</p>
-        <p>{{$s->audio}}</p>
+        Hello
+        
     </div>
 </div>
-@endforeach
+
 </div>
 </body>
 </html>

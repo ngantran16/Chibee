@@ -71,6 +71,11 @@ class StoriesController extends Controller
             return "done!";
         
     }
+    public function index()
+    {   
+       return view('welcome');
+    }
+    
     public function add(Request $re)
     {   
         // // $stories = Stories::all();

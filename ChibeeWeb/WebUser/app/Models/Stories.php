@@ -13,7 +13,7 @@ class Stories extends Model
     
     
     protected $fillable=[
-        'id_type','id_video','id_audio','id_author','story_name','description','content','status'
+        'id_type','id_video','id_audio','id_author','id_image','story_name','description','content','status'
     ];
 
     protected $primarykey ='id';
@@ -24,11 +24,16 @@ class Stories extends Model
     }
     public function video()
     {
-        return $this->belongsTo('App\Models\Video','id_video','id');
+        return $this->hasMany('App\Models\Video','id_video','id');
     }
     public function audio()
     {
-        return $this->belongsTo('App\Models\Audio','id_audio','id');
+        return $this->hasMany('App\Models\Audio','id_audio','id');
+       
+    }
+    public function image()
+    {
+        return $this->hasMany('App\Models\Image','id_image','id');
        
     }
   

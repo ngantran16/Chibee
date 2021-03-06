@@ -17,7 +17,7 @@ class Wishlist extends Model
     ];
 
     protected $primarykey ='id';
-    protected $table ='audio';
+    protected $table ='wishlist';
 
     public function story()
     {

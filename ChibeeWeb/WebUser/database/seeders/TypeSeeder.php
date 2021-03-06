@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class TypeSeeder extends Seeder
 {
@@ -13,14 +14,17 @@ class TypeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('types')->insert([
-            'name_type'=>'Truyện cổ tích'   
+        DB::table('story_type')->insert([
+            'name'=>'Truyện cổ tích',
+            'description'=>'Demo'      
         ]);
-        DB::table('types')->insert([
-            'name_type'=>'Truyện ngụ ngôn'   
+        DB::table('story_type')->insert([
+            'name'=>'Truyện ngụ ngôn',
+            'description'=>'Demo'      
         ]);
-        DB::table('types')->insert([
-            'name_type'=>'Quà tặng cuộc sống'   
+        DB::table('story_type')->insert([
+            'name'=>'Quà tặng cuộc sống',
+            'description'=>'Demo'   
         ]);
        
     }

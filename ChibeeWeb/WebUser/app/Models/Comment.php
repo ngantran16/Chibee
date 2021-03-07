@@ -13,12 +13,12 @@ class Comment extends Model
     
     
     protected $fillable=[
-        'name','profile'
+        'id_user','id_story','content'
     ];
 
     protected $primarykey ='id';
-    protected $table ='author';
-    public function stories()
+    protected $table ='comment';
+    public function story()
     {
         return $this->belongsTo('App\Models\Stories','id_story','id');
     }

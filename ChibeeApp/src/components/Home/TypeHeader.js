@@ -11,11 +11,11 @@ const TypeHeader = ({ title }) => {
         <Text style={styles.txtTitle}>{title}</Text>
       </View>
       <TouchableOpacity
-      // onPress={() => {
-      //   NavigationUtils.push({ screen: 'ViewAll', title: 'ViewAll', isTopBarEnable: false });
-      // }}
+        onPress={() => {
+          NavigationUtils.push({ screen: 'ViewAll', title: 'ViewAll', isTopBarEnable: false });
+        }}
       >
-        <Text style={styles.txtViewAll}>Xem hết >></Text>
+        <Text style={styles.txtViewAll}>Xem hết{'>>'}</Text>
       </TouchableOpacity>
     </View>
   );

@@ -12,6 +12,16 @@ import story2 from '../assets/Images/story2.jpg';
 import story3 from '../assets/Images/story3.jpg';
 import story4 from '../assets/Images/story4.jpg';
 import star from '../assets/Images/star1.png';
+import discover1 from '../assets/Images/discover1.jpg';
+import discover2 from '../assets/Images/discover2.jpg';
+import discover3 from '../assets/Images/discover3.jpg';
+import discover4 from '../assets/Images/discover4.jpg';
+import back from '../assets/Images/back.png';
+import edit from '../assets/Images/edit.png';
+import trash from '../assets/Images/trash.png';
+import send from '../assets/Images/send.png';
+import loginBg from '../assets/Images/loginBg.png';
+import search from '../assets/Images/search.png';
 
 const Images = {
   intro1,
@@ -28,6 +38,16 @@ const Images = {
   story3,
   story4,
   star,
+  discover1,
+  discover2,
+  discover3,
+  discover4,
+  back,
+  edit,
+  trash,
+  send,
+  loginBg,
+  search,
 };
 
 export default Images;

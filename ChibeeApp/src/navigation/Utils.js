@@ -121,6 +121,7 @@ class NavigationUtils {
   mergeOptions(option) {
     Navigation.mergeOptions(this.currentScreenId, option);
   }
+
   startLoginContent() {
     Navigation.setRoot({
       root: {
@@ -188,7 +189,7 @@ class NavigationUtils {
                           iconWidth: 21,
                           iconHeight: 21,
                           selectedIconColor: '#1d9dd8',
-                          icon: require('../assets/Images/ic-book.png'),
+                          icon: require('../assets/Images/home.png'),
                         },
                       },
                     },
@@ -198,11 +199,11 @@ class NavigationUtils {
             },
             {
               stack: {
-                id: 'Bill',
+                id: 'Search',
                 children: [
                   {
                     component: {
-                      name: 'Bill',
+                      name: 'Search',
                       options: {
                         topBar: {
                           visible: false,
@@ -214,7 +215,7 @@ class NavigationUtils {
                           iconWidth: 21,
                           iconHeight: 21,
                           selectedIconColor: '#1d9dd8',
-                          icon: require('../assets/Images/files.png'),
+                          icon: require('../assets/Images/search.png'),
                         },
                       },
                     },
@@ -239,7 +240,7 @@ class NavigationUtils {
                           justifyContent: 'center',
                           iconWidth: 21,
                           iconHeight: 21,
-                          selectedIconColor: '#1d9dd8',
+                          // selectedIconColor: '#1d9dd8',
                           icon: require('../assets/Images/avatar.jpg'),
                         },
                       },
@@ -250,11 +251,11 @@ class NavigationUtils {
             },
             {
               stack: {
-                id: 'Notice',
+                id: 'Wishlist',
                 children: [
                   {
                     component: {
-                      name: 'Notice',
+                      name: 'Wishlist',
                       options: {
                         topBar: {
                           visible: false,
@@ -266,7 +267,7 @@ class NavigationUtils {
                           iconWidth: 21,
                           iconHeight: 21,
                           selectedIconColor: '#1d9dd8',
-                          icon: require('../assets/Images/bell.png'),
+                          icon: require('../assets/Images/heart.png'),
                         },
                       },
                     },
@@ -276,11 +277,11 @@ class NavigationUtils {
             },
             {
               stack: {
-                id: 'Library',
+                id: 'Discover',
                 children: [
                   {
                     component: {
-                      name: 'Library',
+                      name: 'Discover',
                       options: {
                         topBar: {
                           visible: false,
@@ -292,7 +293,7 @@ class NavigationUtils {
                           iconWidth: 21,
                           iconHeight: 21,
                           selectedIconColor: '#1d9dd8',
-                          icon: require('../assets/Images/home.png'),
+                          icon: require('../assets/Images/discover.png'),
                         },
                       },
                     },

@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
 import Images from '../../themes/Images';
@@ -20,12 +21,14 @@ const index = () => {
   ];
   return (
     <ScrollView>
-      <View style={styles.header}>
-        <Image source={Images.intro1} style={styles.logo} />
-        <Image source={Images.intro2} style={styles.iconApp} />
-      </View>
       <View>
-        <Image source={Images.background1} style={styles.background} />
+        <View style={styles.header}>
+          <Image source={Images.intro1} style={styles.logo} />
+          <Image source={Images.intro2} style={styles.iconApp} />
+        </View>
+        <View>
+          <Image source={Images.background1} style={styles.background} />
+        </View>
       </View>
 
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>

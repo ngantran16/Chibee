@@ -40,12 +40,12 @@ export default HomeStoryItem;
 
 const styles = StyleSheet.create({
   container: {
-    marginRight: 16,
+    paddingHorizontal: 5,
   },
   imgItem: {
     width: 180,
     height: 120,
-    borderRadius: 1.5,
+    borderRadius: 4,
     shadowColor: 'rgba(0, 0, 0, 0.22)',
   },
   txtNameStory: {

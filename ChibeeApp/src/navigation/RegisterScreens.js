@@ -13,6 +13,12 @@ import Wishlist from '../screens/Wishlist';
 import Discover from '../screens/Discover';
 import DiscoverDetail from '../screens/Discover/DiscoverDetail';
 import ViewAll from '../screens/Home/ViewAll';
+import Setting from '../screens/Setting';
+import PersonalInfo from '../screens/Setting/PersonalInfo';
+import ChangeInfo from '../screens/Setting/ChangeInfo';
+import ChangePassword from '../screens/Setting/ChangePassword';
+import Support from '../screens/Setting/Support';
+import Policy from '../screens/Setting/Policy';
 
 const SCREENS_WITH_REDUX = {
   Login,
@@ -25,6 +31,12 @@ const SCREENS_WITH_REDUX = {
   Discover,
   DiscoverDetail,
   ViewAll,
+  Setting,
+  PersonalInfo,
+  ChangeInfo,
+  ChangePassword,
+  Support,
+  Policy,
 };
 const SCREENS = {};
 

@@ -103,7 +103,7 @@ const ViewAll = () => {
           <Text style={styles.txtTitle}>Xem truyện cổ tích</Text>
         </View>
       </View>
-      <ScrollView style={styles.mainContain}>
+      <ScrollView style={styles.mainContain} showsVerticalScrollIndicator={false}>
         <FlatGrid
           itemDimension={130}
           data={data}

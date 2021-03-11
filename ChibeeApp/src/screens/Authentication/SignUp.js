@@ -76,14 +76,14 @@ const SignUp = (props) => {
       <TextInputItem title="Số điện thoại" ChangeText={(val) => setPhone(val)} />
       <PasswordItem
         title="Mật khẩu"
-        imageClose="ic-hide-password"
-        imageOpen="ic-show-password"
+        imageClose={Images.visibility2}
+        imageOpen={Images.visibility}
         onChangePass={(val) => setPass(val)}
       />
       <PasswordItem
         title="Xác nhận mật khẩu"
-        imageClose="ic-hide-password"
-        imageOpen="ic-show-password"
+        imageClose={Images.visibility2}
+        imageOpen={Images.visibility}
         onChangePass={(val) => setConfirm(val)}
       />
       <View style={styles.layoutButton}>

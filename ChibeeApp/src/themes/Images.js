@@ -22,6 +22,13 @@ import trash from '../assets/Images/trash.png';
 import send from '../assets/Images/send.png';
 import loginBg from '../assets/Images/loginBg.png';
 import search from '../assets/Images/search.png';
+import settings from '../assets/Images/settings.png';
+import user from '../assets/Images/user.png';
+import padlock from '../assets/Images/padlock.png';
+import logout from '../assets/Images/logout.png';
+import document from '../assets/Images/document.png';
+import customerService from '../assets/Images/customer-service.png';
+import support from '../assets/Images/support.png';
 
 const Images = {
   intro1,
@@ -48,6 +55,13 @@ const Images = {
   send,
   loginBg,
   search,
+  settings,
+  user,
+  padlock,
+  logout,
+  document,
+  customerService,
+  support,
 };
 
 export default Images;

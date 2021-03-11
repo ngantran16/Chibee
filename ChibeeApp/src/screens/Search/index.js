@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, ScrollView } from 'react-native';
 import Images from '../../themes/Images';
 import SearchItem from '../../components/Search/SearchItem';
 
@@ -28,13 +28,13 @@ const index = () => {
           placeholderTextColor="black"
         />
       </View>
-      <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           {types.map((type) => {
             return <SearchItem type={type} key={type.id} />;
           })}
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };

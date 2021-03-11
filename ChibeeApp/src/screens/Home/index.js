@@ -30,7 +30,6 @@ const index = () => {
           <Image source={Images.background1} style={styles.background} />
         </View>
       </View>
-
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         {types.map((type) => {
           return <Type title={type.name} key={type.id} />;

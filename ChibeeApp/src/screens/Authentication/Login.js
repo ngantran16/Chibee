@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    height: 320,
+    height: 340,
     justifyContent: 'center',
   },
   layoutTitle: {

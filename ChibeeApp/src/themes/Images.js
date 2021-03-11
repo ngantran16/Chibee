@@ -29,6 +29,8 @@ import logout from '../assets/Images/logout.png';
 import document from '../assets/Images/document.png';
 import customerService from '../assets/Images/customer-service.png';
 import support from '../assets/Images/support.png';
+import headphones from '../assets/Images/headphones.png';
+import play from '../assets/Images/play.png';
 
 const Images = {
   intro1,
@@ -62,6 +64,8 @@ const Images = {
   document,
   customerService,
   support,
+  headphones,
+  play,
 };
 
 export default Images;

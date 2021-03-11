@@ -19,6 +19,10 @@ import ChangeInfo from '../screens/Setting/ChangeInfo';
 import ChangePassword from '../screens/Setting/ChangePassword';
 import Support from '../screens/Setting/Support';
 import Policy from '../screens/Setting/Policy';
+import ForgotPassword1 from '../screens/Authentication/ForgotPassword1';
+import ForgotPassword2 from '../screens/Authentication/ForgotPassword2';
+import DetailStory from '../screens/Detail/DetailStory';
+import Invite from '../screens/Detail/Invite';
 
 const SCREENS_WITH_REDUX = {
   Login,
@@ -37,6 +41,10 @@ const SCREENS_WITH_REDUX = {
   ChangePassword,
   Support,
   Policy,
+  ForgotPassword1,
+  ForgotPassword2,
+  DetailStory,
+  Invite,
 };
 const SCREENS = {};
 

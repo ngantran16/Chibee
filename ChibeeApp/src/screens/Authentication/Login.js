@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
 import {
   StyleSheet,
@@ -30,7 +31,9 @@ const Login = () => {
     // NavigationUtils.push({ screen: 'HomePage', isTopBarEnable: false });
     NavigationUtils.startMainContent();
   };
-  const image = { uri: 'https://reactjs.org/logo-og.png' };
+  const onForgotPassword = () => {
+    NavigationUtils.push({ screen: 'ForgotPassword1', isTopBarEnable: false });
+  };
   return (
     <ImageBackground source={Images.loginBg} style={styles.image}>
       <View style={styles.imgContain}>
@@ -56,7 +59,9 @@ const Login = () => {
             <Text> Đăng ký </Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.policy}> Quên mật khẩu? </Text>
+        <TouchableOpacity onPress={() => onForgotPassword()}>
+          <Text style={styles.policy}> Quên mật khẩu? </Text>
+        </TouchableOpacity>
       </ScrollView>
     </ImageBackground>
   );

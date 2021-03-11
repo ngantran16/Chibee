@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
   txtContent: {
     fontSize: 16,
     color: 'gray',
-    marginBottom: 10,
+    marginTop: 10,
+    textAlign: 'justify',
   },
 });

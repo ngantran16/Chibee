@@ -5,6 +5,7 @@ import Fonts from '../../themes/Fonts';
 import Colors from '../../themes/Colors';
 import IconStar from './IconStar';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { NavigationUtils } from '../../navigation';
 
 const HomeStoryItem = (props) => {
   var iconRatings = [];
@@ -15,8 +16,11 @@ const HomeStoryItem = (props) => {
     iconRatings.push(<IconStar color={Colors.greyAuthor} />);
   }
 
+  const onImageClicked = () => {
+    NavigationUtils.push({ screen: 'DetailStory', isTopBarEnable: false });
+  };
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onImageClicked}>
       <View style={[styles.container, props.style && props.style]}>
         <View>
           <Image

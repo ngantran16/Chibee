@@ -9,7 +9,7 @@ class Comment extends Model
 {
     use HasFactory;
    
-    public $timestamps = true;//set time to false
+    public $timestamps = false;//set time to false
     
     
     protected $fillable=[

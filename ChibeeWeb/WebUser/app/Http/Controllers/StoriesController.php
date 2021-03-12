@@ -13,8 +13,7 @@ class StoriesController extends Controller
 {
     public function storiesList()
     {   
-        // $stories = Stories::all();
-        // return view('home', compact('stories'));
+      
         $stories=Stories::all();
         $output=[];
         foreach ($stories as $s) {
@@ -62,29 +61,17 @@ class StoriesController extends Controller
     public function delete($id)
     {   
         // $stories = Stories::all();
-        // return view('home', compact('stories'));
-        $stories=Stories::where("id",$id)->delete();
-        
-        
-       
-        
-            return "done!";
+        // return view('home', compact('stories'));    
+            return $stories=Stories::where("id",$id->id)->delete();
         
     }
-    public function index()
-    {   
-       return view('welcome');
-    }
+    
     
     public function add(Request $re)
     {   
         // // $stories = Stories::all();
         // // return view('home', compact('stories'));
         // $stories=Stories::where("id",$id)->delete();
-        
-        
-       
-        
         //     return "done!";
         $story = Stories::create([
             'id_author' => $re->author,
@@ -95,11 +82,7 @@ class StoriesController extends Controller
             'description' => $re->des,
             'content' => $re->content,
             'status' => $re->status
-       
-           
         ]);
-        
-        
         
         $story->save();
 

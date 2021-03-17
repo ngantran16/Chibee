@@ -73,6 +73,7 @@ class StoriesController extends Controller
         // // return view('home', compact('stories'));
         // $stories=Stories::where("id",$id)->delete();
         //     return "done!";
+        try{
         $story = Stories::create([
             'id_author' => $re->author,
             'id_video' => $re->video,
@@ -86,6 +87,10 @@ class StoriesController extends Controller
         
         $story->save();
 
-        return "saved!";
+        return true;
+        }catch(Throwable $e){
+            report($e);
+            return false; 
+        }
     }
 }

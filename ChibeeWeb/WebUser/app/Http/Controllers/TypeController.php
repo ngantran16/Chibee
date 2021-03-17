@@ -28,7 +28,7 @@ class TypeController extends Controller
         return $type->save();
      }
      public function delete(Request $id){
-        $type= StoryType::where('id',$id->id)->delete();
+        $type= StoryType::where('id',$id)->delete();
         return $type;
      }
 }

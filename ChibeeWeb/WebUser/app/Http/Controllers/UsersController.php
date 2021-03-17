@@ -30,27 +30,36 @@ class UsersController extends Controller
         
     }
 
+    //check login and give system a token
     public function login(Request $input){
-        if(Auth::attempt(["email" => $input->email, "password" => $input->password])){
-            $users = User::where('email',$input->email )->first();
-            // $token = $this->getTokenForRequest();
 
-            // $token = $users->createToken($users)->accessToken;
-
-            $token = $input->user()->createToken($users->id)->plainTextToken;
-           
-
-
-            return JSON.parse($token) ;
-        }
+       
+            if(Auth::attempt(["email" => $input->email, "password" => $input->password])){
+                $users = User::where('email',$input->email )->first();
+                $token = $input->user()->createToken($user->id)->plainTextToken;
+                return "Alo" ;
+            }else{
+                return "login false";
+            }
+       
     }
+    //give user profile
     public function profile(Request $request){
         return  [
             'request' => $request,
             'user' => $request->user(),
         ];
     }
-
-
-
+    public function delete($id){
+        try{
+        $user= User::find($id)->delete();
+        }catch(Exception $e){
+            report($e);
+            return false; 
+        }
+    }
+    public function show(){
+        $user = User::all();
+        return $user;
+    }
 }

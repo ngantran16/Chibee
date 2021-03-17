@@ -13,21 +13,33 @@ class AudioController extends Controller
         // // return view('home', compact('stories'));
         // $stories=Stories::where("id",$id)->delete();
         //     return "done!";
-        $audio = audio::create([
-            'link_audio' => $re->link,
-            'length' => $re->length
-        ]);
-        $audio->save();
-        return "saved!";
+
+       try{
+
+                $audio = audio::create([
+                    'link_audio' => $re->link,
+                    'length' => $re->length
+                    ]);
+                $audio->save();
+                return true;
+        }
+        catch(Exception $e){
+            export($e);
+            return false;
+        }
+
     }
     public function show($id)
     {   
-        // // $stories = Stories::all();
-        // // return view('home', compact('stories'));
-        // $stories=Stories::where("id",$id)->delete();
-        //     return "done!";
+       try{
         $audio = Audio::find($id);
         return $audio;
+       }
+        catch(Exception $e){
+            export($e);
+            return false;
+        }
+
     }
     public function showall()
     {   

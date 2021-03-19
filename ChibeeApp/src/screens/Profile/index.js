@@ -1,10 +1,13 @@
-import React from 'react';
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
 import Images from '../../themes/Images';
 import { Dimensions } from 'react-native';
 import Colors from '../../themes/Colors';
 import ProfileItem from '../../components/Profile/ProfileItem';
 import { NavigationUtils } from '../../navigation';
+import Notifications from '../../screens/Profile/Notifications';
+import WishlistItem from '../../components/Profile/WishlistItem';
 
 const index = () => {
   const data = [
@@ -54,6 +57,7 @@ const index = () => {
   const onSettingIcon = () => {
     NavigationUtils.push({ screen: 'Setting', isTopBarEnable: false });
   };
+  const [selected, setSelected] = useState('Đã nghe');
   return (
     <View style={styles.container}>
       <View>
@@ -69,15 +73,39 @@ const index = () => {
         </View>
 
         <View style={styles.menu}>
-          <Text style={styles.titleMenu}>Đã nghe</Text>
-          <Text style={styles.titleMenu}>Yêu thích</Text>
-          <Text style={styles.titleMenu}>Thông báo</Text>
+          <TouchableOpacity onPress={() => setSelected('Đã nghe')}>
+            {selected === 'Đã nghe' ? (
+              <Text style={styles.titleMenuSelected}>Đã nghe</Text>
+            ) : (
+              <Text style={styles.titleMenu}>Đã nghe</Text>
+            )}
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setSelected('Yêu thích')}>
+            {selected === 'Yêu thích' ? (
+              <Text style={styles.titleMenuSelected}>Yêu thích</Text>
+            ) : (
+              <Text style={styles.titleMenu}>Yêu thích</Text>
+            )}
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setSelected('Thông báo')}>
+            {selected === 'Thông báo' ? (
+              <Text style={styles.titleMenuSelected}>Thông báo</Text>
+            ) : (
+              <Text style={styles.titleMenu}>Thông báo</Text>
+            )}
+          </TouchableOpacity>
         </View>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {data.map((item) => {
-          return <ProfileItem item={item} />;
-        })}
+        {selected === 'Đã nghe' ? (
+          data.map((item) => {
+            return <ProfileItem item={item} />;
+          })
+        ) : selected === 'Yêu thích' ? (
+          <WishlistItem />
+        ) : (
+          <Notifications />
+        )}
       </ScrollView>
     </View>
   );
@@ -131,5 +159,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: 'gray',
+  },
+  titleMenuSelected: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'gray',
+    borderBottomColor: Colors.secondary,
+    borderBottomWidth: 2,
   },
 });

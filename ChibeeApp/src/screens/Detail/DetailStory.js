@@ -22,6 +22,9 @@ const DetailStory = () => {
   const onListen = () => {
     NavigationUtils.push({ screen: 'Invite', isTopBarEnable: false });
   };
+  const onListenStory = () => {
+    NavigationUtils.push({ screen: 'ListenStory', isTopBarEnable: false });
+  };
   const data = [
     {
       id: 1,
@@ -83,7 +86,7 @@ const DetailStory = () => {
             <Image source={Images.headphones} style={styles.imgPlay} />
             <Text style={styles.txtBtn}>Cùng nghe</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.btnInvite}>
+          <TouchableOpacity style={styles.btnInvite} onPress={onListenStory}>
             <Image source={Images.play} style={styles.imgPlay} />
             <Text style={styles.txtBtn}>Nghe thử</Text>
           </TouchableOpacity>

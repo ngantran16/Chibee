@@ -23,6 +23,8 @@ import ForgotPassword1 from '../screens/Authentication/ForgotPassword1';
 import ForgotPassword2 from '../screens/Authentication/ForgotPassword2';
 import DetailStory from '../screens/Detail/DetailStory';
 import Invite from '../screens/Detail/Invite';
+import ListenStory from '../screens/Detail/ListenStory';
+import ReadStory from '../screens/Detail/ReadStory';
 
 const SCREENS_WITH_REDUX = {
   Login,
@@ -45,6 +47,8 @@ const SCREENS_WITH_REDUX = {
   ForgotPassword2,
   DetailStory,
   Invite,
+  ListenStory,
+  ReadStory,
 };
 const SCREENS = {};
 

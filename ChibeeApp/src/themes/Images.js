@@ -31,6 +31,14 @@ import customerService from '../assets/Images/customer-service.png';
 import support from '../assets/Images/support.png';
 import headphones from '../assets/Images/headphones.png';
 import play from '../assets/Images/play.png';
+import book from '../assets/Images/book.png';
+import next2 from '../assets/Images/next2.png';
+import next from '../assets/Images/next.png';
+import settime from '../assets/Images/settime.png';
+import returnStory from '../assets/Images/return.png';
+import playstory from '../assets/Images/playstory.png';
+import video from '../assets/Images/video.png';
+import clock from '../assets/Images/clock.png';
 
 const Images = {
   intro1,
@@ -66,6 +74,14 @@ const Images = {
   support,
   headphones,
   play,
+  book,
+  next2,
+  settime,
+  returnStory,
+  playstory,
+  video,
+  next,
+  clock,
 };
 
 export default Images;

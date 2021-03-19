@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import Images from '../../themes/Images';
 import Colors from '../../themes/Colors';
 
 const InviteItem = (props) => {
+  const [isClicked, setIsClicked] = useState(props.item.isClicked);
+
+  const onBtnClicked = () => {
+    setIsClicked(!isClicked);
+  };
   return (
     <View style={styles.container}>
       <View style={styles.avatar}>
@@ -11,12 +16,18 @@ const InviteItem = (props) => {
         <Text style={styles.txtName}>{props.item.name}</Text>
       </View>
       <View>
-        {props.item.isClicked ? (
-          <TouchableOpacity style={[{}, styles.btnInvite, { backgroundColor: Colors.primary }]}>
+        {isClicked ? (
+          <TouchableOpacity
+            style={[{}, styles.btnInvite, { backgroundColor: Colors.primary }]}
+            onPress={onBtnClicked}
+          >
             <Text style={styles.txtBtn}>Mời</Text>
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity style={[{}, styles.btnInvite, { backgroundColor: Colors.secondary }]}>
+          <TouchableOpacity
+            style={[{}, styles.btnInvite, { backgroundColor: Colors.secondary }]}
+            onPress={onBtnClicked}
+          >
             <Text style={styles.txtBtn}>Mời</Text>
           </TouchableOpacity>
         )}

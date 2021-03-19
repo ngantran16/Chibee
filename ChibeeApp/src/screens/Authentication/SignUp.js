@@ -154,7 +154,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 10,
   },
-  policyHighLight: { color: '#25969E', fontSize: 16 },
+  policyHighLight: {
+    color: '#25969E',
+    fontSize: 16,
+  },
   showPassword: {
     position: 'absolute',
     right: 10,

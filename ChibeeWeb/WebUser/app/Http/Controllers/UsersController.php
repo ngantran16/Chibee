@@ -3,22 +3,46 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Mailer\PHPMailer\PHPMailer;
+
+
+
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 // use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
 use Illuminate\Routing\Controller;
 use Laravel\Jetstream\Http\Controllers\Livewire;
-
-
-
+use Mail;
+use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\Request;
+
+use Illuminate\Routing\Pipeline;
+use Laravel\Fortify\Actions\AttemptToAuthenticate;
+use Laravel\Fortify\Actions\EnsureLoginIsNotThrottled;
+use Laravel\Fortify\Actions\PrepareAuthenticatedSession;
+use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
+use Laravel\Fortify\Contracts\LoginResponse;
+use Laravel\Fortify\Contracts\LoginViewResponse;
+use Laravel\Fortify\Contracts\LogoutResponse;
+use Laravel\Fortify\Features;
+use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Http\Requests\LoginRequest;
+
+
+
+
+
 use Illuminate\Support\Facades\Auth;
 
 
 class UsersController extends Controller
 {
+
+    public $verifyCode=array(); 
     public function create(Request $input)
+
     {
         $user =new User();
         $user->full_name = $input['name'];
@@ -26,6 +50,7 @@ class UsersController extends Controller
         $user->avatar ="default.png";
         $user->password  = Hash::make($input['password']);
         $user->save();
+        // $this->checkEmail($input);
         return 'done';
         
     }
@@ -33,16 +58,62 @@ class UsersController extends Controller
     //check login and give system a token
     public function login(Request $input){
 
-       
-            if(Auth::attempt(["email" => $input->email, "password" => $input->password])){
-                $users = User::where('email',$input->email )->first();
-                $token = $input->user()->createToken($user->id)->plainTextToken;
-                return "Alo" ;
-            }else{
-                return "login false";
-            }
-       
+        // return $this->loginPipeline($request)->then(function ($request) {
+        //     return app(LoginResponse::class);
+        // });
+
+
+        $data = [
+            'email' => $input->email,
+            'password' => $input->password,
+        ];
+
+        if (Auth::attempt($data)) {
+            $user = User::where('email', $input->email)->firstOrFail();
+            // $token = $user->createToken('auth_token')->plainTextToken;
+
+            // Auth::guard("users");
+            
+            $token=md5($input->id);
+            setcookie('XSRF-TOKEN', $token, time() + (86400 * 30), "/");
+            // setcookie('laravel_session',$token,time()+(86400*30),"/");
+            return response()->json([
+                    'access_token' => $token,
+                    'token_type' => 'Bearer',
+            ]);
+
+        } else {
+            return "false";
+        }
     }
+
+    protected function loginPipeline(LoginRequest $request)
+    {
+        if (Fortify::$authenticateThroughCallback) {
+            return (new Pipeline(app()))->send($request)->through(array_filter(
+                call_user_func(Fortify::$authenticateThroughCallback, $request)
+            ));
+        }
+
+        if (is_array(config('fortify.pipelines.login'))) {
+            return (new Pipeline(app()))->send($request)->through(array_filter(
+                config('fortify.pipelines.login')
+            ));
+        }
+
+        return (new Pipeline(app()))->send($request)->through(array_filter([
+            config('fortify.limiters.login') ? null : EnsureLoginIsNotThrottled::class,
+            Features::enabled(Features::twoFactorAuthentication()) ? RedirectIfTwoFactorAuthenticatable::class : null,
+            AttemptToAuthenticate::class,
+            PrepareAuthenticatedSession::class,
+        ]));
+    }
+
+    public function displayVerifycode(){
+        return var_dump($this->verifyCode);
+    }
+
+
     //give user profile
     public function profile(Request $request){
         return  [
@@ -51,15 +122,118 @@ class UsersController extends Controller
         ];
     }
     public function delete($id){
-        try{
+        $comment= Comment::where('id_user',$id);
         $user= User::find($id)->delete();
-        }catch(Exception $e){
-            report($e);
-            return false; 
-        }
+        
     }
     public function show(){
         $user = User::all();
         return $user;
     }
+
+
+    public function logout(){
+        
+        // if (!Auth::check()) {
+        if(isset($_COOKIE['XSRF-TOKEN'])){  
+            // $this->guard->logout();
+
+            unset($_COOKIE['XSRF-TOKEN']); 
+            setcookie('XSRF-TOKEN', null, -1, '/');
+            // unset($_COOKIE['laravel_session']); 
+            // setcookie('laravel_session', null, -1, '/');  
+            return "logout succecfull";
+        } else {
+            return "unknow users";
+        }
+    }
+    
+
+    public function checkEmail(Request $input,String $id){
+        $code = $this->makeCode($id);
+        // Mail::send('mailfb',['user' =>'user','submitCode'=>$code],function ($m) use($input){
+        //     $m->from('chibee.audiobook@gmail.com','ChiBee');
+        //     $m->to($input->email,'visitor')->subject('Check Login!');
+        // }
+        // );
+        
+
+    }
+
+    public function makeCode($id){
+
+        $verifyCode=array();
+        
+        if(isset($_COOKIE['VRF_code'])){
+            $verifyCode=json_decode($_COOKIE['VRF_code']);
+            foreach($verifyCode as $i=>$item){ 
+               
+                if(isset($verifyCode[$i])){
+                    if(substr($verifyCode[$i],4)==(string)$id){
+                        $verifyCode[$i]="";
+                     }
+                }         
+               
+            }
+        }
+        $min=0;
+        $max=9;
+        $t1=(string)random_int($min, $max);
+        $t2=(string)random_int($min, $max);
+        $t3=(string)random_int($min, $max);
+        $t4=(string)random_int($min, $max);
+        $code=$t1.''.$t2.''.$t3.''.$t4.''.$id;
+        if(isset($verifyCode[$id])){
+            $verifyCode[$id]=$code;
+        }else{
+            array_push($verifyCode,$code);
+        }
+        
+        
+        setcookie('VRF_code', json_encode($verifyCode), time() + (86400 * 30), "/");
+        return $code;
+    }
+
+
+
+    public function verify(String $input){
+        foreach($verifyCode as $i => $item){
+
+        if($code==$item[$i])
+        {
+            return true;
+        }else{
+            return false;
+        }
+        }
+        
+
+    }
+
+
+
+    public function getUserId(Request $input){
+        $user = User::where('email', $input->email)->first();
+        return $user->id;
+    }
+
+    public function test(Request $input){
+
+        // unset($_COOKIE['VRF_code']); 
+        // setcookie('VRF_code', null, -1, '/');
+        
+        $verifyCode=json_decode($_COOKIE['VRF_code']);
+       
+        $this->checkEmail($input,$this->getUserId($input));
+        return $verifyCode;
+        
+    }
+
+    public function setPassword(Request $input){
+        $user=User::find($input->id);
+        $user->password = Hash::make($input['password']);
+        $user->save();
+        return true;
+    }
+
 }

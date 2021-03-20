@@ -13,19 +13,6 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\WishListController;
 use App\Http\Controllers\TypeController;
 
-
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -35,8 +22,13 @@ Route::group(['as' => 'api.'], function () {
     Route::post('/login', [UsersController::class,'login'])->name('index');
     Route::get('/user', [UsersController::class,'showall'])->name('show');
     Route::get('/user-pro', [TypeController::class,'profile'])->name('show');
+    Route::get('/logout',[UsersController::class,'logout'])->name('logout');
     Route::put('/user/{id}', [UsersController::class,'update'])->name('update');
     Route::delete('/user/{id}', [UsersController::class,'delete'])->name('destroy');
+    Route::post('/set-password', [UsersController::class,'setPassword'])->name('destroy');
+    Route::post('/check_mail', [UsersController::class,'checkEmail'])->name('mail');
+    Route::get('/make_code/{id}', [UsersController::class,'makeCode'])->name('code');
+    Route::post('/test', [UsersController::class,'test'])->name('code');
 });
 
 
@@ -44,6 +36,7 @@ Route::group(['as' => 'api.'], function () {
 Route::group(['as' => 'api.'], function () {
     Route::get('/stories', [StoriesController::class,'storiesList'])->name('showList');
     Route::post('/stories', [StoriesController::class,'add'])->name('add');
+    Route::post('/stories/search', [StoriesController::class,'search'])->name('search');
     Route::get('/stories/{id}', [StoriesController::class,'show'])->name('show');
     Route::delete('/stories/{id}', [StoriesController::class,'delete'])->name('destroy');
 });
@@ -58,7 +51,6 @@ Route::group(['as' => 'api.'], function () {
 Route::group(['as' => 'api.'], function () {
     Route::get('/wishlist/{id}', [WishListController::class,'show'])->name('show');
     Route::post('/wishlist', [WishListController::class,'add'])->name('add');
-    // Route::get('/story-comment/{id}', 'Http\Controllers\CommentController@show')->name('show');
     Route::delete('/wishlist/{id}', [WishListController::class,'delete'])->name('destroy');
 });
 
@@ -96,7 +88,6 @@ Route::group(['as' => 'api.'], function () {
 
 
 // api for admin page
-
 Route::get('/admin/account', 'App\Http\Controllers\AdminController@getListAccount');
 Route::get('/admin/user', 'App\Http\Controllers\AdminController@getListUser');
 Route::get('/admin/story', 'App\Http\Controllers\AdminController@getListStories');

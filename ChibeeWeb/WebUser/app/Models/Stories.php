@@ -24,11 +24,11 @@ class Stories extends Model
     }
     public function video()
     {
-        return $this->hasMany('App\Models\Video','id_video','id');
+        return $this->hasMany('App\Models\Video','id','id_video');
     }
     public function audio()
     {
-        return $this->hasMany('App\Models\Audio','id_audio','id');
+        return $this->hasMany('App\Models\Audio','id','id_audio');
        
     }
     public function image()

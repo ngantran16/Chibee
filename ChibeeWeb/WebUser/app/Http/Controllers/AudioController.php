@@ -14,7 +14,7 @@ class AudioController extends Controller
         // $stories=Stories::where("id",$id)->delete();
         //     return "done!";
 
-       try{
+       
 
                 $audio = audio::create([
                     'link_audio' => $re->link,
@@ -22,23 +22,15 @@ class AudioController extends Controller
                     ]);
                 $audio->save();
                 return true;
-        }
-        catch(Exception $e){
-            export($e);
-            return false;
-        }
+        
 
     }
     public function show($id)
     {   
-       try{
+      
         $audio = Audio::find($id);
         return $audio;
-       }
-        catch(Exception $e){
-            export($e);
-            return false;
-        }
+       
 
     }
     public function showall()

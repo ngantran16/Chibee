@@ -230,8 +230,7 @@ class UsersController extends Controller
                 $user=UserTerm::find(substr($verifyCode[$i],4));
                 $this->create($user);
             }
-            
-            
+   
         }else{
             return "your code incorret";
         }
@@ -247,12 +246,33 @@ class UsersController extends Controller
         return $user->id;
     }
 
-    public function test(Request $input){
-        $toLow=strtolower($input->id);
+
+    function generateRandomString($length = 4) {
+        $characters = 'abcdefghijklmnopqrstuvwxyz';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
+    public function test(Request $dd){
+       
+        for($i=0;$i<100000;$i++){
+
+        $toLow=$this->generateRandomString();
+        
         $s1=$this->getFirstCh($toLow);
         $s2=$this->getSecondCh($toLow);
-       return $s1==$s2;
-        
+
+        if($s1==$s2){
+            echo "<pre>".$toLow."</pre>" ;
+            echo("true");
+
+        }
+          
+        }     
     }
     public function getFirstCh(String $input){
         $i=floor(strlen($input)/2);
@@ -263,7 +283,6 @@ class UsersController extends Controller
         $i=floor(strlen($input)/2);
         return  $this->sumOfString(substr($input,$i));
     }
-
     public function sumOfString(String $input){
         $sum=0;
         for ($i=0; $i<strlen($input); $i++) {
@@ -271,13 +290,16 @@ class UsersController extends Controller
         }
         return $sum;
     }
-    public function lowCode(String $input){
-       return strtolower($input);
-    }
-
     public function getNumber(String $ch){
        return ord($ch)-96;
     }
+
+
+
+
+
+
+
 
     public function setPassword(String $id){
         $user=User::find($id);

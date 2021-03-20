@@ -21,7 +21,7 @@ class RatingController extends Controller
        return $rate= Rating::where('id',$id->id)->delete();
     }
     public function edit(Request $id){
-        return $rate= Rating::find($id->id);
+        $rate= Rating::find($id->id);
         $rate->content= $id->content;
         $rate->save();
      }

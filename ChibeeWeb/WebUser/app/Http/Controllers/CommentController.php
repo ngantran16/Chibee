@@ -28,8 +28,6 @@ class CommentController extends Controller
         
     }
     public function showUsersComment($id){
-        
         return $comment= Comment::where('id_user',$id)->get();
-         
      }
 }

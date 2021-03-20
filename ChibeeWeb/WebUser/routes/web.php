@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[
-    'as'=>'homepage',
-    'uses'=>'App\Http\Controllers\StoriesController@index'
-]);
-Route::get('/ip', 'App\Http\Controllers\StoriesController@index');
+// Route::get('/',[
+//     'as'=>'homepage',
+//     'uses'=>'App\Http\Controllers\StoriesController@index'
+// ]);
+// Route::get('/ip', 'App\Http\Controllers\StoriesController@index');
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');

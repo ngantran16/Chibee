@@ -25,6 +25,7 @@ import DetailStory from '../screens/Detail/DetailStory';
 import Invite from '../screens/Detail/Invite';
 import ListenStory from '../screens/Detail/ListenStory';
 import ReadStory from '../screens/Detail/ReadStory';
+import WatchVideo from '../screens/Detail/WatchVideo';
 
 const SCREENS_WITH_REDUX = {
   Login,
@@ -49,6 +50,7 @@ const SCREENS_WITH_REDUX = {
   Invite,
   ListenStory,
   ReadStory,
+  WatchVideo,
 };
 const SCREENS = {};
 

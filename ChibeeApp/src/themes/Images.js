@@ -39,6 +39,16 @@ import returnStory from '../assets/Images/return.png';
 import playstory from '../assets/Images/playstory.png';
 import video from '../assets/Images/video.png';
 import clock from '../assets/Images/clock.png';
+import heart from '../assets/Images/heart2.png';
+import share from '../assets/Images/share.png';
+import download from '../assets/Images/download.png';
+import zalo from '../assets/Images/zalo.png';
+import fb from '../assets/Images/fb.png';
+import messenger from '../assets/Images/messenger.png';
+import bluetooth from '../assets/Images/bluetooth.png';
+import gmail from '../assets/Images/gmail.png';
+import copy from '../assets/Images/copy.png';
+import down from '../assets/Images/down.png';
 
 const Images = {
   intro1,
@@ -82,6 +92,16 @@ const Images = {
   video,
   next,
   clock,
+  heart,
+  share,
+  download,
+  zalo,
+  fb,
+  messenger,
+  gmail,
+  bluetooth,
+  copy,
+  down,
 };
 
 export default Images;

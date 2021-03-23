@@ -7,11 +7,14 @@ import {
   Image,
   TextInput,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import { NavigationUtils } from '../../navigation';
 import Images from '../../themes/Images';
 import Colors from '../../themes/Colors';
 import EvaluateItem from '../../components/Discover/EvaluateItem';
+const screenHeight = Dimensions.get('screen').height;
+const screenWidth = Dimensions.get('screen').width;
 
 const ReadStory = () => {
   const [checkViewAll, setCheckViewAll] = useState(false);
@@ -88,7 +91,7 @@ const ReadStory = () => {
 
       <View>
         <Text style={styles.txtComment}>Bình luận (5) </Text>
-        <View>
+        <View style={styles.btnContainer}>
           <TextInput
             style={styles.inputComment}
             value={cmt}
@@ -163,6 +166,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   inputComment: {
+    width: screenWidth - 36,
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
@@ -170,12 +174,16 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: '#EEEEEE',
     color: 'gray',
+    marginLeft: -15,
   },
   sendContain: {
+    marginLeft: -38,
+    marginTop: 15,
+  },
+  btnContainer: {
+    flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'flex-end',
-    marginTop: -30,
-    marginRight: 15,
+    alignItems: 'center',
   },
   listComment: {
     marginTop: 10,

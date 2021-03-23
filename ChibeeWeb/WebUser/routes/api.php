@@ -29,6 +29,7 @@ Route::group(['as' => 'api.'], function () {
     Route::post('/check_mail', [UsersController::class,'checkEmail'])->name('mail');
     Route::get('/make_code/{id}', [UsersController::class,'makeCode'])->name('code');
     Route::post('/test', [UsersController::class,'test'])->name('code');
+    Route::post('/getuser', [UsersController::class,'getUserId'])->name('code');
 });
 
 

@@ -217,6 +217,8 @@ class UsersController extends Controller
 
 
 
+
+
     public function verify(String $input){
         $verifyCode=json_decode($_COOKIE['VRF_code']);
         foreach($verifyCode as $i => $item){
@@ -242,8 +244,14 @@ class UsersController extends Controller
 
 
     public function getUserId(Request $input){
-        $user = User::where('email', $input->email)->first();
-        return $user->id;
+
+        try {
+            $user = User::where('email', $input->email)->first();
+            return $user->id;
+          }
+          catch (QueryException $e) {
+            return "enought";
+          }
     }
 
 
@@ -258,22 +266,44 @@ class UsersController extends Controller
     }
 
     public function test(Request $dd){
-       
-        for($i=0;$i<100000;$i++){
 
-        $toLow=$this->generateRandomString();
-        
-        $s1=$this->getFirstCh($toLow);
-        $s2=$this->getSecondCh($toLow);
-
-        if($s1==$s2){
-            echo "<pre>".$toLow."</pre>" ;
-            echo("true");
-
+        $code="000";
+        try {
+            Mail::send('check-login',['user' =>'user','submitCode'=>$code],function ($m) use($dd)
+            {
+                $m->from('chibee.audiobook@gmail.com','ChiBee');
+                $m->to($dd->email,'visitor')->subject('Check Login!');
+            });
         }
+        catch(Exception $e) 
+        {
+            return back()->withError($e->getMessage())->withInput();
+        }
+        }
+
+
+        // try {
+        //     $user = User::findOrFail($request->input('user_id'));
+        // } catch (ModelNotFoundException $exception) {
+        //     return back()->withError($exception->getMessage())->withInput();
+        // }
+       
+        
+        // for($i=0;$i<100000;$i++){
+
+        // $toLow=$this->generateRandomString();
+        
+        // $s1=$this->getFirstCh($toLow);
+        // $s2=$this->getSecondCh($toLow);
+
+        // if($s1==$s2){
+        //     echo "<pre>".$toLow."</pre>" ;
+        //     echo("true");
+
+        // }
           
-        }     
-    }
+        // }     
+    
     public function getFirstCh(String $input){
         $i=floor(strlen($input)/2);
         $term=strrev($input); 

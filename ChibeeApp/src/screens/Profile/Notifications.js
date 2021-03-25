@@ -56,8 +56,8 @@ const Notifications = () => {
   ];
   return (
     <ScrollView>
-      {DATA.map((item) => {
-        return <NotificationItem item={item} key={item.id} />;
+      {DATA.map((item, key) => {
+        return <NotificationItem item={item} key={key} />;
       })}
     </ScrollView>
   );

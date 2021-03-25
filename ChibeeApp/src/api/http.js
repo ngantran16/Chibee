@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_ROOT = 'https://the-books-api-dev.enouvo.com';
+// const API_ROOT = 'https://the-books-api-dev.enouvo.com';
+const API_ROOT = 'https://whispering-hollows-85804.herokuapp.com';
 
 axios.defaults.baseURL = API_ROOT;
 axios.defaults.timeout = 15000;

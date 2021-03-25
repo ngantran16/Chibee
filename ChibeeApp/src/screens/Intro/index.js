@@ -1,10 +1,12 @@
 /* eslint-disable no-dupe-keys */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import IntroItem from '../../components/Intro/IntroItem';
 import Swiper from 'react-native-swiper';
 import Images from '../../themes/Images';
+const screenHeight = Dimensions.get('screen').height;
+const screenWidth = Dimensions.get('screen').width;
 
 const Introduction = () => {
   const INTRO = [
@@ -37,8 +39,8 @@ const Introduction = () => {
       dot={<View style={styles.dotStyle} />}
       activeDot={<View style={styles.dotActitveStyle} />}
     >
-      {INTRO.map((item) => {
-        return <IntroItem item={item} key={item.id} />;
+      {INTRO.map((item, key) => {
+        return <IntroItem item={item} key={key} />;
       })}
     </Swiper>
   );
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
     marginLeft: 3,
     marginRight: 3,
     borderRadius: 4,
-    marginBottom: 225,
+    marginBottom: screenHeight * 0.35,
   },
   dotActitveStyle: {
     width: 8,
@@ -63,7 +65,7 @@ const styles = StyleSheet.create({
     marginLeft: 3,
     marginRight: 3,
     borderRadius: 4,
-    marginBottom: 225,
+    marginBottom: screenHeight * 0.35,
     backgroundColor: '#3BB9FF',
   },
 });

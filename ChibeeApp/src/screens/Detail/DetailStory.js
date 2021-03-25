@@ -13,6 +13,8 @@ import Images from '../../themes/Images';
 import { Dimensions } from 'react-native';
 import Colors from '../../themes/Colors';
 import HomeStoryItem from '../../components/Home/HomeStoryItem';
+const screenHeight = Dimensions.get('screen').height;
+const screenWidth = Dimensions.get('screen').width;
 
 const DetailStory = () => {
   const [checkViewAll, setCheckViewAll] = useState(false);
@@ -145,8 +147,8 @@ const DetailStory = () => {
             horizontal={true}
             style={styles.scvContainer}
           >
-            {data.map((item) => {
-              return <HomeStoryItem item={item} key={item.id} />;
+            {data.map((item, key) => {
+              return <HomeStoryItem item={item} key={key} />;
             })}
           </ScrollView>
         </View>
@@ -162,31 +164,30 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   header: {
-    marginTop: -125,
+    marginTop: -screenHeight * 0.15,
     paddingHorizontal: 18,
     marginBottom: 60,
   },
   imgBackground: {
     width: Dimensions.get('window').width,
-    height: 150,
+    height: screenHeight * 0.18,
     opacity: 0.5,
   },
   storyTitle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 25,
+    paddingHorizontal: 18,
   },
   imgStory: {
-    width: 190,
-    height: 140,
+    width: screenWidth * 0.48,
+    height: screenHeight * 0.18,
     borderRadius: 5,
     marginTop: -50,
   },
   imgStar: {
-    width: 22,
-    height: 22,
-    marginLeft: 10,
+    width: screenWidth * 0.05,
+    height: screenWidth * 0.05,
     tintColor: 'orange',
   },
   starContainer: {
@@ -205,8 +206,8 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
   },
   btnListen: {
-    width: 150,
-    height: 40,
+    width: screenWidth * 0.35,
+    height: screenHeight * 0.05,
     backgroundColor: Colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
@@ -231,8 +232,8 @@ const styles = StyleSheet.create({
   },
   btnInvite: {
     flexDirection: 'row',
-    width: 150,
-    height: 40,
+    width: screenWidth * 0.35,
+    height: screenHeight * 0.05,
     backgroundColor: Colors.secondary,
     justifyContent: 'center',
     alignItems: 'center',

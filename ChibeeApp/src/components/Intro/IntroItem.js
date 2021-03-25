@@ -1,13 +1,14 @@
 /* eslint-disable no-dupe-keys */
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert, Dimensions } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { markSkipIntro } from '../../redux/AppRedux/actions';
 import { NavigationUtils } from '../../navigation';
+const screenHeight = Dimensions.get('screen').height;
+const screenWidth = Dimensions.get('screen').width;
 const IntroItem = (props) => {
   const dispatch = useDispatch();
   const skipIntroAndShowLogin = () => {
-    console.log('abb');
     dispatch(markSkipIntro(true));
     NavigationUtils.startLoginContent();
   };
@@ -37,11 +38,11 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingHorizontal: 15,
-    marginTop: 125,
+    marginTop: screenHeight * 0.15,
   },
   imgIntro: {
-    height: 220,
-    width: 300,
+    height: screenHeight * 0.2,
+    width: screenWidth * 0.8,
     resizeMode: 'contain',
   },
   imageContainer: {
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#222222',
     marginTop: 12,
-    width: 288,
+    width: screenWidth * 0.8,
     lineHeight: 20,
   },
   textBtnStart: {
@@ -72,12 +73,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   btnStart: {
-    width: 206,
-    height: 35,
+    width: screenWidth * 0.3,
+    height: screenHeight * 0.04,
     backgroundColor: '#3BB9FF',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 180,
+    marginTop: screenHeight * 0.12,
     borderRadius: 2,
   },
   btnContainer: {

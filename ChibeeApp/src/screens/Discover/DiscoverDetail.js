@@ -83,12 +83,13 @@ const DiscoverDetail = () => {
       </View>
       <View>
         <Text style={styles.titleComment}>Bình luận</Text>
-        {data.map((item) => {
+        {data.map((item, key) => {
           return (
             <EvaluateItem
               author="Nguyen Van A"
               isFirst={item.isFirst}
               content="Cau chuyen hay qua!"
+              key={key}
             />
           );
         })}

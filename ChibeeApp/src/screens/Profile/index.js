@@ -98,8 +98,8 @@ const index = () => {
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         {selected === 'Đã nghe' ? (
-          data.map((item) => {
-            return <ProfileItem item={item} />;
+          data.map((item, key) => {
+            return <ProfileItem item={item} key={key} />;
           })
         ) : selected === 'Yêu thích' ? (
           <WishlistItem />

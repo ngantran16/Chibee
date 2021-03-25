@@ -103,12 +103,13 @@ const ReadStory = () => {
         </View>
 
         <View style={styles.listComment}>
-          {data.map((item) => {
+          {data.map((item, key) => {
             return (
               <EvaluateItem
                 author="Nguyen Van A"
                 isFirst={item.isFirst}
                 content="Cau chuyen hay qua!"
+                key={key}
               />
             );
           })}
@@ -166,7 +167,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   inputComment: {
-    width: screenWidth - 36,
+    width: '98%',
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,

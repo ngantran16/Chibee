@@ -43,8 +43,8 @@ const Type = ({ title, style }) => {
         horizontal={true}
         style={[styles.scvContainer, style && style]}
       >
-        {data.map((item) => {
-          return <HomeStoryItem item={item} key={item.id} />;
+        {data.map((item, key) => {
+          return <HomeStoryItem item={item} key={key} />;
         })}
       </ScrollView>
     </View>

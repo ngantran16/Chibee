@@ -4,7 +4,7 @@ import Images from '../../themes/Images';
 import SettingProfileItem from '../../components/Setting/SettingProfileItem';
 import { NavigationUtils } from '../../navigation';
 
-const index = () => {
+const Profile = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -26,7 +26,7 @@ const index = () => {
   );
 };
 
-export default index;
+export default Profile;
 
 const styles = StyleSheet.create({
   container: {

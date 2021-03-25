@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import Images from '../../themes/Images';
 import ProfileItem from '../../components/Profile/ProfileItem';
 
@@ -50,8 +50,8 @@ const WishlistItem = () => {
   ];
   return (
     <View>
-      {data.map((item) => {
-        return <ProfileItem item={item} />;
+      {data.map((item, key) => {
+        return <ProfileItem item={item} key={key} />;
       })}
     </View>
   );

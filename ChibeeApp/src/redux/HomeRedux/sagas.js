@@ -1,11 +1,11 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
-import { HomeTypes, getBookHomeFailure, getBookHomeSuccess } from './actions';
-import { getBooksApi } from '../../api/books';
-export function* getBookHomeSaga() {
+import { HomeTypes, getStoryHomeFailure, getStoryHomeSuccess } from './actions';
+import { getStoriesApi } from '../../api/stories';
+export function* getStoryHomeSaga() {
   try {
-    const response = yield call(getBooksApi);
+    const response = yield call(getStoriesApi);
     const newResponse = {
-      data: response.data.books,
+      data: response.data,
     };
     // item.authors[0].name
     // item.medias[0]
@@ -14,15 +14,15 @@ export function* getBookHomeSaga() {
     // item.overallStarRating
     //item.price
     //item.quantity
-    yield put(getBookHomeSuccess(newResponse));
+    yield put(getStoryHomeSuccess(newResponse));
   } catch (error) {
     console.log(error);
-    yield put(getBookHomeFailure(error));
+    yield put(getStoryHomeFailure(error));
   }
 }
 
 const homeSagas = () => {
-  return [takeLatest(HomeTypes.GET_BOOK_HOME, getBookHomeSaga)];
+  return [takeLatest(HomeTypes.GET_STORY_HOME, getStoryHomeSaga)];
 };
 
 export default homeSagas();

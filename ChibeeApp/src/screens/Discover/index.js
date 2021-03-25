@@ -53,9 +53,9 @@ const index = () => {
       </View>
       <View style={styles.discoverContain} showsVerticalScrollIndicator={false}>
         <ScrollView>
-          {data.map((item) => {
+          {data.map((item, key) => {
             return (
-              <TouchableOpacity onPress={onImagePress}>
+              <TouchableOpacity onPress={onImagePress} key={key}>
                 <Image source={item.image} style={styles.imgDiscover} />
               </TouchableOpacity>
             );

@@ -2,8 +2,11 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { NavigationUtils } from '../../navigation';
+import LoginTypes from '../../redux/LoginRedux/actions';
+import { useDispatch, useSelector } from 'react-redux';
 
 const SettingProfileItem = (props) => {
+  const dispatch = useDispatch();
   const onInfoPress = (title) => {
     if (title === 'Thông tin cá nhân') {
       NavigationUtils.push({ screen: 'PersonalInfo', isTopBarEnable: false });
@@ -13,6 +16,8 @@ const SettingProfileItem = (props) => {
       NavigationUtils.push({ screen: 'Support', isTopBarEnable: false });
     } else if (title === 'Quy định') {
       NavigationUtils.push({ screen: 'Policy', isTopBarEnable: false });
+    } else if (title === 'Đăng xuất') {
+      dispatch(LoginTypes.userLogout());
     }
   };
   return (

@@ -195,12 +195,13 @@ const WatchVideo = () => {
         </View>
 
         <View style={styles.listComment}>
-          {data.map((item) => {
+          {data.map((item, key) => {
             return (
               <EvaluateItem
                 author="Nguyen Van A"
                 isFirst={item.isFirst}
                 content="Cau chuyen hay qua!"
+                key={key}
               />
             );
           })}
@@ -277,7 +278,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   inputComment: {
-    width: screenWidth - 36,
+    width: '98%',
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
@@ -331,7 +332,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   boderScreen: {
-    width: 350,
+    width: '99%',
     height: 1,
     backgroundColor: '#d9d9d9',
     marginTop: 10,
@@ -372,7 +373,7 @@ const styles = StyleSheet.create({
   modalView: {
     backgroundColor: '#222222',
     width: screenWidth,
-    height: (screenHeight * 35) / 100,
+    height: screenHeight * 0.4,
     padding: 40,
     shadowColor: '#fff',
     shadowOffset: {

@@ -1,11 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import Fonts from '../../themes/Fonts';
 import Colors from '../../themes/Colors';
 import IconStar from './IconStar';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { NavigationUtils } from '../../navigation';
+const screenHeight = Dimensions.get('screen').height;
+const screenWidth = Dimensions.get('screen').width;
 
 const HomeStoryItem = (props) => {
   var iconRatings = [];
@@ -23,10 +25,7 @@ const HomeStoryItem = (props) => {
     <TouchableOpacity onPress={onImageClicked}>
       <View style={[styles.container, props.style && props.style]}>
         <View>
-          <Image
-            source={props.item.image}
-            style={[styles.imgItem, props.style && { width: 130, height: 160 }]}
-          />
+          <Image source={props.item.image} style={styles.imgItem} />
         </View>
         <Text style={styles.txtNameStory} numberOfLines={2}>
           {props.item.name}
@@ -47,8 +46,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   imgItem: {
-    width: 180,
-    height: 120,
+    width: ((screenWidth - 36) * 45) / 100,
+    height: (screenHeight * 15) / 100,
     borderRadius: 4,
     shadowColor: 'rgba(0, 0, 0, 0.22)',
   },

@@ -2,7 +2,7 @@ import { takeLatest, select, put, call, take } from 'redux-saga/effects';
 import { AppTypes } from './actions';
 import http from '../../api/http';
 import { NavigationUtils } from '../../navigation';
-import { getBookHome } from '../HomeRedux/actions';
+import { getStoryHome } from '../HomeRedux/actions';
 
 function* waitFor(selector) {
   if (yield select(selector)) {
@@ -29,8 +29,8 @@ export function* startupSaga() {
       NavigationUtils.startIntroContent();
     } else {
       if (token) {
-        yield put(getBookHome());
-        yield call(waitFor, (state) => state.home.dataBook != null);
+        yield put(getStoryHome());
+        yield call(waitFor, (state) => state.home.dataStory != null);
         NavigationUtils.startMainContent();
       } else {
         NavigationUtils.startLoginContent();

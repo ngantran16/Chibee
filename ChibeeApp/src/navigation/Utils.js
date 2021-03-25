@@ -20,7 +20,7 @@ export const defaultBottomTab = {
     right: 0,
   },
   fontSize: 10,
-  drawBehind: true,
+  drawBehind: false,
   disableIconTint: true, // set true if you want to disable the icon tinting
   disableSelectedIconTint: true,
 };

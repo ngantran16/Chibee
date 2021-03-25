@@ -10,9 +10,12 @@ import {
   ActivityIndicator,
   Image,
 } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import TextInputItem from '../../components/Login/TextInputItem';
 import PasswordItem from '../../components/Login/PasswordItem';
 import { NavigationUtils } from '../../navigation';
+import SignUpTypes from '../../redux/SignUpRedux/actions';
+import LoginTypes from '../../redux/LoginRedux/actions';
 import {
   validateEmail,
   validateField,
@@ -23,36 +26,30 @@ import {
 import Images from '../../themes/Images';
 const SignUp = (props) => {
   const [] = useState(true);
-  const [firstName, setName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.signUp.loadingSignUp);
+  const isError = useSelector((state) => state.signUp.errorSignUp);
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPass] = useState('');
   const [confirm, setConfirm] = useState('');
   const onLogin = () => {
+    dispatch(LoginTypes.userLogout());
     NavigationUtils.push({ screen: 'Login', isTopBarEnable: false });
   };
 
   const onSignUp = () => {
-    if (email && firstName && lastName && password && confirm && phone) {
-      if (
-        validateEmail(email) ||
-        validatePhone(phone) ||
-        validateName(firstName) ||
-        validateName(lastName) ||
-        validatePassword(password)
-      ) {
+    if (email && fullName && password && confirm && phone) {
+      if (validateEmail(email) || validatePhone(phone) || validatePassword(password)) {
         if (confirm === password) {
           let data = {
-            firstName: firstName,
-            lastName: lastName,
+            full_name: fullName,
             email: email,
             password: password,
-            phoneNumber: phone,
-            gender: 'Male',
-            address: '101B Lê Hữu Trác, Sơn Trà, Đà Nẵng',
-            birthDay: '2000-01-25',
+            phone_number: phone,
           };
+          dispatch(SignUpTypes.userSignUp(data));
         } else {
           alert('Vui lòng xác nhận mật khẩu.');
         }
@@ -71,7 +68,7 @@ const SignUp = (props) => {
         </TouchableOpacity>
         <Text style={styles.title}>Đăng ký</Text>
       </View>
-      <TextInputItem title="Họ và tên" ChangeText={(val) => setLastName(val)} />
+      <TextInputItem title="Họ và tên" ChangeText={(val) => setFullName(val)} />
       <TextInputItem title="Email" ChangeText={(val) => setEmail(val)} />
       <TextInputItem title="Số điện thoại" ChangeText={(val) => setPhone(val)} />
       <PasswordItem
@@ -86,6 +83,8 @@ const SignUp = (props) => {
         imageOpen={Images.visibility}
         onChangePass={(val) => setConfirm(val)}
       />
+      {isLoading && <ActivityIndicator size="large" color="#FF6600" />}
+      {isError && <Text style={{ color: 'red' }}>{isError}</Text>}
       <View style={styles.layoutButton}>
         <TouchableOpacity style={styles.loginButton} onPress={onLogin}>
           <Text style={styles.textLogin}>Đăng nhập</Text>

@@ -1,6 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 import { NavigationUtils } from '../../navigation';
 import Images from '../../themes/Images';
 import Colors from '../../themes/Colors';

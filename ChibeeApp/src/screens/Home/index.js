@@ -31,8 +31,8 @@ const index = () => {
         </View>
       </View>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-        {types.map((type) => {
-          return <Type title={type.name} key={type.id} />;
+        {types.map((type, key) => {
+          return <Type title={type.name} key={key} />;
         })}
       </ScrollView>
     </ScrollView>

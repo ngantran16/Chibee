@@ -1,5 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
+const screenHeight = Dimensions.get('screen').height;
+const screenWidth = Dimensions.get('screen').width;
 
 const ProfileItem = (props) => {
   return (
@@ -23,12 +25,12 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   imgStory: {
-    width: 200,
-    height: 120,
+    width: screenWidth * 0.45,
+    height: screenHeight * 0.15,
     borderRadius: 10,
   },
   content: {
-    marginLeft: 20,
+    marginLeft: screenWidth * 0.05,
     justifyContent: 'center',
   },
   nameStory: {

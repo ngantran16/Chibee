@@ -3,21 +3,21 @@ import { makeReducerCreator } from '../../utils/ReduxUtils';
 import { HomeTypes } from './actions';
 
 export const INITIAL_STATE = Immutable({
-  dataBook: null,
+  dataStory: null,
   errorHome: false,
 });
 
-export const getBookHomeSuccess = (state, { response }) =>
+export const getStoryHomeSuccess = (state, { response }) =>
   state.merge({
-    dataBook: response,
+    dataStory: response.data,
     errorHome: false,
   });
 
-export const getBookHomeFailure = (state, { error }) => state.merge({ errorHome: error });
+export const getStoryHomeFailure = (state, { error }) => state.merge({ errorHome: error });
 
 const reducer = makeReducerCreator(INITIAL_STATE, {
-  [HomeTypes.GET_BOOK_HOME_SUCCESS]: getBookHomeSuccess,
-  [HomeTypes.GET_BOOK_HOME_FAILURE]: getBookHomeFailure,
+  [HomeTypes.GET_STORY_HOME_SUCCESS]: getStoryHomeSuccess,
+  [HomeTypes.GET_STORY_HOME_FAILURE]: getStoryHomeFailure,
 });
 
 export default reducer;

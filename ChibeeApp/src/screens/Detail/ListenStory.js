@@ -115,12 +115,13 @@ const ListenStory = () => {
         </View>
 
         <View style={styles.listComment}>
-          {data.map((item) => {
+          {data.map((item, key) => {
             return (
               <EvaluateItem
                 author="Nguyen Van A"
                 isFirst={item.isFirst}
                 content="Cau chuyen hay qua!"
+                key={key}
               />
             );
           })}

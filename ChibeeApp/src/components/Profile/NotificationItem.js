@@ -24,7 +24,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     fontSize: 16,
   },
-  nameUsers: { fontWeight: 'bold' },
-  titleStories: { fontWeight: 'bold' },
-  dateInvite: { color: 'grey', fontSize: 12, marginRight: 20, fontWeight: 'bold' },
+  nameUsers: {
+    fontWeight: 'bold',
+  },
+  titleStories: {
+    fontWeight: 'bold',
+  },
+  dateInvite: {
+    color: 'grey',
+    fontSize: 12,
+    marginRight: 20,
+    fontWeight: 'bold',
+  },
 });

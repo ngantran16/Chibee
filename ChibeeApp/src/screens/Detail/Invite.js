@@ -54,8 +54,8 @@ const Invite = () => {
         <Text />
       </View>
 
-      {data.map((item) => {
-        return <InviteItem item={item} key={item.id} />;
+      {data.map((item, key) => {
+        return <InviteItem item={item} key={key} />;
       })}
     </View>
   );

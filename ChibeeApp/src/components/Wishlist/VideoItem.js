@@ -50,9 +50,9 @@ const VideoItem = () => {
   ];
   return (
     <View>
-      {data.map((item) => {
+      {data.map((item, key) => {
         return (
-          <View>
+          <View key={key}>
             <TouchableOpacity style={styles.storyContain}>
               <Image source={item.image} style={styles.imgStory} />
               <View style={styles.content}>

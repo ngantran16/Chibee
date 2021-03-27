@@ -25,14 +25,19 @@ const HomeStoryItem = (props) => {
     <TouchableOpacity onPress={onImageClicked}>
       <View style={[styles.container, props.style && props.style]}>
         <View>
-          <Image source={props.item.image} style={styles.imgItem} />
+          <Image
+            source={{
+              uri: props.item.image,
+            }}
+            style={styles.imgItem}
+          />
         </View>
         <Text style={styles.txtNameStory} numberOfLines={2}>
-          {props.item.name}
+          {props.item.story_name}
         </Text>
         <View style={styles.containerBottom}>
           <View style={styles.containerRating}>{iconRatings}</View>
-          <Text style={styles.txtNumberBuyer}>{props.item.numberBuyer}</Text>
+          <Text style={styles.txtNumberBuyer}>{props.item.number_rating}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -46,9 +51,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   imgItem: {
-    width: ((screenWidth - 36) * 45) / 100,
-    height: (screenHeight * 15) / 100,
-    borderRadius: 4,
+    width: (screenWidth - 36) * 0.42,
+    height: screenHeight * 0.15,
+    borderRadius: 10,
     shadowColor: 'rgba(0, 0, 0, 0.22)',
   },
   txtNameStory: {

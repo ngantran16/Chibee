@@ -3,47 +3,23 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import HomeStoryItem from './HomeStoryItem';
 import TypeHeader from './TypeHeader';
 import Images from '../../themes/Images';
+import { useDispatch, useSelector } from 'react-redux';
 
-const Type = ({ title, style }) => {
-  const data = [
-    {
-      id: 1,
-      image: Images.story1,
-      name: 'Bà cụ non',
-      rating: 3,
-      numberBuyer: 123,
-    },
-    {
-      id: 2,
-      image: Images.story2,
-      name: 'Bà cụ non',
-      rating: 4,
-      numberBuyer: 123,
-    },
-    {
-      id: 3,
-      image: Images.story3,
-      name: 'Bà cụ non',
-      rating: 5,
-      numberBuyer: 123,
-    },
-    {
-      id: 4,
-      image: Images.story4,
-      name: 'Bà cụ non',
-      rating: 3,
-      numberBuyer: 123,
-    },
-  ];
+const Type = (props) => {
+  const listStory = useSelector((state) => state.home.dataStory);
+  const storyByType = listStory.filter((item) => {
+    return item.id_type === props.item.id;
+  });
+
   return (
     <View style={styles.container}>
-      <TypeHeader title={title} />
+      <TypeHeader title={props.item.name} />
       <ScrollView
         showsHorizontalScrollIndicator={false}
         horizontal={true}
-        style={[styles.scvContainer, style && style]}
+        style={styles.scvContainer}
       >
-        {data.map((item, key) => {
+        {storyByType.map((item, key) => {
           return <HomeStoryItem item={item} key={key} />;
         })}
       </ScrollView>

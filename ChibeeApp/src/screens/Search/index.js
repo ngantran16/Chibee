@@ -2,22 +2,10 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, TextInput, ScrollView } from 'react-native';
 import Images from '../../themes/Images';
 import SearchItem from '../../components/Search/SearchItem';
+import { useDispatch, useSelector } from 'react-redux';
 
-const index = () => {
-  const types = [
-    {
-      id: '1',
-      name: 'Truyện cổ tích',
-    },
-    {
-      id: '2',
-      name: 'Bài học quý báu',
-    },
-    {
-      id: '3',
-      name: 'Quà tặng cuộc sống',
-    },
-  ];
+const Search = () => {
+  const listTypes = useSelector((state) => state.home.dataTypes);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -30,8 +18,8 @@ const index = () => {
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
-          {types.map((type, key) => {
-            return <SearchItem type={type} key={key} />;
+          {listTypes.map((type, key) => {
+            return <SearchItem item={type} key={key} />;
           })}
         </View>
       </ScrollView>
@@ -39,7 +27,7 @@ const index = () => {
   );
 };
 
-export default index;
+export default Search;
 
 const styles = StyleSheet.create({
   container: {

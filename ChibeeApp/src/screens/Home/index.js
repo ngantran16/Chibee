@@ -1,24 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
+import { StyleSheet, View, ScrollView, Image, ActivityIndicator } from 'react-native';
 import Images from '../../themes/Images';
 import Type from '../../components/Home/Type';
+import { useSelector } from 'react-redux';
 
-const index = () => {
-  const types = [
-    {
-      id: '1',
-      name: 'Truyện cổ tích',
-    },
-    {
-      id: '2',
-      name: 'Bài học quý báu',
-    },
-    {
-      id: '3',
-      name: 'Quà tặng cuộc sống',
-    },
-  ];
+const Home = () => {
+  const listTypes = useSelector((state) => state.home.dataTypes);
+  const isLoading = useSelector((state) => state.home.loadingHome);
   return (
     <ScrollView>
       <View>
@@ -30,16 +19,17 @@ const index = () => {
           <Image source={Images.background1} style={styles.background} />
         </View>
       </View>
+      {isLoading && <ActivityIndicator size="large" color="#FF6600" />}
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-        {types.map((type, key) => {
-          return <Type title={type.name} key={key} />;
+        {listTypes.map((type, key) => {
+          return <Type item={type} key={key} />;
         })}
       </ScrollView>
     </ScrollView>
   );
 };
 
-export default index;
+export default Home;
 
 const styles = StyleSheet.create({
   header: {

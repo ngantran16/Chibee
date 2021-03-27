@@ -1,97 +1,22 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import Images from '../../themes/Images';
 import HomeStoryItem from '../../components/Home/HomeStoryItem';
 import { FlatGrid } from 'react-native-super-grid';
 import { NavigationUtils } from '../../navigation';
+import { useSelector } from 'react-redux';
+const screenWidth = Dimensions.get('screen').width;
 
 const ViewAll = () => {
-  const data = [
-    {
-      id: 1,
-      image: Images.story1,
-      name: 'Bà cụ non',
-      rating: 3,
-      numberBuyer: 123,
-    },
-    {
-      id: 2,
-      image: Images.story2,
-      name: 'Bà cụ non',
-      rating: 4,
-      numberBuyer: 123,
-    },
-    {
-      id: 3,
-      image: Images.story3,
-      name: 'Bà cụ non',
-      rating: 5,
-      numberBuyer: 123,
-    },
-    {
-      id: 4,
-      image: Images.story4,
-      name: 'Bà cụ non',
-      rating: 3,
-      numberBuyer: 123,
-    },
-    {
-      id: 1,
-      image: Images.story1,
-      name: 'Bà cụ non',
-      rating: 3,
-      numberBuyer: 123,
-    },
-    {
-      id: 2,
-      image: Images.story2,
-      name: 'Bà cụ non',
-      rating: 4,
-      numberBuyer: 123,
-    },
-    {
-      id: 3,
-      image: Images.story3,
-      name: 'Bà cụ non',
-      rating: 5,
-      numberBuyer: 123,
-    },
-    {
-      id: 4,
-      image: Images.story4,
-      name: 'Bà cụ non',
-      rating: 3,
-      numberBuyer: 123,
-    },
-    {
-      id: 1,
-      image: Images.story1,
-      name: 'Bà cụ non',
-      rating: 3,
-      numberBuyer: 123,
-    },
-    {
-      id: 2,
-      image: Images.story2,
-      name: 'Bà cụ non',
-      rating: 4,
-      numberBuyer: 123,
-    },
-    {
-      id: 3,
-      image: Images.story3,
-      name: 'Bà cụ non',
-      rating: 5,
-      numberBuyer: 123,
-    },
-    {
-      id: 4,
-      image: Images.story4,
-      name: 'Bà cụ non',
-      rating: 3,
-      numberBuyer: 123,
-    },
-  ];
+  const listStory = useSelector((state) => state.home.dataStory);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -105,8 +30,8 @@ const ViewAll = () => {
       </View>
       <ScrollView style={styles.mainContain} showsVerticalScrollIndicator={false}>
         <FlatGrid
-          itemDimension={130}
-          data={data}
+          itemDimension={screenWidth * 0.42}
+          data={listStory}
           style={styles.gridView}
           spacing={10}
           renderItem={({ item }) => <HomeStoryItem item={item} key={item.id} />}

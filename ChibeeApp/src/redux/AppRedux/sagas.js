@@ -2,7 +2,8 @@ import { takeLatest, select, put, call, take } from 'redux-saga/effects';
 import { AppTypes } from './actions';
 import http from '../../api/http';
 import { NavigationUtils } from '../../navigation';
-import { getStoryHome } from '../HomeRedux/actions';
+import { getStoryHome, getTypes } from '../HomeRedux/actions';
+import { getTypesApi } from '../../api/stories';
 
 function* waitFor(selector) {
   if (yield select(selector)) {
@@ -30,7 +31,11 @@ export function* startupSaga() {
     } else {
       if (token) {
         yield put(getStoryHome());
-        yield call(waitFor, (state) => state.home.dataStory != null);
+        yield put(getTypes());
+        yield call(
+          waitFor,
+          (state) => state.home.dataStory != null && state.home.dataTypes != null,
+        );
         NavigationUtils.startMainContent();
       } else {
         NavigationUtils.startLoginContent();

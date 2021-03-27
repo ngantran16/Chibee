@@ -1,50 +1,27 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, Dimensions } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
 import Images from '../../themes/Images';
 import HomeStoryItem from '../../components/Home/HomeStoryItem';
+import { useSelector } from 'react-redux';
+const screenWidth = Dimensions.get('screen').width;
 
 const SearchItem = (props) => {
-  const data = [
-    {
-      id: 1,
-      image: Images.story1,
-      name: 'Bà cụ non',
-      rating: 3,
-      numberBuyer: 123,
-    },
-    {
-      id: 2,
-      image: Images.story2,
-      name: 'Bà cụ non',
-      rating: 4,
-      numberBuyer: 123,
-    },
-    {
-      id: 3,
-      image: Images.story3,
-      name: 'Bà cụ non',
-      rating: 5,
-      numberBuyer: 123,
-    },
-    {
-      id: 4,
-      image: Images.story4,
-      name: 'Bà cụ non',
-      rating: 3,
-      numberBuyer: 123,
-    },
-  ];
+  const listStory = useSelector((state) => state.home.dataStory);
+  const storyByType = listStory.filter((item) => {
+    return item.id_type === props.item.id;
+  });
   return (
     <View>
-      <Text style={styles.title}>{props.type.name}</Text>
+      <Text style={styles.title}>{props.item.name}</Text>
       <ScrollView style={styles.mainContain}>
         <FlatGrid
-          itemDimension={130}
-          data={data}
+          initialNumToRender={1}
+          itemDimension={screenWidth * 0.4}
+          data={storyByType}
           style={styles.gridView}
-          spacing={10}
-          renderItem={({ item }) => <HomeStoryItem item={item} key={item.id} />}
+          padding={0}
+          renderItem={({ item, key }) => <HomeStoryItem item={item} key={key} />}
         />
       </ScrollView>
     </View>

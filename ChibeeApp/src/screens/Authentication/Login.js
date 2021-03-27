@@ -43,8 +43,6 @@ const Login = () => {
     NavigationUtils.pop();
   };
   const onLogin = () => {
-    // NavigationUtils.push({ screen: 'HomePage', isTopBarEnable: false });
-    // NavigationUtils.startMainContent();
     console.log('Data login: ' + dataLogin.password);
     dispatch(LoginTypes.userLogin(dataLogin));
   };

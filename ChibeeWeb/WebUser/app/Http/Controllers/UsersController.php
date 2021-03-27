@@ -3,21 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Wishlist;
+use App\Models\Comment;
+use App\Models\Rating;
 use App\Models\Mailer\PHPMailer\PHPMailer;
-
-
-
-
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-// use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
 use Illuminate\Routing\Controller;
 use Laravel\Jetstream\Http\Controllers\Livewire;
 use Mail;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\Request;
-
 use Illuminate\Routing\Pipeline;
 use Laravel\Fortify\Actions\AttemptToAuthenticate;
 use Laravel\Fortify\Actions\EnsureLoginIsNotThrottled;
@@ -29,82 +26,134 @@ use Laravel\Fortify\Contracts\LogoutResponse;
 use Laravel\Fortify\Features;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Http\Requests\LoginRequest;
-
-
-
-
-
 use Illuminate\Support\Facades\Auth;
+
+
+
 
 
 class UsersController extends Controller
 {
-
     public $verifyCode=array(); 
-    public function createTearm(Request $input)
-
-    {
-        $user =new UserTerm();
-        $user->full_name = $input['name'];
-        $user->email  =$input['email'] ;
-        $user->avatar ="default.png";
-        $user->password  = Hash::make($input['password']);
-        $user->save();
-        $this->checkEmail($input);
-        
-        return 'done';
-        
-    }
-
-    public function create(UserTerm $input)
-
+    public function create(Request $input)
     {
         $user =new User();
-        $user->full_name = $input->full_name;
-        $user->email  =$input->email ;
-        $user->avatar =$input->avatar;
-        $user->password  = $input->password ;
+        $user->full_name = $input['full_name'];
+        $user->phone_number=$this->checkPhone($input['phone_number']);
+        $user->email  = $this->checkEmail($input['email']);
+        $user->avatar ="default.png";
+            if(isset($input['avatar'])){
+                $user->avatar=$input['avatar'];
+            }else{
+                $user->avatar="default.png";
+            }
+        $user->password  = Hash::make($input['password']);
+            if(isset($input['role'])){
+                $user->role=$input['role'];
+            }else{
+                $user->role="user";
+            }
         $user->save();
-        return 'done';
+        // $this->checkEmail($input);  
+        return 'Register succecfull';
+        
     }
+
+
+
+//verify phone number
+    public function checkPhone(string $phone){
+    //set check =0 it mean no problem with phone number
+    $check=0;
+
+    //if in phone number have another character that is not number set check=1
+       for($i=0;$i<strlen($phone);$i++){
+           if(!preg_match('/[0-9]/',$phone[$i])){
+                $check=1;
+           }
+       }
+    //if phone number have  leng more than 12 or less than 10 number that are not a phone number
+       if(strlen($phone)<10||strlen($phone)>12){
+        $check=1;
+       }
+    //verify that have no problem with phone number
+        if($check==0){
+            return $phone;
+        }else{
+            $data=
+            array(
+                'Error'=>'Error phone number denie'
+            );
+            return response()->json($data,400);
+        }
+       
+    }
+
+
+//verify email
+    public function checkEmail(string $email){
     
-    //check login and give system a token
+    //make sure that email already exist
+        $user=User::where('email',$email)->first();  
+        if(!is_null($user)){
+            $data=
+            array(
+                'Error'=>'Error email aready exist'
+            );
+            return response()->json($data,400);
+        }
+    //check email format
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $data=
+            array(
+                'Error'=>'Invalid email format'
+            );
+            return response()->json($data,400);   
+          }
+          else{
+            return $email;
+        }
+    }
+
+
+
+//login
     public function login(Request $input){
-
-        // return $this->loginPipeline($request)->then(function ($request) {
-        //     return app(LoginResponse::class);
-        // });
-
-
+    //get email and password 
         $data = [
             'email' => $input->email,
             'password' => $input->password,
         ];
-
+    //verify password and email
         if (Auth::attempt($data)) {
+        //if this true return token and set cookie 
             $user = User::where('email', $input->email)->firstOrFail();
-            // $token = $user->createToken('auth_token')->plainTextToken;
-            // Auth::guard("users");            
+                        // $token = $user->createToken('auth_token')->plainTextToken;
+                        // Auth::guard("users");
+                        // setcookie('laravel_session',$token,time()+(86400*30),"/");            
             $token=md5($input->id);
+            // create cookie name 'XSRF-TOKEN' with value =$token in on day
             setcookie('XSRF-TOKEN', $token, time() + (86400 * 30), "/");
-            // setcookie('laravel_session',$token,time()+(86400*30),"/");
             return response()->json([
                     'access_token' => $token,
                     'token_type' => 'Bearer',
             ]);
         } else {
-            return "false";
+            $data=array(
+                'Error'=>'Some thing wrong'
+            );
+            return response()->json($data,400);
         }
     }
 
    
 
-    public function displayVerifycode(){
-        return var_dump($this->verifyCode);
-    }
+    // public function displayVerifycode(){
+    //     return var_dump($this->verifyCode);
+    // }
 
 
-    //give user profile
+//give user profile
     public function profile(Request $request){
         return  [
             'request' => $request,
@@ -112,25 +161,50 @@ class UsersController extends Controller
         ];
     }
 
+//delete    
+
     public function delete($id){
         $comment= Comment::where('id_user',$id);
-        $user= User::find($id)->delete();
-        
+        $wishlist= Wishlist::where('id_user',$id);
+        $rating= Rating::where('id_user',$id);
+        $user= User::where("id",$id);
+        if(!is_null($comment)){
+            $comment->delete();
+        }
+        if(!is_null($wishlist)){
+            $wishlist->delete();
+        }
+        if(!is_null($rating)){
+            $rating->delete();
+        }
+        if(!is_null($user)){
+            $user= User::where("id",$id)->delete();
+            return "user deleted!";
+        }
+   
     }
 
-
+//show all user 
     public function show(){
         $user = User::all();
         return $user;
     }
+//show a user    
+    public function showOne($id){
+        $user = User::where("id",$id)->first();
 
+        if(is_null($user)){
+            return "Error your request null";
+            die();
+        }else{  
+            return $user;
+        }
+    } 
+//logout
 
     public function logout(){
-        
-        // if (!Auth::check()) {
         if(isset($_COOKIE['XSRF-TOKEN'])){  
             // $this->guard->logout();
-
             unset($_COOKIE['XSRF-TOKEN']); 
             setcookie('XSRF-TOKEN', null, -1, '/');
             // unset($_COOKIE['laravel_session']); 
@@ -142,31 +216,52 @@ class UsersController extends Controller
     }
     
 
-    public function checkEmail(Request $input){
+    public function checkEmails(Request $input){
         $id=$this->getUserId($input);
         $code = $this->makeCode($id);
-        Mail::send('check-login',['user' =>'user','submitCode'=>$code],function ($m) use($input){
+        // echo (var_dump(json_decode($_COOKIE['VRF_code'])));
+        Mail::send('test',['user' =>'user','submitCode'=>$code],function ($m) use($input){
             $m->from('chibee.audiobook@gmail.com','ChiBee');
             $m->to($input->email,'visitor')->subject('Check Login!');
-        }
-        );
+        });  
     }
 
-    public function resetPass(Request $input,String $id){
-        $code = $this->makeCode($id);
-        Mail::send('reset-password',['user' =>'user','submitCode'=>$code],function ($m) use($input){
-            $m->from('chibee.audiobook@gmail.com','ChiBee');
-            $m->to($input->email,'visitor')->subject('Check Login!');
+    public function checkCode(Request $input){
+        $id=substr($input->code,4);
+        $verifyCode=json_decode($_COOKIE['VRF_code']);
+       
+        foreach($verifyCode as $i=>$item){ 
+            if($verifyCode[$i]==$input->code){
+                $verifyCode[$i]=" ";
+                setcookie('VRF_code', json_encode($verifyCode), time() + (86400 * 30), "/");
+                return "Check code successfull";
+                die();
+            }            
         }
+
+        $data=array(
+            'Error'=>'OTP dosent exist!'
         );
+        return response()->json($data,400);
     }
+
+//
+    // public function resetPass(Request $input,String $id){
+    //     $code = $this->makeCode($id);
+    //     Mail::send('reset-password',['user' =>'user','submitCode'=>$code],function ($m) use($input){
+    //         $m->from('chibee.audiobook@gmail.com','ChiBee');
+    //         $m->to($input->email,'visitor')->subject('Check Login!');
+    //     }
+    //     );
+    // }
     public function refreshVerifyCode(String $id){
         $verifyCode=array();
         if(isset($_COOKIE['VRF_code'])){
             $verifyCode=json_decode($_COOKIE['VRF_code']);
             foreach($verifyCode as $i=>$item){ 
+               
                 if(isset($verifyCode[$i])){
-                    if(substr($verifyCode[$i],4)==(string)$id){
+                    if(substr($verifyCode[$i],4)==(string)$id){           
                         $verifyCode[$i]="";
                      }
                 }            
@@ -177,6 +272,7 @@ class UsersController extends Controller
     
 
     public function makeCode($id){
+        $check=0;
         $verifyCode=$this->refreshVerifyCode($id);
         $min=0;
         $max=9;
@@ -184,12 +280,16 @@ class UsersController extends Controller
         $t2=(string)random_int($min, $max);
         $t3=(string)random_int($min, $max);
         $t4=(string)random_int($min, $max);
-        $code=$t1.''.$t2.''.$t3.''.$t4.''.$id;  
-        if(isset($verifyCode[$id])){
+        $code=$t1.''.$t2.''.$t3.''.$t4.''.$id;
+
+        if($id<count($verifyCode)){
             $verifyCode[$id]=$code;
         }else{
             array_push($verifyCode,$code);
-        }        
+        }  
+        // if(isset($verifyCode[$id])){
+        //     $verifyCode[$id]=$code;
+        // }      
         setcookie('VRF_code', json_encode($verifyCode), time() + (86400 * 30), "/");
         return $code;
     }
@@ -219,40 +319,61 @@ class UsersController extends Controller
 
 
 
-    public function verify(String $input){
-        $verifyCode=json_decode($_COOKIE['VRF_code']);
-        foreach($verifyCode as $i => $item){
-        if($verifyCode[$i]==$input)
-        {   if(count($input)==6){
-                //this is repasswork code
+    // public function verify(String $input){
+    //     $verifyCode=json_decode($_COOKIE['VRF_code']);
+    //     foreach($verifyCode as $i => $item){
+    //     if($verifyCode[$i]==$input)
+    //     {   if(count($input)==6){
+    //             //this is repasswork code
 
-            }elseif(count($input)==5){
-                //this is check login code
+    //         }elseif(count($input)==5){
+    //             //this is check login code
                 
-                $user=UserTerm::find(substr($verifyCode[$i],4));
-                $this->create($user);
-            }
+    //             $user=UserTerm::find(substr($verifyCode[$i],4));
+    //             $this->create($user);
+    //         }
    
-        }else{
-            return "your code incorret";
-        }
-        }
+    //     }else{
+    //         return "your code incorret";
+    //     }
+    //     }
         
 
-    }
+    // }
 
 
 
     public function getUserId(Request $input){
-
-        try {
             $user = User::where('email', $input->email)->first();
-            return $user->id;
-          }
-          catch (QueryException $e) {
-            return "enought";
-          }
+            if(!is_null($user)){
+                echo $user->id;
+                return $user->id;
+            }else{
+               echo "Email dosen't exist!";
+               die();
+            }
     }
+
+    public function setPassword(Request $input){
+        $user=User::find($input->$id);
+        $user->password = Hash::make($input->new_password);
+        $user->save();
+        return true;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     function generateRandomString($length = 4) {
@@ -264,7 +385,6 @@ class UsersController extends Controller
         }
         return $randomString;
     }
-
     public function test(Request $dd){
 
         $code="000";
@@ -331,11 +451,6 @@ class UsersController extends Controller
 
 
 
-    public function setPassword(String $id){
-        $user=User::find($id);
-        $user->password = Hash::make('00000000');
-        $user->save();
-        return true;
-    }
+    
 
 }

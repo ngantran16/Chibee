@@ -13,7 +13,7 @@ class Stories extends Model
     
     
     protected $fillable=[
-        'id_type','id_video','id_audio','id_author','id_image','story_name','description','content','status'
+        'id_type','id_video','id_audio','id_author','id_image','story_name','description','content','status','rating','number_rating'
     ];
 
     protected $primarykey ='id';
@@ -36,6 +36,19 @@ class Stories extends Model
         return $this->hasMany('App\Models\Image','id_image','id');
        
     }
+    public function comment()
+    {
+        return $this->hasMany('App\Models\Comment','id','id_user');
+    }
+    public function rating()
+    {
+        return $this->hasMany('App\Models\Rating','id','id_user');
+    }
+    public function wishlist()
+    {
+        return $this->hasMany('App\Models\Wishlist','id','id_user');
+    }
+    
   
     public function author()
     {

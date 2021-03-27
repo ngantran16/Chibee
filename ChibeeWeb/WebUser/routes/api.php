@@ -12,7 +12,7 @@ use App\Http\Controllers\StoriesController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\WishListController;
 use App\Http\Controllers\TypeController;
-
+use App\Http\Controllers\AdminController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -20,16 +20,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['as' => 'api.'], function () {
     Route::post('/signUp', [UsersController::class,'create'])->name('Sign Up');
     Route::post('/login', [UsersController::class,'login'])->name('index');
-    Route::get('/user', [UsersController::class,'showall'])->name('show');
+    Route::get('/user', [UsersController::class,'show'])->name('show');
+    Route::get('/user/{id}', [UsersController::class,'showOne'])->name('show');
     Route::get('/user-pro', [TypeController::class,'profile'])->name('show');
     Route::get('/logout',[UsersController::class,'logout'])->name('logout');
     Route::put('/user/{id}', [UsersController::class,'update'])->name('update');
     Route::delete('/user/{id}', [UsersController::class,'delete'])->name('destroy');
     Route::post('/set-password', [UsersController::class,'setPassword'])->name('destroy');
-    Route::post('/check_mail', [UsersController::class,'checkEmail'])->name('mail');
+    Route::post('/check_mail', [UsersController::class,'checkEmails'])->name('mail');
     Route::get('/make_code/{id}', [UsersController::class,'makeCode'])->name('code');
-    Route::post('/test', [UsersController::class,'test'])->name('code');
+    Route::post('/test', [UsersController::class,'checkEmails'])->name('code');
+    Route::post('/checkcode', [UsersController::class,'checkCode'])->name('code');
     Route::post('/getuser', [UsersController::class,'getUserId'])->name('code');
+    
 });
 
 
@@ -37,9 +40,10 @@ Route::group(['as' => 'api.'], function () {
 Route::group(['as' => 'api.'], function () {
     Route::get('/stories', [StoriesController::class,'storiesList'])->name('showList');
     Route::post('/stories', [StoriesController::class,'add'])->name('add');
-    Route::post('/stories/search', [StoriesController::class,'search'])->name('search');
+    Route::get('/stories/search/{id}', [StoriesController::class,'search'])->name('search');
     Route::get('/stories/{id}', [StoriesController::class,'show'])->name('show');
     Route::delete('/stories/{id}', [StoriesController::class,'delete'])->name('destroy');
+    Route::post('/getStoriesByType', [StoriesController::class,'getStoriesByType'])->name('code');
 });
 //commment
 Route::group(['as' => 'api.'], function () {
@@ -89,26 +93,25 @@ Route::group(['as' => 'api.'], function () {
 
 
 // api for admin page
-Route::get('/admin/account', 'App\Http\Controllers\AdminController@getListAccount');
-Route::get('/admin/user', 'App\Http\Controllers\AdminController@getListUser');
-Route::get('/admin/story', 'App\Http\Controllers\AdminController@getListStories');
-Route::get('/admin/type-story', 'App\Http\Controllers\AdminController@getListTypeStories');
-Route::get('/admin/comment', 'App\Http\Controllers\AdminController@getListComment');
+Route::group(['as' => 'api.'], function () {
+    Route::get('/admin/user',  [AdminController::class,'getListUser']);
+    Route::get('/admin/story',  [AdminController::class,'getListStories']);
+    Route::get('/admin/type-story',  [AdminController::class,'getListTypeStories']);
+    Route::get('/admin/comment',  [AdminController::class,'getListComment']);
+    Route::get('/admin/author',  [AdminController::class,'getListAuthor']);
 
 
-Route::get('/admin/count-account', 'App\Http\Controllers\AdminController@getCountAccount');
-Route::get('/admin/count-story', 'App\Http\Controllers\AdminController@getCountStory');
-Route::get('/admin/count-comment', 'App\Http\Controllers\AdminController@getCountComment');
-Route::get('/admin/count-type-story', 'App\Http\Controllers\AdminController@getCountTypeStories');
-
-Route::delete('/admin/deleteUser/{id}', 'App\Http\Controllers\AdminController@deleteUser');
-Route::delete('/admin/deleteComment/{id}', 'App\Http\Controllers\AdminController@deleteComment');
-
-Route::get('/admin/story-line-chart', 'App\Http\Controllers\AdminController@getLineStoriesChart');
-Route::get('/admin/story-pie-chart', 'App\Http\Controllers\AdminController@storyPieChart');
-
-//.......
-Route::post('/admin/add', 'App\Http\Controllers\AdminController@add'); 
-Route::get('/admin/update/{id}', 'App\Http\Controllers\AdminController@edit'); 
-Route::post('/admin/update/{id}', 'App\Http\Controllers\AdminController@update'); 
-Route::delete('/admin/deleteStory/{id}', 'App\Http\Controllers\AdminController@deleteStory');
+    Route::get('/admin/count-user',  [AdminController::class,'getCountUser']);
+    Route::get('/admin/count-story',  [AdminController::class,'getCountStory']);
+    Route::get('/admin/count-comment',  [AdminController::class,'getCountComment']);
+    Route::get('/admin/count-type-story',  [AdminController::class,'getCountTypeStories']);
+    Route::delete('/admin/deleteUser/{id}',  [AdminController::class,'deleteUser']);
+    Route::delete('/admin/deleteComment/{id}',  [AdminController::class,'deleteComment']);
+    Route::get('/admin/story-line-chart',  [AdminController::class,'getLineStoriesChart']);
+    Route::get('/admin/story-pie-chart',  [AdminController::class,'storyPieChart']);
+    Route::post('/admin/add',  [AdminController::class,'addStory']); 
+    Route::get('/admin/update/{id}',  [AdminController::class,'editStory']); 
+    Route::put('/admin/update/{id}',  [AdminController::class,'updateStory']); 
+    Route::delete('/admin/deleteStory/{id}',  [AdminController::class,'deleteStory']);
+    Route::post('/admin/login',  [AdminController::class,'login']); 
+});

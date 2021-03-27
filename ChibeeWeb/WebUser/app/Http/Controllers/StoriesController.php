@@ -6,14 +6,14 @@ use Illuminate\Http\Request;
 
 use App\Models\Stories;
 use App\Models\Author;
+use App\Models\Rating;
 
 
 
 class StoriesController extends Controller
 {
-    public function storiesList()
-    {   
-      
+    public function index()
+    {       
         $stories=Stories::all();
         $output=[];
         foreach ($stories as $s) {
@@ -29,11 +29,48 @@ class StoriesController extends Controller
             $data['audio'] = $audio;
             array_push($output, $data);
         }
-       
-        
-            return $output;
-        
+            return $output;    
     }
+//show all stories list
+    public function storiesList()
+    {       
+        $stories=Stories::all();
+        $output=[];
+        foreach ($stories as $s) {
+            $author= $s->author()->get();
+            $type= $s->type()->get();
+            $video= $s->video()->get();
+            $audio= $s->audio()->get();
+            $image= $s->image;
+            $data = $s;
+            $data['author'] =$author;
+            $data['type'] =$type;
+            $data['video'] =$video;
+            $data['audio'] = $audio;
+            $data['rating']=$this->caculatRating($s->id);
+            $data['number_rating']=$this->numberRating($s->id);
+            array_push($output, $data);
+        }
+            return $output;   
+    }
+//caculating rate of a stories
+    public function caculatRating($id){
+        $stories=Rating::where("id_story",$id)->get();
+        $sum=0;
+        for($i=0;$i<count($stories);$i++){
+            $sum= $sum+ $stories[0]->point;
+        }
+        if($sum==0||count($stories)==0){
+            return 0;
+        }else{
+            return $sum/count($stories);
+        }
+    }
+    public function numberRating($id){
+        $stories=Rating::where("id_story",$id)->get();
+        return count($stories);
+    }
+//show a stories
     public function show($id)
     {   
         // $stories = Stories::all();
@@ -51,22 +88,34 @@ class StoriesController extends Controller
             $data['type'] =$type;
             $data['video'] =$video;
             $data['audio'] = $audio;
-            array_push($output, $data);
-        
-       
-        
+            array_push($output, $data); 
             return $output;
         
     }
+//get stories by type
+    public function getStoriesByType(Request $input){
+        $input->id;
+        $stories=Stories::where('id_type',$input->id)->get();
+        if(!is_null($stories)){
+            return $stories;
+        }else{
+            $data=array(
+                'Error'=>'Type dosent exist!'
+            );
+            return response()->json($data,400);
+        }
+    }
+
+//delete story 
     public function delete($id)
     {   
         // $stories = Stories::all();
         // return view('home', compact('stories'));    
-            return $stories=Stories::where("id",$id->id)->delete();
+            return $stories=Stories::where("id",$id)->delete();
         
     }
     
-    
+//add a story
     public function add(Request $re)
     {   
         // // $stories = Stories::all();
@@ -84,15 +133,19 @@ class StoriesController extends Controller
             'content' => $re->content,
             'status' => $re->status
         ]);
-        
         $story->save();
-
         return true;
         
     }
+//search 
+    public function search(string $id){
+        $output = Stories::where('story_name', 'like',"%$id%")->get();
 
-    public function search(Request $input){
-        $output = Stories::where('story_name', 'like', "%".$input."%")->get();
-        return $output;
+        if(!is_null($output)){
+            return $output;
+        }else{
+
+        }
+        
     }
 }

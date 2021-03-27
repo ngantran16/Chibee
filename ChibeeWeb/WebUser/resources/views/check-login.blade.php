@@ -71,14 +71,13 @@
          <table align='center' border='0' cellpadding='0' cellspacing='0' role='presentation' style='background:#30373b;background-color:#30373b;width:100%; border-radius: 20px;'>
             <tbody>
                <tr>
-
                   <tr>
                   <td >
                      <div style='margin:0px auto;max-width:600px;'>
                         <table align='center' border='0' cellpadding='0' cellspacing='0' role='presentation' style='width:100%;'>
                            <tbody>
                               <tr style="">
-                                 <td style='direction:ltr;font-size:0px;padding:20px;text-align:center;vertical-align:top;'>
+                                 <td style='display:flex;direction:ltr;font-size:0px;padding:20px;text-align:center;vertical-align:top;'>
                                     
                                              <div class='dys-column-per-60 outlook-group-fix' style='direction:ltr;display:inline-block;font-size:13px;text-align:left;vertical-align:top;width:100%;'>
                                                 <table border='0' cellpadding='0' cellspacing='0' role='presentation' style='vertical-align:top;' width='100%'>
@@ -165,7 +164,7 @@
                                     <table border='0' cellpadding='0' cellspacing='0' role='presentation' style='vertical-align:top;' width='100%'>
                                        <tr>
                                           <td align='center' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
-                                             <div style='color:#999999;font-family:Open Sans, Arial, sans-serif;font-size:15px;line-height:22px;text-align:center;'>
+                                             <div style='color:black;font-family:Open Sans, Arial, sans-serif;font-size:15px;line-height:22px;text-align:center;'>
                                                 You have just register in ChiBee by this email
                                              </div>
                                           </td>

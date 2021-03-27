@@ -27,11 +27,8 @@ class AudioController extends Controller
     }
     public function show($id)
     {   
-      
         $audio = Audio::find($id);
-        return $audio;
-       
-
+        return $audio;   
     }
     public function showall()
     {   

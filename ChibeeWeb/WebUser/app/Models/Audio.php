@@ -18,7 +18,6 @@ class Audio extends Model
 
     protected $primarykey ='id';
     protected $table ='audio';
-
     public function story()
     {
         return $this->belongsTo('App\Models\Stories','id_audio','id');

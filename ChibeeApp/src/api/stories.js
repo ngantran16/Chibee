@@ -13,3 +13,7 @@ export async function getReviews() {
 export async function getTypesApi() {
   return http.get('/api/type');
 }
+
+export async function GetStoryDetails(id) {
+  return http.get('/api/stories/' + id);
+}

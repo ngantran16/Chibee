@@ -10,7 +10,6 @@ import {
   Dimensions,
 } from 'react-native';
 import { NavigationUtils } from '../../navigation';
-import Images from '../../themes/Images';
 import Colors from '../../themes/Colors';
 import WishlistItem from '../../components/Profile/WishlistItem';
 import AudioItem from '../../components/Wishlist/VideoItem';
@@ -20,13 +19,8 @@ const index = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => NavigationUtils.pop()}>
-          <Image source={Images.back} />
-        </TouchableOpacity>
         <Text style={styles.titleHeader}>Yêu thích</Text>
-        <Text />
       </View>
-
       <View style={styles.subContain}>
         <View style={styles.headerContent}>
           <TouchableOpacity onPress={() => setSelected('Audio')}>
@@ -58,7 +52,6 @@ export default index;
 const styles = StyleSheet.create({
   header: {
     marginTop: 10,
-    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },

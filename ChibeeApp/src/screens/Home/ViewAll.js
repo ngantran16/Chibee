@@ -1,18 +1,10 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-  Dimensions,
-} from 'react-native';
-import Images from '../../themes/Images';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import HomeStoryItem from '../../components/Home/HomeStoryItem';
 import { FlatGrid } from 'react-native-super-grid';
 import { NavigationUtils } from '../../navigation';
 import { useSelector } from 'react-redux';
+import Icon from 'react-native-vector-icons/FontAwesome';
 const screenWidth = Dimensions.get('screen').width;
 
 const ViewAll = () => {
@@ -21,7 +13,7 @@ const ViewAll = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => NavigationUtils.pop()}>
-          <Image source={Images.back} style={styles.iconBack} />
+          <Icon name="angle-left" size={25} style={styles.iconBack} />
         </TouchableOpacity>
 
         <View style={styles.titleContain}>

@@ -8,6 +8,7 @@ import ProfileItem from '../../components/Profile/ProfileItem';
 import { NavigationUtils } from '../../navigation';
 import Notifications from '../../screens/Profile/Notifications';
 import WishlistItem from '../../components/Profile/WishlistItem';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const index = () => {
   const data = [
@@ -61,15 +62,17 @@ const index = () => {
   return (
     <View style={styles.container}>
       <View>
-        <View style={styles.header}>
-          <Text style={styles.title}>Trang cá nhân</Text>
-          <TouchableOpacity onPress={onSettingIcon}>
-            <Image source={Images.settings} style={styles.setting} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.nameContain}>
-          <Image source={Images.avatar} style={styles.avatar} />
-          <Text style={styles.name}>Nguyen Minh Anh</Text>
+        <View style={styles.allContainer}>
+          <View style={styles.header}>
+            <Text style={styles.title}>Trang cá nhân</Text>
+            <TouchableOpacity onPress={onSettingIcon}>
+              <Icon name="cog" size={25} style={styles.setting} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.nameContain}>
+            <Image source={Images.avatar} style={styles.avatar} />
+            <Text style={styles.name}>Nguyen Minh Anh</Text>
+          </View>
         </View>
 
         <View style={styles.menu}>
@@ -140,7 +143,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: Dimensions.get('window').width - 36,
     height: 150,
-    backgroundColor: Colors.secondary,
     marginTop: 20,
   },
   name: {
@@ -166,5 +168,9 @@ const styles = StyleSheet.create({
     color: 'gray',
     borderBottomColor: Colors.secondary,
     borderBottomWidth: 2,
+  },
+  allContainer: {
+    backgroundColor: 'grey',
+    width: Dimensions.get('window').width,
   },
 });

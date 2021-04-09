@@ -4,6 +4,7 @@ import { NavigationUtils } from '../../navigation';
 import Images from '../../themes/Images';
 import Colors from '../../themes/Colors';
 import InviteItem from '../../components/Detail/InviteItem';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Invite = () => {
   const data = [
@@ -48,7 +49,7 @@ const Invite = () => {
     <View>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => NavigationUtils.pop()}>
-          <Image source={Images.back} />
+          <Icon name="angle-left" size={25} />
         </TouchableOpacity>
         <Text style={styles.titleHeader}>Cùng nghe</Text>
         <Text />

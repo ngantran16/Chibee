@@ -17,7 +17,9 @@ const HomeStoryItem = (props) => {
   for (let i = 0; i < 5 - props.item.rating; i++) {
     iconRatings.push(<IconStar color={Colors.greyAuthor} />);
   }
-
+  console.log('====================================');
+  console.log(props.item.image);
+  console.log('====================================');
   const onImageClicked = () => {
     // NavigationUtils.push({ screen: 'DetailStory', isTopBarEnable: false });
     console.log(props.item.id);
@@ -28,7 +30,7 @@ const HomeStoryItem = (props) => {
         <View>
           <Image
             source={{
-              uri: props.item.image,
+              uri: `${props.item.image}`,
             }}
             style={styles.imgItem}
           />

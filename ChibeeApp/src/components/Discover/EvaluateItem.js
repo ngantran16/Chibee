@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import Images from '../../themes/Images';
-import Colors from '../../themes/Colors';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const EvaluateItem = (props) => {
   return (
@@ -21,8 +21,8 @@ const EvaluateItem = (props) => {
           <View>
             {props.isFirst ? (
               <View style={styles.rowContent}>
-                <Image source={Images.edit} style={styles.iconEdit} />
-                <Image source={Images.trash} />
+                <Icon name="edit" size={23} style={styles.iconEdit} />
+                <Icon name="trash" size={23} />
               </View>
             ) : (
               <View>

@@ -22,6 +22,7 @@ import Orientation from 'react-native-orientation-locker';
 import EvaluateItem from '../../components/Discover/EvaluateItem';
 import Colors from '../../themes/Colors';
 import { NavigationUtils } from '../../navigation';
+import Icon from 'react-native-vector-icons/FontAwesome';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 
@@ -121,7 +122,7 @@ const WatchVideo = () => {
       <View style={{ marginHorizontal: isFullScreen ? 50 : 0 }}>
         <View style={styles.itemScreen}>
           <TouchableOpacity onPress={() => NavigationUtils.pop()}>
-            <Image source={Images.back} style={styles.iconBack} />
+            <Icon name="angle-left" size={25} style={styles.iconBack} />
           </TouchableOpacity>
           <Text style={styles.titleStory}>Chú Cừu Con</Text>
         </View>
@@ -161,7 +162,7 @@ const WatchVideo = () => {
         </View>
         <View style={styles.iconInteract}>
           <View style={styles.itemCenter}>
-            <Image source={Images.heart} style={styles.iconHeart} />
+            <Icon name="heart" style={styles.iconHeart} />
             <Text style={styles.nameIcon}>Yêu thích</Text>
           </View>
 
@@ -169,12 +170,12 @@ const WatchVideo = () => {
             style={[styles.itemCenter, styles.button]}
             onPress={() => setModalVisible(true)}
           >
-            <Image source={Images.share} style={styles.iconShare} />
+            <Icon name="share-square" style={styles.iconShare} />
             <Text style={styles.nameIcon}>Chia sẻ</Text>
           </Pressable>
 
           <View style={styles.itemCenter}>
-            <Image source={Images.download} style={styles.iconDown} />
+            <Icon name="download" style={styles.iconDown} />
             <Text style={styles.nameIcon}>Tải về</Text>
           </View>
         </View>
@@ -190,7 +191,7 @@ const WatchVideo = () => {
             onChangeText={(text) => setCmt(text)}
           />
           <TouchableOpacity style={styles.sendContain}>
-            <Image source={Images.send} />
+            <Icon name="paper-plane" size={25} />
           </TouchableOpacity>
         </View>
 

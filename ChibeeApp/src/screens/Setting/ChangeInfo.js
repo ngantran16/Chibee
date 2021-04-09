@@ -4,6 +4,7 @@ import Images from '../../themes/Images';
 import { Dimensions } from 'react-native';
 import Colors from '../../themes/Colors';
 import { NavigationUtils } from '../../navigation';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const ChangeInfo = () => {
   const [name, setName] = useState('Nguyễn Minh Anh');
@@ -14,7 +15,7 @@ const ChangeInfo = () => {
     <View>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => NavigationUtils.pop()}>
-          <Image source={Images.back} />
+          <Icon name="angle-left" size={25} />
         </TouchableOpacity>
         <Text style={styles.titleHeader}>Thay đổi thông tin</Text>
         <Text />

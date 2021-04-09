@@ -51,8 +51,8 @@ const index = () => {
       <View>
         <Text style={styles.title}>Khám phá</Text>
       </View>
-      <View style={styles.discoverContain} showsVerticalScrollIndicator={false}>
-        <ScrollView>
+      <ScrollView>
+        <View style={styles.discoverContain} showsVerticalScrollIndicator={false}>
           {data.map((item, key) => {
             return (
               <TouchableOpacity onPress={onImagePress} key={key}>
@@ -60,8 +60,8 @@ const index = () => {
               </TouchableOpacity>
             );
           })}
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   title: {
     color: '#867D7D',
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     marginTop: 20,
   },

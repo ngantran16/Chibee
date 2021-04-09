@@ -4,6 +4,7 @@ import { NavigationUtils } from '../../navigation';
 import Images from '../../themes/Images';
 import EvaluateItem from '../../components/Discover/EvaluateItem';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import Icon from 'react-native-vector-icons/FontAwesome';
 const DiscoverDetail = () => {
   const data = [
     {
@@ -47,7 +48,7 @@ const DiscoverDetail = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => NavigationUtils.pop()}>
-          <Image source={Images.back} />
+          <Icon name="angle-left" size={25} style={styles.setting} />
         </TouchableOpacity>
       </View>
       <View style={styles.imgContain}>
@@ -97,7 +98,7 @@ const DiscoverDetail = () => {
       <View>
         <TextInput style={styles.inputComment} />
         <TouchableOpacity style={styles.sendContain}>
-          <Image source={Images.send} />
+          <Icon name="paper-plane" size={25} />
         </TouchableOpacity>
       </View>
     </View>

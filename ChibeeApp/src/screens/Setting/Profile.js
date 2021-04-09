@@ -1,26 +1,25 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import Images from '../../themes/Images';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import SettingProfileItem from '../../components/Setting/SettingProfileItem';
 import { NavigationUtils } from '../../navigation';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Profile = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => NavigationUtils.pop()}>
-          <Image source={Images.back} />
+          <Icon name="angle-left" size={24} />
         </TouchableOpacity>
-
         <Text style={styles.titleHeader}>Cài đặt thông tin</Text>
         <Text />
       </View>
       <View style={styles.contentContain}>
-        <SettingProfileItem name={Images.user} title="Thông tin cá nhân" />
-        <SettingProfileItem name={Images.padlock} title="Đổi mật khẩu" />
-        <SettingProfileItem name={Images.customerService} title="Hỗ trợ" />
-        <SettingProfileItem name={Images.document} title="Quy định" />
-        <SettingProfileItem name={Images.logout} title="Đăng xuất" />
+        <SettingProfileItem name="user" title="Thông tin cá nhân" />
+        <SettingProfileItem name="lock" title="Đổi mật khẩu" />
+        <SettingProfileItem name="phone" title="Hỗ trợ" />
+        <SettingProfileItem name="sticky-note" title="Quy định" />
+        <SettingProfileItem name="sign-out" title="Đăng xuất" />
       </View>
     </View>
   );

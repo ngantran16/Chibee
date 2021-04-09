@@ -3,12 +3,14 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { NavigationUtils } from '../../navigation';
 import Images from '../../themes/Images';
 import Colors from '../../themes/Colors';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 const Support = () => {
   return (
     <View>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => NavigationUtils.pop()}>
-          <Image source={Images.back} />
+          <Icon name="angle-left" size={24} />
         </TouchableOpacity>
         <Text style={styles.titleHeader}>Hỗ trợ</Text>
         <Text />

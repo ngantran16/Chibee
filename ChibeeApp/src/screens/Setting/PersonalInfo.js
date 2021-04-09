@@ -5,6 +5,7 @@ import { Dimensions } from 'react-native';
 import Colors from '../../themes/Colors';
 import PersonalInfoItem from '../../components/Setting/PersonalInfoItem';
 import { NavigationUtils } from '../../navigation';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const PersonalInfo = () => {
   const onChangeClicked = () => {
@@ -14,7 +15,7 @@ const PersonalInfo = () => {
     <View>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => NavigationUtils.pop()}>
-          <Image source={Images.back} />
+          <Icon name="angle-left" size={25} />
         </TouchableOpacity>
         <Text style={styles.titleHeader}>Thông tin cá nhân</Text>
         <Text />

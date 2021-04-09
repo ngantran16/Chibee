@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ImageBackground,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { NavigationUtils } from '../../navigation';
 import Images from '../../themes/Images';
 import { Dimensions } from 'react-native';
 import Colors from '../../themes/Colors';
 import HomeStoryItem from '../../components/Home/HomeStoryItem';
+import Icon from 'react-native-vector-icons/FontAwesome';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 
@@ -63,7 +56,7 @@ const DetailStory = () => {
         <Image source={Images.story2} style={styles.imgBackground} />
         <View style={styles.header}>
           <TouchableOpacity onPress={() => NavigationUtils.pop()}>
-            <Image source={Images.back} />
+            <Icon name="angle-left" size={25} />
           </TouchableOpacity>
         </View>
       </View>

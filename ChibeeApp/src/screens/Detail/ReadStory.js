@@ -13,6 +13,7 @@ import { NavigationUtils } from '../../navigation';
 import Images from '../../themes/Images';
 import Colors from '../../themes/Colors';
 import EvaluateItem from '../../components/Discover/EvaluateItem';
+import Icon from 'react-native-vector-icons/FontAwesome';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 
@@ -52,7 +53,7 @@ const ReadStory = () => {
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => NavigationUtils.pop()}>
-          <Image source={Images.back} />
+          <Icon name="angle-left" size={25} />
         </TouchableOpacity>
         <Text style={styles.titleHeader}>Chú Ếch Xanh</Text>
         <Text />

@@ -4,6 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { NavigationUtils } from '../../navigation';
 import LoginTypes from '../../redux/LoginRedux/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const SettingProfileItem = (props) => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const SettingProfileItem = (props) => {
   };
   return (
     <View style={styles.settingButton}>
-      <Image source={props.name} />
+      <Icon name={props.name} size={24} />
       <TouchableOpacity style={styles.viewText} onPress={() => onInfoPress(props.title)}>
         <Text style={styles.title}>{props.title}</Text>
       </TouchableOpacity>

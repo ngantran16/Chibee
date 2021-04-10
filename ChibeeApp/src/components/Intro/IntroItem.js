@@ -6,10 +6,11 @@ import { markSkipIntro } from '../../redux/AppRedux/actions';
 import { NavigationUtils } from '../../navigation';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
+
 const IntroItem = (props) => {
   const dispatch = useDispatch();
   const skipIntroAndShowLogin = () => {
-    dispatch(markSkipIntro(true));
+    // dispatch(markSkipIntro(true));
     NavigationUtils.startLoginContent();
   };
   return (

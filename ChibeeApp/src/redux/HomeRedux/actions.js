@@ -10,13 +10,21 @@ export const HomeTypes = makeConstantCreator(
   'GET_TYPES_FAILURE',
 );
 
-export const getStoryHome = () => makeActionCreator(HomeTypes.GET_STORY_HOME);
-export const getStoryHomeSuccess = (response) =>
+const getStoryHome = () => makeActionCreator(HomeTypes.GET_STORY_HOME);
+const getStoryHomeSuccess = (response) =>
   makeActionCreator(HomeTypes.GET_STORY_HOME_SUCCESS, { response });
-export const getStoryHomeFailure = (error) =>
+const getStoryHomeFailure = (error) =>
   makeActionCreator(HomeTypes.GET_STORY_HOME_FAILURE, { error });
 
-export const getTypes = () => makeActionCreator(HomeTypes.GET_TYPES);
-export const getTypesSuccess = (response) =>
-  makeActionCreator(HomeTypes.GET_TYPES_SUCCESS, { response });
-export const getTypesFailure = (error) => makeActionCreator(HomeTypes.GET_TYPES_FAILURE, { error });
+const getTypes = () => makeActionCreator(HomeTypes.GET_TYPES);
+const getTypesSuccess = (response) => makeActionCreator(HomeTypes.GET_TYPES_SUCCESS, { response });
+const getTypesFailure = (error) => makeActionCreator(HomeTypes.GET_TYPES_FAILURE, { error });
+
+export default {
+  getStoryHome,
+  getStoryHomeSuccess,
+  getStoryHomeFailure,
+  getTypes,
+  getTypesSuccess,
+  getTypesFailure,
+};

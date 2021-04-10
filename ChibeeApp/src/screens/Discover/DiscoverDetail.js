@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  TextInput,
+  ScrollView,
+} from 'react-native';
 import { NavigationUtils } from '../../navigation';
 import Images from '../../themes/Images';
 import EvaluateItem from '../../components/Discover/EvaluateItem';
@@ -50,57 +58,59 @@ const DiscoverDetail = () => {
         <TouchableOpacity onPress={() => NavigationUtils.pop()}>
           <Icon name="angle-left" size={25} style={styles.setting} />
         </TouchableOpacity>
+        <View>
+          <Text style={styles.title}>Khám phá thế giới của bé </Text>
+        </View>
       </View>
       <View style={styles.imgContain}>
         <Image source={Images.discover1} style={styles.imgDetail} />
       </View>
-      <View>
-        <Text style={styles.title}>Khám phá thế giới của bé </Text>
-      </View>
-      <View>
-        {checkViewAll ? (
-          <View>
-            <Text style={styles.content}>
-              Những ký sự đó đã khắc họa chân dung của người lính mà thời ấy gọi là bộ đội Cụ Hồ
-              trong đó ca ngợi những phẩm chất của họ như lòng yêu nước, thương nhà, tình đồng đội,
-              tinh thần dũng cảm trong chiến đấu
-            </Text>
-            <TouchableOpacity onPress={onViewAll}>
-              <Text style={styles.viewAll}>Ẩn bớt</Text>
-            </TouchableOpacity>
-          </View>
-        ) : (
-          <View>
-            <Text style={styles.content} numberOfLines={3}>
-              Những ký sự đó đã khắc họa chân dung của người lính mà thời ấy gọi là bộ đội Cụ Hồ
-              trong đó ca ngợi những phẩm chất của họ như lòng yêu nước, thương nhà, tình đồng đội,
-              tinh thần dũng cảm trong chiến đấu
-            </Text>
-            <TouchableOpacity onPress={onViewAll}>
-              <Text style={styles.viewAll}>Xem thêm</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      </View>
-      <View>
-        <Text style={styles.titleComment}>Bình luận</Text>
-        {data.map((item, key) => {
-          return (
-            <EvaluateItem
-              author="Nguyen Van A"
-              isFirst={item.isFirst}
-              content="Cau chuyen hay qua!"
-              key={key}
-            />
-          );
-        })}
-      </View>
-      <View>
-        <TextInput style={styles.inputComment} />
-        <TouchableOpacity style={styles.sendContain}>
-          <Icon name="paper-plane" size={25} />
-        </TouchableOpacity>
-      </View>
+      <ScrollView>
+        <View>
+          {checkViewAll ? (
+            <View>
+              <Text style={styles.content}>
+                Những ký sự đó đã khắc họa chân dung của người lính mà thời ấy gọi là bộ đội Cụ Hồ
+                trong đó ca ngợi những phẩm chất của họ như lòng yêu nước, thương nhà, tình đồng
+                đội, tinh thần dũng cảm trong chiến đấu
+              </Text>
+              <TouchableOpacity onPress={onViewAll}>
+                <Text style={styles.viewAll}>Ẩn bớt</Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <View>
+              <Text style={styles.content} numberOfLines={3}>
+                Những ký sự đó đã khắc họa chân dung của người lính mà thời ấy gọi là bộ đội Cụ Hồ
+                trong đó ca ngợi những phẩm chất của họ như lòng yêu nước, thương nhà, tình đồng
+                đội, tinh thần dũng cảm trong chiến đấu
+              </Text>
+              <TouchableOpacity onPress={onViewAll}>
+                <Text style={styles.viewAll}>Xem thêm</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
+        <View>
+          <Text style={styles.titleComment}>Bình luận</Text>
+          {data.map((item, key) => {
+            return (
+              <EvaluateItem
+                author="Nguyen Van A"
+                isFirst={item.isFirst}
+                content="Cau chuyen hay qua!"
+                key={key}
+              />
+            );
+          })}
+        </View>
+        <View>
+          <TextInput style={styles.inputComment} />
+          <TouchableOpacity style={styles.sendContain}>
+            <Icon name="paper-plane" size={25} />
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -113,6 +123,7 @@ const styles = StyleSheet.create({
   },
   header: {
     marginTop: 20,
+    flexDirection: 'row',
   },
   imgDetail: {
     width: '100%',
@@ -126,7 +137,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginTop: 10,
+    marginLeft: 50,
   },
   content: {
     marginTop: 10,

@@ -1,44 +1,15 @@
-import React from 'react';
-import { Navigation } from 'react-native-navigation';
-
-import { Alert } from 'react-native';
-import { registerScreens } from './navigation/index';
-import configureStore from './redux/store';
 import { startup } from './redux/AppRedux/actions';
-
-export let store = null;
+import { Navigation } from 'react-native-navigation';
+import { registerScreens } from './navigation/RegisterScreens';
+import store from './redux/store';
+// import AsyncStorage from '@react-native-community/async-storage';
 const App = () => {
-  const loadIntial = () => {
-    return Promise.all([loadStore()])
-      .then((response) => {
-        store = response[0];
-        // Load finish here
-        store.dispatch(startup());
-      })
-      .catch((err) => {});
-  };
-
-  const loadStore = async () => {
-    return new Promise((resolve) => {
-      configureStore((tempStore, persistor) => {
-        // configI18n(get(tempStore.getState(), 'app.language'));
-        registerScreens(tempStore, persistor);
-        resolve(tempStore, persistor);
-      });
-    });
-  };
   Navigation.events().registerAppLaunchedListener(async () => {
     try {
-      await loadIntial();
-      Navigation.setDefaultOptions({
-        layout: {
-          backgroundColor: 'white',
-          orientation: ['portrait'], // An array of supported orientations
-        },
-      });
+      await registerScreens();
+      await store.dispatch(startup());
     } catch (error) {
-      //
-      Alert.alert('Init unsuccessful', error.message);
+      console.log('Init unsuccessful', error.message);
     }
   });
 };

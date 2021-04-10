@@ -61,20 +61,18 @@ const index = () => {
   const [selected, setSelected] = useState('Đã nghe');
   return (
     <View style={styles.container}>
-      <View>
-        <View style={styles.allContainer}>
-          <View style={styles.header}>
-            <Text style={styles.title}>Trang cá nhân</Text>
-            <TouchableOpacity onPress={onSettingIcon}>
-              <Icon name="cog" size={25} style={styles.setting} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.nameContain}>
-            <Image source={Images.avatar} style={styles.avatar} />
-            <Text style={styles.name}>Nguyen Minh Anh</Text>
-          </View>
+      <View style={styles.con}>
+        <View style={styles.header}>
+          <TouchableOpacity onPress={onSettingIcon}>
+            <Icon name="cog" size={25} style={styles.setting} />
+          </TouchableOpacity>
         </View>
-
+        <View style={styles.nameContain}>
+          <Image source={Images.avatar} style={styles.avatar} />
+          <Text style={styles.name}>Nguyen Minh Anh</Text>
+        </View>
+      </View>
+      <View style={styles.allStory}>
         <View style={styles.menu}>
           <TouchableOpacity onPress={() => setSelected('Đã nghe')}>
             {selected === 'Đã nghe' ? (
@@ -98,18 +96,18 @@ const index = () => {
             )}
           </TouchableOpacity>
         </View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {selected === 'Đã nghe' ? (
+            data.map((item, key) => {
+              return <ProfileItem item={item} key={key} />;
+            })
+          ) : selected === 'Yêu thích' ? (
+            <WishlistItem />
+          ) : (
+            <Notifications />
+          )}
+        </ScrollView>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {selected === 'Đã nghe' ? (
-          data.map((item, key) => {
-            return <ProfileItem item={item} key={key} />;
-          })
-        ) : selected === 'Yêu thích' ? (
-          <WishlistItem />
-        ) : (
-          <Notifications />
-        )}
-      </ScrollView>
     </View>
   );
 };
@@ -118,7 +116,7 @@ export default index;
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 18,
+    paddingHorizontal: 0,
   },
   header: {
     marginTop: 20,
@@ -133,20 +131,24 @@ const styles = StyleSheet.create({
     marginRight: (Dimensions.get('window').width - 36) / 2 - 60,
   },
   avatar: {
-    width: 120,
-    height: 120,
+    width: 100,
+    height: 100,
     borderRadius: 60,
     marginLeft: 10,
   },
   nameContain: {
-    flexDirection: 'row',
     alignItems: 'center',
-    width: Dimensions.get('window').width - 36,
-    height: 150,
-    marginTop: 20,
+    flexDirection: 'row',
+    width: Dimensions.get('window').width - 30,
+    backgroundColor: 'white',
+    borderTopRightRadius: 25,
+    borderTopLeftRadius: 25,
+    height: 110,
+    marginTop: 5,
+    marginLeft: 15,
   },
   name: {
-    color: 'white',
+    color: 'black',
     fontSize: 18,
     fontWeight: 'bold',
     marginLeft: 20,
@@ -158,19 +160,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   titleMenu: {
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: 'bold',
     color: 'gray',
   },
   titleMenuSelected: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     color: 'gray',
     borderBottomColor: Colors.secondary,
     borderBottomWidth: 2,
   },
-  allContainer: {
-    backgroundColor: 'grey',
-    width: Dimensions.get('window').width,
+  con: {
+    backgroundColor: Colors.secondary,
+  },
+  allStory: {
+    paddingHorizontal: 18,
+  },
+  setting: {
+    marginLeft: -25,
   },
 });

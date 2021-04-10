@@ -21,8 +21,7 @@ const HomeStoryItem = (props) => {
   console.log(props.item.image);
   console.log('====================================');
   const onImageClicked = () => {
-    // NavigationUtils.push({ screen: 'DetailStory', isTopBarEnable: false });
-    console.log(props.item.id);
+    NavigationUtils.push({ screen: 'DetailStory', isTopBarEnable: false });
   };
   return (
     <TouchableOpacity onPress={onImageClicked}>

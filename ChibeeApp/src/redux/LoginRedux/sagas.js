@@ -1,5 +1,6 @@
 import { put, call, takeLatest, select } from 'redux-saga/effects';
 import LoginActions, { LoginTypes } from './actions';
+import HomeActions, { HomeTypes } from '../HomeRedux/actions';
 import { startup } from '../AppRedux/actions';
 import { userLoginApi } from '../../api/auth';
 
@@ -13,7 +14,8 @@ export function* userLoginSaga({ data }) {
       token: response.data.access_token,
     };
     yield put(LoginActions.userLoginSuccess(newResponse));
-    yield put(startup());
+    yield put(HomeActions.getStoryHome());
+    yield put(HomeActions.getTypes());
   } catch (error) {
     console.log(error);
     yield put(LoginActions.userLoginFailure(error));

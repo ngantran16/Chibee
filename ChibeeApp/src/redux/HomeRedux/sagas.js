@@ -1,11 +1,6 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
-import {
-  HomeTypes,
-  getStoryHomeFailure,
-  getStoryHomeSuccess,
-  getTypesSuccess,
-  getTypesFailure,
-} from './actions';
+import HomeActions, { HomeTypes } from './actions';
+import { NavigationUtils } from '../../navigation';
 import { getStoriesApi } from '../../api/stories';
 import { getTypesApi } from '../../api/stories';
 export function* getStoryHomeSaga() {
@@ -14,10 +9,11 @@ export function* getStoryHomeSaga() {
     const newResponse = {
       data: response.data,
     };
-    yield put(getStoryHomeSuccess(newResponse));
+    yield put(HomeActions.getStoryHomeSuccess(newResponse));
+    yield NavigationUtils.startMainContent();
   } catch (error) {
     console.log(error);
-    yield put(getStoryHomeFailure(error));
+    yield put(HomeActions.getStoryHomeFailure(error));
   }
 }
 
@@ -27,10 +23,10 @@ export function* getTypesSaga() {
     const newResponse = {
       data: response.data,
     };
-    yield put(getTypesSuccess(newResponse));
+    yield put(HomeActions.getTypesSuccess(newResponse));
   } catch (error) {
     console.log(error);
-    yield put(getTypesFailure(error));
+    yield put(HomeActions.getTypesFailure(error));
   }
 }
 

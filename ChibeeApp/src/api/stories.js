@@ -14,6 +14,6 @@ export async function getTypesApi() {
   return http.get('/api/type');
 }
 
-export async function GetStoryDetails(id) {
+export async function getDetailStories(id) {
   return http.get('/api/stories/' + id);
 }

@@ -162,6 +162,26 @@ class NavigationUtils {
       },
     });
   }
+  DetailStory() {
+    Navigation.setRoot({
+      root: {
+        stack: {
+          children: [
+            {
+              component: {
+                name: 'DetailStory',
+                options: {
+                  topBar: {
+                    visible: false,
+                  },
+                },
+              },
+            },
+          ],
+        },
+      },
+    });
+  }
   startMainContent() {
     Navigation.setRoot({
       root: {
@@ -323,13 +343,15 @@ class NavigationUtils {
     leftButtons,
     rightButtons,
     noBorder = true,
-    isBottomTabsEnable = false,
+    isBottomTabsEnable, // false
   }) {
     if (this.allowPush) {
       Navigation.push(this.currentScreenId, {
         component: {
           name: screen,
-          passProps,
+          passProps: {
+            data: passProps,
+          },
           options: {
             popGesture: true,
             bottomTabs: {
@@ -369,6 +391,7 @@ class NavigationUtils {
 
   pop = () => {
     Navigation.pop(this.currentScreenId);
+    // djsahdasdjh
   };
 
   showModal = ({ screen, title, isClose, isSave, rightButtons = [], passProps }) => {

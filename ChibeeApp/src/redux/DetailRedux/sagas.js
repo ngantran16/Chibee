@@ -1,6 +1,6 @@
 import { put, call, takeLatest, select, take } from 'redux-saga/effects';
 import getStoryDetailActions, { getStoryDetailTypes } from './actions';
-import { getStoryDetails } from '../../api/stories';
+import { getStoryDetails, getDetailStories } from '../../api/stories';
 
 //Get book details
 function* waitFor(selector) {
@@ -17,11 +17,9 @@ function* waitFor(selector) {
 }
 export function* getStoryDetailsSaga({ id }) {
   try {
-    const response = yield call(getStoryDetails, id);
-    const newResponse = {
-      data: response.data,
-    };
-    yield put(getStoryDetailActions.getBookDetailsSuccess(newResponse));
+    const response = yield call(getDetailStories, id);
+
+    yield put(getStoryDetailActions.getStoryDetailsSuccess(response.data));
     yield call(waitFor, (state) => state.storyDetails.getStoryDetailsResponse != null);
   } catch (error) {
     console.log('Error: ' + error);

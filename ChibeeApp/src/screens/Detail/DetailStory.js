@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { NavigationUtils } from '../../navigation';
 import Images from '../../themes/Images';
@@ -7,9 +7,10 @@ import Colors from '../../themes/Colors';
 import HomeStoryItem from '../../components/Home/HomeStoryItem';
 import Icon from 'react-native-vector-icons/FontAwesome';
 const screenHeight = Dimensions.get('screen').height;
-const screenWidth = Dimensions.get('screen').width;
-
-const DetailStory = () => {
+const screenWidth  = Dimensions.get('screen').width;
+import DetailActions from '../../redux/DetailRedux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+const DetailStory = (props) => {
   const [checkViewAll, setCheckViewAll] = useState(false);
   const onViewAll = () => {
     setCheckViewAll(!checkViewAll);
@@ -50,10 +51,18 @@ const DetailStory = () => {
       numberBuyer: 123,
     },
   ];
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(DetailActions.getStoryDetails(props.data));
+  }, [dispatch, props.data]);
+  const histories = useSelector((state) => state.storyDetails);
   return (
     <ScrollView style={styles.container}>
       <View>
-        <Image source={Images.story2} style={styles.imgBackground} />
+        <Image
+          source={{ uri: histories.getStoryDetailsResponse[0]?.image }}
+          style={styles.imgBackground}
+        />
         <View style={styles.header}>
           <TouchableOpacity onPress={() => NavigationUtils.pop()}>
             <Icon name="angle-left" size={25} />
@@ -63,9 +72,12 @@ const DetailStory = () => {
 
       <View style={styles.subContainer}>
         <View style={styles.storyTitle}>
-          <Image source={Images.story2} style={styles.imgStory} />
+          <Image
+            source={{ uri: histories.getStoryDetailsResponse[0]?.image }}
+            style={styles.imgStory}
+          />
           <View>
-            <Text style={styles.textTitle}>Chú Ếch Xanh</Text>
+            <Text style={styles.textTitle}>{histories.getStoryDetailsResponse[0]?.story_name}</Text>
             <View style={styles.starContainer}>
               <Image source={Images.star} style={styles.imgStar} />
               <Image source={Images.star} style={styles.imgStar} />
@@ -174,8 +186,8 @@ const styles = StyleSheet.create({
   },
   imgStory: {
     width: screenWidth * 0.48,
-    height: screenHeight * 0.18,
-    borderRadius: 5,
+    height: screenWidth * 0.48,
+    borderRadius: 10,
     marginTop: -50,
   },
   imgStar: {

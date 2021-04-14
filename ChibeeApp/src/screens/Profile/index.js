@@ -177,7 +177,4 @@ const styles = StyleSheet.create({
   allStory: {
     paddingHorizontal: 18,
   },
-  setting: {
-    marginLeft: -25,
-  },
 });

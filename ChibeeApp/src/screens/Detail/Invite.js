@@ -1,8 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { NavigationUtils } from '../../navigation';
 import Images from '../../themes/Images';
-import Colors from '../../themes/Colors';
 import InviteItem from '../../components/Detail/InviteItem';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -54,7 +53,6 @@ const Invite = () => {
         <Text style={styles.titleHeader}>Cùng nghe</Text>
         <Text />
       </View>
-
       {data.map((item, key) => {
         return <InviteItem item={item} key={key} />;
       })}

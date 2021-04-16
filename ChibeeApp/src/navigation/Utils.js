@@ -343,7 +343,7 @@ class NavigationUtils {
     leftButtons,
     rightButtons,
     noBorder = true,
-    isBottomTabsEnable, // false
+    isBottomTabsEnable,
   }) {
     if (this.allowPush) {
       Navigation.push(this.currentScreenId, {
@@ -391,7 +391,7 @@ class NavigationUtils {
 
   pop = () => {
     Navigation.pop(this.currentScreenId);
-    // djsahdasdjh
+    // Navigation.mergeOptions(this.currentScreenId);
   };
 
   showModal = ({ screen, title, isClose, isSave, rightButtons = [], passProps }) => {

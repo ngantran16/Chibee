@@ -12,12 +12,14 @@ export const INITIAL_STATE = Immutable({
 export const getStoryDetails = (state) =>
   state.merge({ loadingGetStoryDetails: true, errorGetStoryDetails: null, type: 'GET DETAIL' });
 
-export const getStoryDetailsSuccess = (state, { response }) =>
-  state.merge({
+export const getStoryDetailsSuccess = (state, { response }) => {
+  let newState = {
     loadingGetStoryDetails: false,
     getStoryDetailsResponse: response,
     type: 'GET DETAIL SUCCESS',
-  });
+  };
+  return state.merge(newState);
+};
 
 export const getStoryDetailsFailure = (state, { error }) =>
   state.merge({

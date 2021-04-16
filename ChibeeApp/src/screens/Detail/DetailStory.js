@@ -7,10 +7,11 @@ import Colors from '../../themes/Colors';
 import HomeStoryItem from '../../components/Home/HomeStoryItem';
 import Icon from 'react-native-vector-icons/FontAwesome';
 const screenHeight = Dimensions.get('screen').height;
-const screenWidth  = Dimensions.get('screen').width;
+const screenWidth = Dimensions.get('screen').width;
 import DetailActions from '../../redux/DetailRedux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 const DetailStory = (props) => {
+  console.log('pros', props.data);
   const [checkViewAll, setCheckViewAll] = useState(false);
   const onViewAll = () => {
     setCheckViewAll(!checkViewAll);
@@ -18,49 +19,21 @@ const DetailStory = (props) => {
   const onListen = () => {
     NavigationUtils.push({ screen: 'Invite', isTopBarEnable: false });
   };
-  const onListenStory = () => {
+  const onPlayStory = () => {
     NavigationUtils.push({ screen: 'ListenStory', isTopBarEnable: false });
   };
-  const data = [
-    {
-      id: 1,
-      image: Images.story1,
-      name: 'Bà cụ non',
-      rating: 3,
-      numberBuyer: 123,
-    },
-    {
-      id: 2,
-      image: Images.story2,
-      name: 'Bà cụ non',
-      rating: 4,
-      numberBuyer: 123,
-    },
-    {
-      id: 3,
-      image: Images.story3,
-      name: 'Bà cụ non',
-      rating: 5,
-      numberBuyer: 123,
-    },
-    {
-      id: 4,
-      image: Images.story4,
-      name: 'Bà cụ non',
-      rating: 3,
-      numberBuyer: 123,
-    },
-  ];
+  const data = [];
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(DetailActions.getStoryDetails(props.data));
   }, [dispatch, props.data]);
   const histories = useSelector((state) => state.storyDetails);
+  console.log('histories', histories);
   return (
     <ScrollView style={styles.container}>
       <View>
         <Image
-          source={{ uri: histories.getStoryDetailsResponse[0]?.image }}
+          source={{ uri: histories.getStoryDetailsResponse?.image }}
           style={styles.imgBackground}
         />
         <View style={styles.header}>
@@ -73,11 +46,11 @@ const DetailStory = (props) => {
       <View style={styles.subContainer}>
         <View style={styles.storyTitle}>
           <Image
-            source={{ uri: histories.getStoryDetailsResponse[0]?.image }}
+            source={{ uri: histories.getStoryDetailsResponse?.image }}
             style={styles.imgStory}
           />
-          <View>
-            <Text style={styles.textTitle}>{histories.getStoryDetailsResponse[0]?.story_name}</Text>
+          <View style={styles.startTitle}>
+            <Text style={styles.textTitle}>{histories.getStoryDetailsResponse?.story_name}</Text>
             <View style={styles.starContainer}>
               <Image source={Images.star} style={styles.imgStar} />
               <Image source={Images.star} style={styles.imgStar} />
@@ -90,11 +63,11 @@ const DetailStory = (props) => {
 
         <View style={styles.btnContainer}>
           <TouchableOpacity style={styles.btnListen} onPress={onListen}>
-            <Image source={Images.headphones} style={styles.imgPlay} />
+            <Icon name="headphones" size={26} style={styles.imgPlay} />
             <Text style={styles.txtBtn}>Cùng nghe</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.btnInvite} onPress={onListenStory}>
-            <Image source={Images.play} style={styles.imgPlay} />
+          <TouchableOpacity style={styles.btnInvite} onPress={onPlayStory}>
+            <Icon name="play" size={26} style={styles.imgPlay} />
             <Text style={styles.txtBtn}>Nghe thử</Text>
           </TouchableOpacity>
         </View>
@@ -109,9 +82,9 @@ const DetailStory = (props) => {
               <Text style={styles.txtTitle}>Đánh giá </Text>
             </View>
             <View>
-              <Text style={styles.txtContent}>Trịnh Công Hoang</Text>
+              <Text style={styles.txtContent}>Trịnh Công Hoan</Text>
               <Text style={styles.txtContent}>32 phút 10 giây</Text>
-              <Text style={styles.txtContent}>Cổ tích</Text>
+              <Text style={styles.txtContent}>Truyện cổ tích</Text>
               <Text style={styles.txtContent}>4.5</Text>
             </View>
           </View>
@@ -121,11 +94,7 @@ const DetailStory = (props) => {
           <Text style={styles.txtTitle}>Lời tựa</Text>
           {checkViewAll ? (
             <View>
-              <Text style={styles.content}>
-                Những ký sự đó đã khắc họa chân dung của người lính mà thời ấy gọi là bộ đội Cụ Hồ
-                trong đó ca ngợi những phẩm chất của họ như lòng yêu nước, thương nhà, tình đồng
-                đội, tinh thần dũng cảm trong chiến đấu
-              </Text>
+              <Text style={styles.content}>{histories.getStoryDetailsResponse?.description}</Text>
               <TouchableOpacity onPress={() => onViewAll()}>
                 <Text style={styles.viewAll}>Ẩn bớt</Text>
               </TouchableOpacity>
@@ -133,9 +102,7 @@ const DetailStory = (props) => {
           ) : (
             <View>
               <Text style={styles.content} numberOfLines={2}>
-                Những ký sự đó đã khắc họa chân dung của người lính mà thời ấy gọi là bộ đội Cụ Hồ
-                trong đó ca ngợi những phẩm chất của họ như lòng yêu nước, thương nhà, tình đồng
-                đội, tinh thần dũng cảm trong chiến đấu
+                {histories.getStoryDetailsResponse?.description}
               </Text>
               <TouchableOpacity onPress={() => onViewAll()}>
                 <Text style={styles.viewAll}>Xem thêm</Text>
@@ -175,32 +142,34 @@ const styles = StyleSheet.create({
   },
   imgBackground: {
     width: Dimensions.get('window').width,
-    height: screenHeight * 0.18,
+    height: screenHeight * 0.19,
     opacity: 0.5,
   },
   storyTitle: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 18,
   },
   imgStory: {
-    width: screenWidth * 0.48,
-    height: screenWidth * 0.48,
+    width: screenWidth * 0.4,
+    height: screenWidth * 0.3,
     borderRadius: 10,
     marginTop: -50,
   },
   imgStar: {
     width: screenWidth * 0.05,
     height: screenWidth * 0.05,
-    tintColor: 'orange',
+    // tintColor: 'orange',
+  },
+  startTitle: {
+    marginLeft: 18,
   },
   starContainer: {
     flexDirection: 'row',
     marginTop: 10,
   },
   textTitle: {
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -229,6 +198,7 @@ const styles = StyleSheet.create({
   imgPlay: {
     tintColor: 'white',
     marginRight: 10,
+    color: 'white',
   },
   txtBtn: {
     color: 'white',

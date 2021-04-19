@@ -46,6 +46,7 @@ const Login = () => {
     console.log('Data login: ' + dataLogin.password);
 
     dispatch(LoginTypes.userLogin({ email: 'ngan.tran@gmail.com', password: 'password' }));
+    // dispatch(LoginTypes.userLogin(dataLogin));
   };
   const onForgotPassword = () => {
     NavigationUtils.push({ screen: 'ForgotPassword1', isTopBarEnable: false });

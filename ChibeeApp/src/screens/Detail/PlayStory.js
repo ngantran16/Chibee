@@ -11,7 +11,7 @@ import {
   TextInput,
 } from 'react-native';
 
-import songs from '../../assets/data.json';
+// import songs from '../../assets/data.json';
 import ControlItem from '../../components/Detail/ControlItem';
 import TrackPlayer, { Capability, Event } from 'react-native-track-player';
 import SliderStory from '../../screens/Detail/SliderStory';
@@ -35,26 +35,26 @@ export default function PlayerStory() {
 
       setSongIndex(val);
     });
-    TrackPlayer.addEventListener(Event.PlaybackTrackChanged, (e) => {
-      console.log(e);
-    });
-    TrackPlayer.setupPlayer().then(async () => {
-      console.log('Player Ready');
-      await TrackPlayer.reset();
-      await TrackPlayer.add(songs);
-      isPlayerReady.current = true;
-      TrackPlayer.play();
-      await TrackPlayer.updateOptions({
-        stopWithApp: false,
-        alwaysPauseOnInterruption: true,
-        capabilities: [
-          Capability.Play,
-          Capability.Pause,
-          Capability.SkipToNext,
-          Capability.SkipToPrevious,
-        ],
-      });
-    });
+    // TrackPlayer.addEventListener(Event.PlaybackTrackChanged, (e) => {
+    //   console.log(e);
+    // });
+    // TrackPlayer.setupPlayer().then(async () => {
+    //   console.log('Player Ready');
+    //   await TrackPlayer.reset();
+    //   // await TrackPlayer.add(songs);
+    //   isPlayerReady.current = true;
+    //   TrackPlayer.play();
+    //   await TrackPlayer.updateOptions({
+    //     stopWithApp: false,
+    //     alwaysPauseOnInterruption: true,
+    //     capabilities: [
+    //       Capability.Play,
+    //       Capability.Pause,
+    //       Capability.SkipToNext,
+    //       Capability.SkipToPrevious,
+    //     ],
+    //   });
+    // });
     return () => {
       scrollX.removeAllListeners();
     };
@@ -62,7 +62,7 @@ export default function PlayerStory() {
 
   useEffect(() => {
     if (isPlayerReady.current) {
-      TrackPlayer.skip(songs[songIndex].id);
+      // TrackPlayer.skip(songs[songIndex].id);
     }
   }, [songIndex]);
 
@@ -101,14 +101,14 @@ export default function PlayerStory() {
   return (
     <SafeAreaView style={styles.container}>
       <SafeAreaView style={{ width: width, height: 600, marginTop: -175 }}>
-        <Text style={styles.title}>{songs[songIndex].title}</Text>
+        {/* <Text style={styles.title}>{songs[songIndex].title}</Text> */}
         <Animated.FlatList
           ref={slider}
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
           scrollEventThrottle={1}
-          data={songs}
+          // data={songs}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {

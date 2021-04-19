@@ -10,6 +10,7 @@ const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 import DetailActions from '../../redux/DetailRedux/actions';
 import { useDispatch, useSelector } from 'react-redux';
+
 const DetailStory = (props) => {
   console.log('pros', props.data);
   const [checkViewAll, setCheckViewAll] = useState(false);
@@ -20,9 +21,12 @@ const DetailStory = (props) => {
     NavigationUtils.push({ screen: 'Invite', isTopBarEnable: false });
   };
   const onPlayStory = () => {
-    NavigationUtils.push({ screen: 'ListenStory', isTopBarEnable: false });
+    NavigationUtils.push({ screen: 'PlayStory', isTopBarEnable: false });
   };
-  const data = [];
+  const listStory = useSelector((state) => state.home.dataStory);
+  const data = listStory?.filter((item) => {
+    return item;
+  });
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(DetailActions.getStoryDetails(props.data));
@@ -82,10 +86,16 @@ const DetailStory = (props) => {
               <Text style={styles.txtTitle}>Đánh giá </Text>
             </View>
             <View>
-              <Text style={styles.txtContent}>Trịnh Công Hoan</Text>
-              <Text style={styles.txtContent}>32 phút 10 giây</Text>
-              <Text style={styles.txtContent}>Truyện cổ tích</Text>
-              <Text style={styles.txtContent}>4.5</Text>
+              <Text style={styles.txtContent}>
+                {histories.getStoryDetailsResponse?.author[0]?.author_name}
+              </Text>
+              <Text style={styles.txtContent}>
+                {histories.getStoryDetailsResponse?.audio[0]?.length}
+              </Text>
+              <Text style={styles.txtContent}>
+                {histories.getStoryDetailsResponse?.type[0]?.name}
+              </Text>
+              <Text style={styles.txtContent}>{histories.getStoryDetailsResponse?.rating}</Text>
             </View>
           </View>
         </View>
@@ -112,7 +122,7 @@ const DetailStory = (props) => {
         </View>
 
         <View style={styles.listViewContainer}>
-          <Text style={styles.txtList}>Có thể bạn muốn nghe</Text>
+          <Text style={styles.txtList}>Bạn muốn nghe</Text>
 
           <ScrollView
             showsHorizontalScrollIndicator={false}
@@ -133,7 +143,8 @@ export default DetailStory;
 
 const styles = StyleSheet.create({
   scvContainer: {
-    marginTop: 8,
+    marginTop: 10,
+    height: 200,
   },
   header: {
     marginTop: -screenHeight * 0.15,
@@ -159,7 +170,7 @@ const styles = StyleSheet.create({
   imgStar: {
     width: screenWidth * 0.05,
     height: screenWidth * 0.05,
-    // tintColor: 'orange',
+    tintColor: 'orange',
   },
   startTitle: {
     marginLeft: 18,

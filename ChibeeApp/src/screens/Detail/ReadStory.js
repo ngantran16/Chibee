@@ -55,7 +55,7 @@ const ReadStory = () => {
         <TouchableOpacity onPress={() => NavigationUtils.pop()}>
           <Icon name="angle-left" size={25} />
         </TouchableOpacity>
-        <Text style={styles.titleHeader}>Chú Ếch Xanh</Text>
+        <Text style={styles.titleHeader}>Cô Bé Choàng Khăn Đỏ</Text>
         <Text />
       </View>
 

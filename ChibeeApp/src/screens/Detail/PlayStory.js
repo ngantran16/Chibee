@@ -16,6 +16,7 @@ import ControlItem from '../../components/Detail/ControlItem';
 import TrackPlayer, { Capability, Event } from 'react-native-track-player';
 import SliderStory from '../../screens/Detail/SliderStory';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { NavigationUtils } from '../../navigation';
 // import Images from '../themes/Images';
 
 const { width, height } = Dimensions.get('screen');
@@ -35,6 +36,9 @@ export default function PlayerStory() {
 
       setSongIndex(val);
     });
+    const onWatchStory = () => {
+      NavigationUtils.push({ screen: 'WatchVideo', isTopBarEnable: false });
+    };
     // TrackPlayer.addEventListener(Event.PlaybackTrackChanged, (e) => {
     //   console.log(e);
     // });

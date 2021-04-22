@@ -18,10 +18,14 @@ const DetailStory = (props) => {
     setCheckViewAll(!checkViewAll);
   };
   const onListen = () => {
-    NavigationUtils.push({ screen: 'Invite', isTopBarEnable: false });
+    NavigationUtils.push({ screen: 'Invite', isTopBarEnable: false, isBottomTabsEnable: false });
   };
-  const onPlayStory = () => {
-    NavigationUtils.push({ screen: 'PlayStory', isTopBarEnable: false });
+  const onListenStory = () => {
+    NavigationUtils.push({
+      screen: 'ListenStory',
+      isTopBarEnable: false,
+      isBottomTabsEnable: false,
+    });
   };
   const listStory = useSelector((state) => state.home.dataStory);
   const data = listStory?.filter((item) => {
@@ -41,7 +45,7 @@ const DetailStory = (props) => {
           style={styles.imgBackground}
         />
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => NavigationUtils.pop()}>
+          <TouchableOpacity onPress={() => NavigationUtils.popShowBottomTab()}>
             <Icon name="angle-left" size={25} />
           </TouchableOpacity>
         </View>
@@ -70,7 +74,7 @@ const DetailStory = (props) => {
             <Icon name="headphones" size={26} style={styles.imgPlay} />
             <Text style={styles.txtBtn}>Cùng nghe</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.btnInvite} onPress={onPlayStory}>
+          <TouchableOpacity style={styles.btnInvite} onPress={onListenStory}>
             <Icon name="play" size={26} style={styles.imgPlay} />
             <Text style={styles.txtBtn}>Nghe thử</Text>
           </TouchableOpacity>

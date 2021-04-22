@@ -186,6 +186,7 @@ class NavigationUtils {
     Navigation.setRoot({
       root: {
         bottomTabs: {
+          id: 'bottomTab',
           children: [
             {
               stack: {
@@ -337,12 +338,7 @@ class NavigationUtils {
     subtitle,
     subtitleColor,
     passProps,
-    topBarComponent,
-    isBack = true,
     isTopBarEnable = true,
-    leftButtons,
-    rightButtons,
-    noBorder = true,
     isBottomTabsEnable,
   }) {
     if (this.allowPush) {
@@ -392,6 +388,14 @@ class NavigationUtils {
   pop = () => {
     Navigation.pop(this.currentScreenId);
     // Navigation.mergeOptions(this.currentScreenId);
+  };
+  popShowBottomTab = () => {
+    Navigation.mergeOptions('bottomTab', {
+      bottomTabs: {
+        visible: true,
+      },
+    });
+    Navigation.pop(this.currentScreenId);
   };
 
   showModal = ({ screen, title, isClose, isSave, rightButtons = [], passProps }) => {

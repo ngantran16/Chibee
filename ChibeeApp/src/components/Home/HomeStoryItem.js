@@ -21,6 +21,7 @@ const HomeStoryItem = (props) => {
       screen: 'DetailStory',
       passProps: props.item.id,
       isTopBarEnable: false,
+      isBottomTabsEnable: false,
     });
   };
   return (

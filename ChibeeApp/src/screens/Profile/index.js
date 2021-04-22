@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
 import Images from '../../themes/Images';
 import { Dimensions } from 'react-native';
@@ -9,7 +9,8 @@ import { NavigationUtils } from '../../navigation';
 import Notifications from '../../screens/Profile/Notifications';
 import WishlistItem from '../../components/Profile/WishlistItem';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import { useDispatch, useSelector } from 'react-redux';
+import ProfileAction from '../../redux/UserRedux/actions';
 const index = () => {
   const data = [
     {
@@ -59,6 +60,14 @@ const index = () => {
     NavigationUtils.push({ screen: 'Setting', isTopBarEnable: false });
   };
   const [selected, setSelected] = useState('Đã nghe');
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(ProfileAction.userProfile({ id: 1 }));
+  }, [dispatch]);
+  const user = useSelector((state) => state.loginResponse);
+  console.log('=================User===================');
+  console.log(user);
+  console.log('====================================');
   return (
     <View style={styles.container}>
       <View style={styles.con}>

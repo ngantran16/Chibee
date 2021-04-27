@@ -69,8 +69,8 @@ class StoriesSeeder extends Seeder
                 Sự tích chim cú mèo đã giải thích lý do tại sao chim cú mèo chỉ đi ăn đêm. Qua truyện cổ tích các em thấy, chim cú mèo vì tham lam, ích kỷ nên đã phải nhận hình phạt thích đáng. Vì xấu hổ, nên từ đó trở đi cú mèo chỉ dám đi kiếm ăn vào ban đêm."
                 , 
                 'status'=>1,
-                'created_at' => '2021-01-1 12:00:00',
-                'updated_at'=> '2021-01-1 12:02:00',  
+                'created_at' => date('2021-02-1 12:00:00'),
+                'updated_at'=> date('2021-01-1 12:02:00'),  
         ]);
         DB::table('stories')->insert([   
                 'id_audio'=>2,  
@@ -87,8 +87,8 @@ class StoriesSeeder extends Seeder
                 Các bạn hãy cùng lắng nghe câu truyện cổ tích ở dưới đây nhé!"
                 , 
                 'status'=>1,
-                'created_at' => '2021-01-1 12:00:00',
-                'updated_at'=> '2021-01-1 12:02:00',
+                'created_at' => date('2021-02-1 12:00:00'),
+                'updated_at'=> date('2021-01-1 12:02:00'),
         ]);
         DB::table('stories')->insert([   
                 'id_audio'=>3,  
@@ -102,15 +102,15 @@ class StoriesSeeder extends Seeder
                 Một hôm, có con kiến càng đến rủ sư tử cùng kết bạn. Sư tử liền gạt đi mà nói:
                 ", 
                 'status'=>1,
-                'created_at' => '2021-01-1 12:00:00',
-                'updated_at'=> '2021-01-1 12:02:00',
+                'created_at' => date('2021-03-1 12:00:00'),
+                'updated_at'=> date('2021-03-1 12:02:00'),
         ]);
         DB::table('stories')->insert([   
                 'id_audio'=>4,  
                 'id_video'=>4, 
                 'id_type'=>1, 
                 'id_author'=>1,
-                'story_name'=>'CHUM VÀNG, CHUM RẮN', 
+                'story_name'=>'Chum vàng, Chum rắn', 
                 'image'=>"https://docs.google.com/uc?export=download&id=1j57lzCWtAP8fdsEjqJ4NUIPxQY2RZWye",
                 'description'=>'Ngày xưa có hai vợ chồng quê nghèo đói nhưng ăn ở hiền lành và tử tế với mọi người. Một hôm, trong lúc cầy cuốc ở ngoài đồng, người chồng gặp được hũ vàng.', 
                 'content'=>" Ngày xưa có hai vợ chồng quê nghèo đói nhưng ăn ở hiền lành và tử tế với mọi người. Một hôm, trong lúc cầy cuốc ở ngoài đồng, người chồng gặp được hũ vàng. Anh lẳng lặng vùi hũ vàng lại rồi về khoe với vợ:
@@ -124,8 +124,8 @@ class StoriesSeeder extends Seeder
                 
                 ", 
                 'status'=>1,
-                'created_at' => '2021-01-1 12:00:00',
-                'updated_at'=> '2021-01-1 12:02:00',
+                'created_at' => date('2021-03-1 12:00:00'),
+                'updated_at'=> date('2021-01-1 12:02:00'),
         ]);
 
         DB::table('stories')->insert([   
@@ -139,8 +139,8 @@ class StoriesSeeder extends Seeder
                 'content'=>"Vào thời ấy, giặc Minh đặt ách đô hộ ở nước Nam. Chúng coi dân ta như cỏ rác, thi hành nhiều điều bạo ngược làm cho thiên hạ căm giận đến tận xương tủy. Bấy giờ, ở vùng Lam-sơn nghĩa quân đã nổi dậy chống lại chúng, nhưng buổi đầu thế lực còn non yếu nên nhiều lần bị giặc đánh cho tan tác, Thấy vậy, đức Long quân quyết định cho họ mượn thanh gươm thần để họ giết giặc.
                 Hồi ấy ở Thanh-hóa có một người làm nghề đánh cá tên là Lê Thận. Một đêm nọ. Thận thả lưới ở mộtbến vắng như thường. Tự nhiên trong một lần kéo lưới, chàng thấy nằng nặng, trongbụng mừng thầm chắc là có cá to. Nhưng khi thò tay bắt cá. Thận mới biết đó là một thanh sắt. Chàng vứt luôn xuống nước rồi lại thả câu ở một chỗ khác.", 
                 'status'=>1,
-                'created_at' => '2021-01-1 12:00:00',
-                'updated_at'=> '2021-01-1 12:02:00',
+                'created_at' => date('2021-04-1 12:00:00'),
+                'updated_at'=> date('2021-01-1 12:02:00'),
             ]);
         DB::table('stories')->insert([   
                 'id_audio'=>6,  
@@ -157,8 +157,8 @@ class StoriesSeeder extends Seeder
                 
                 ", 
                 'status'=>1,
-                'created_at' => '2021-01-1 12:00:00',
-                'updated_at'=> '2021-01-1 12:02:00',
+                'created_at' => date('2021-04-1 12:00:00'),
+                'updated_at'=> date('2021-01-1 12:02:00'),
             ]);
         DB::table('stories')->insert([   
                 'id_audio'=>7,  
@@ -177,8 +177,8 @@ class StoriesSeeder extends Seeder
                Trâu không biết giải thích ra sao, đành trả lời qua quýt:
                – Trí khôn là trí khôn, chứ còn là cái gì nữa? Muốn biết rõ thì hỏi người ấy!", 
                 'status'=>1,
-                'created_at' => '2021-01-1 12:00:00',
-                'updated_at'=> '2021-01-1 12:02:00',
+                'created_at' => date('2021-04-1 12:00:00'),
+                'updated_at'=> date('2021-01-1 12:02:00'),
             ]);
         DB::table('stories')->insert([   
                 'id_audio'=>8,  
@@ -202,8 +202,8 @@ class StoriesSeeder extends Seeder
                 - Ôi, ôi, trái...trái tim tôi đang run sợ...sợ... 
                 ", 
                 'status'=>1,
-                'created_at' => '2021-01-1 12:00:00',
-                'updated_at'=> '2021-01-1 12:02:00',
+                'created_at' => date('2021-04-1 12:00:00'),
+                'updated_at'=> date('2021-01-1 12:02:00'),
             ]);
         DB::table('stories')->insert([   
                 'id_audio'=>9,  
@@ -214,8 +214,8 @@ class StoriesSeeder extends Seeder
                 'image'=>"https://docs.google.com/uc?export=download&id=1zmi2AoaGAeen0-dTTKLJ35Jjc5vGiR3_", 
                 'description'=> 'Buổi sáng, Gà mẹ gọi Gà Tơ: - Con trai bé bỏng ơi, mau dậy đi học nào! Nhưng Gà Tơ cứ nhắm tịt mắt, phụng phịu', 'content'=>"Buổi sáng, Gà mẹ gọi Gà Tơ: - Con trai bé bỏng ơi, mau dậy đi học nào!Nhưng Gà Tơ cứ nhắm tịt mắt, phụng phịu: - Ứ ừ, con buồn ngủ lắm! Cho con ngủ thêm một lúc nữa!Gà Mẹ dỗ dành: - Phải dậy đi học chứ con!Gà Tơ đáp: - Con biết chữ rồi mà: O tròn như quả trứng gà phải không ạ?Nói rồi, Gà Tơ lại nhắm mắt ngủ tiếp. Ngày nào Gà Tơ cũng ngủ dậy muốn như thế, lúc tỉnh dậy thì các bạn Cún Bông, Vịt Xám, Mèo Tam Thể đã đi học cả. Gà mẹ đi kiếm mồi vắng, gà Tơ lại lang thang đi chơi, không đến lớp học", 
                 'status'=>1,
-                'created_at' => '2021-01-1 12:00:00',
-                'updated_at'=> '2021-01-1 12:02:00',
+                'created_at' => date('2021-06-1 12:00:00'),
+                'updated_at'=> date('2021-01-1 12:02:00'),
             ]);
         DB::table('stories')->insert([   
                 'id_audio'=>10,  
@@ -234,8 +234,8 @@ class StoriesSeeder extends Seeder
                  - Này, hai cháu kia, các cháu không nhìn thấy tín hiệu đèn đỏ đang bật hay sao mà dám sang đường, nguy hiểm quá!
                 Chú cảnh sát giao thông chạy đến dắt hai chị em quay lại. Chú chỉ đèn hiệu và ôn tồn giải thích:", 
                 'status'=>1,
-                'created_at' => '2021-01-1 12:00:00',
-                'updated_at'=> '2021-01-1 12:02:00',
+                'created_at' => date('2021-06-1 12:00:00'),
+                'updated_at'=> date('2021-01-1 12:02:00'),
             ]);
         DB::table('stories')->insert([   
                 'id_audio'=>11,  
@@ -247,8 +247,8 @@ class StoriesSeeder extends Seeder
                 'description'=> 'Có anh thợ săn không bao giờ bắn trúng mục tiêu. Một ngày, vì muốn giúp vợ, anh gánh rau ra chợ bán và bị chủ cửa hàng cá lừa đổi hai con ươn lấy mớ rau.', 
                 'content'=>"Có anh thợ săn không bao giờ bắn trúng mục tiêu. Một ngày, vì muốn giúp vợ, anh gánh rau ra chợ bán và bị chủ cửa hàng cá lừa đổi hai con ươn lấy mớ rau. Vợ chồng anh ăn cá và bị ốm 3 ngày 3 đêm. Anh cố lên rừng săn chim trĩ và vô tình ngã vào cò súng, bắn trúng một con chim trĩ. Anh bẫy thêm mấy con quạ và mang ra chợ. Chủ cửa hàng cá thấy anh treo con chim trĩ ở đầu gánh nhưng lại rao là bán quạ. Hắn định lừa anh lần nữa, nhưng lần này anh đã lừa lại hắn, khiến hắn phải đổi hai con cá tráp biển tươi ngon lấy mấy con quạ của anh.", 
                 'status'=>1,
-                'created_at' => '2021-01-1 12:00:00',
-                'updated_at'=> '2021-01-1 12:02:00',
+                'created_at' => date('2021-06-1 12:00:00'),
+                'updated_at'=> date('2021-01-1 12:02:00'),
             ]);
         DB::table('stories')->insert([   
                 'id_audio'=>12,  
@@ -261,8 +261,8 @@ class StoriesSeeder extends Seeder
                 'content'=>" 
                 Cô theo anh về nhà đòi áo và kể rõ thân phận của mình. Anh hứa giúp cô thoát khỏi tay mụ phù thủy. Được sự chỉ đường của cô, anh tìm được mụ phù thủy, mụ bắt anh thực hiện những việc oái ăm: tát cạn ao nước khổng lồ, phá rừng thành củi. Anh đã cùng công chúa bày mưu kết liễu mụ phù thủy và cùng trở về thành. Công chúa dặn anh khi trở về nhất định không được hôn lên má phải của cha mẹ, nếu không ký ức về nàng sẽ tan thành mây khói. Anh đánh trống quên mất lời dặn ấy, khi trở về là lúc anh quên đi công chúa và kết hôn với người vợ được cha mẹ sắp đặt. Lễ tân hôn trải qua 3 đêm, cả 3 đêm công chúa đều hối lộ với cô dâu một chiếc áo đẹp để được đứng trước của phòng chú rể và hát. Cô dâu tinh khôn đã trộn thuốc ngủ vào cốc rượu của chú rể khiến chàng ngủ li bì 2 đêm. Chỉ đến đêm thứ 3, chú rể lén giấu rượu của vợ đưa, lúc nghe tiếng hát của công chúa thì chàng bừng tỉnh. Chàng hối hận về những gì mình đã làm, vội vàng dắt tay nàng công chúa đến phòng cha mẹ và kể rõ ngọn nguồn. Một đám cưới nữa lại được diễn ra dưới sự chúc phúc của tất cả mọi người.", 
                 'status'=>1,
-                'created_at' => '2021-01-1 12:00:00',
-                'updated_at'=> '2021-01-1 12:02:00',
+                'created_at' => date('2021-07-1 12:00:00'),
+                'updated_at'=> date('2021-01-1 12:02:00'),
             ]);
         DB::table('stories')->insert([   
                 'id_audio'=>13,  
@@ -274,8 +274,8 @@ class StoriesSeeder extends Seeder
                 'description'=> 'Anh chàng họ Đào nọ, nhà rất nghèo, nhưng rất ham học. Anh yêu một cô gái xinh đẹp ở trong vùng, nhưng vì bố mẹ cô gái chê chàng nghèo, không có công danh nên nói chàng rất tồi tệ.', 
                 'content'=>"Chàng quyết tâm ra đi, đến kinh thành làm lùng và học tập. Sau vài năm chàng thi đỗ, được làm quan, quyết trở về quê gặp cha mẹ và cô gái để cưới cô làm vợ. Nhưng không ngờ, cô gái đã trở thành vợ người khác. Họ vô tình gặp lại nhau. Chồng cô biết chuyện, ghen tuông, đánh cô một cái, không ngờ cô lăn ra đất. Người chồng tưởng chết bèn đem chôn. Chàng trai biết chuyện, đêm đến mới đến mộ khóc lóc, bỗng thấy tiếng động phát ra từ mộ, chàng đào mộ lên, hoá ra cô gái không chết. Chàng đem cô gái đến kinh thành và họ trở thành vợ chồng. Còn người chồng cũ, trong một lần lên kinh thành, nhận ra vợ mình đã là quan bà, bèn đem kiện, nhưng cô gái đã kể rõ sự tình, quan nghe xong phán người chồng cũ có tội, còn chàng trai được cưới cô gái.", 
                 'status'=>1,
-                'created_at' => '2021-01-1 12:00:00',
-                'updated_at'=> '2021-01-1 12:02:00',
+                'created_at' => date('2021-08-1 12:00:00'),
+                'updated_at'=> date('2021-01-1 12:02:00'),
             ]);
 
         DB::table('stories')->insert([   
@@ -288,8 +288,8 @@ class StoriesSeeder extends Seeder
                 'description'=> 'Phạm Thực chồng của Mạnh Khương bị bắt đi xây vạn lí trường thành. Hơn một năm không có tin tức gì, Mạnh Khương lo lắng, nàng gửi lại con trai cho mẹ chăm sóc lên đường đi tìm chồng.', 
                 'content'=>" Mạnh Khương vượt bao gian khó, vất vả tìm được đến Vạn lí trường thành. Mạnh Khương bị quân lính bắt và đưa tới trước mặt Thái tử. Nàng nói với Thái tử rằng muốn tìm chồng là Phạm Thực.Đau đớn thay, người quản đốc ở đây nói cho nàng biết rằng chồng nàng đã chết. Ông ấy đưa lại miếng ngọc bội của Phạm Thực cho nàng. Mạnh Khương cầm miếng ngọc đau khổ khóc lóc. Nước mắt của nàng rơi vào làm miếng ngọc phát sáng. Mạnh Khương lớn tiếng định tội triều đình đều là những kẻ bất nhân độc ác khiến bao gia đình phải khốn khổ. Thái tử sai lính đưa nàng ra chém đầu. Đúng lúc đó, dông tố bắt đầu nổi lên. Mạnh Khương ngửa mặt lên trời nói muốn được thác cùng chồng. Nói xong nàng ngã xuống đất lịm đi. Cùng lúc đó, một tia sét đánh vào bức trường thành khiến trường thành đổ sụp. Thái tử thấy vậy liền ra lệnh cho dừng việc xây dựng và cho phép nhân công được về quê nhà. Nhân dân trong vùng cảm kích tấm lòng trinh liệt của Mạnh Khương nên đã lập đền thờ và gọi nàng là Trinh Phu nhân.", 
                 'status'=>1,
-                'created_at' => '2021-01-1 12:00:00',
-                'updated_at'=> '2021-01-1 12:02:00',
+                'created_at' => date('2021-10-1 12:00:00'),
+                'updated_at'=> date('2021-01-1 12:02:00'),
             ]);
 
         DB::table('stories')->insert([   
@@ -302,8 +302,8 @@ class StoriesSeeder extends Seeder
                 'description'=> 'Nàng tiên Phylira bị thần Titan Cronus lừa dối, sinh ra một đứa bé nửa người nửa ngựa. Quá tuyệt vọng, Phylira đã cầu xin thần linh nuôi con, còn mình thì tự tử', 
                 'content'=>" Đứa bé được thần Apolo nhận nuôi, đặt tên là Chiron. Cậu bé luôn bị tất cả mọi người coi thường vì ngoại hình trống Nhân mã hạ đẳng.Một lần, cậu bé bắn một mũi tên về phía bọn trẻ nhằm cứu chúng khỏi con rắn. Lũ trẻ sợ hãi cho rằng Chiron định làm hại chúng. Thần Apollo và Artemis trách mắng Chiron, đuổi cậu bé đi.Chiron một mình lớn lên trong hang đá. Một lần, chàng cứu một nữ chiến binh bị ngất trong rừng, bị thần Artemis và Hercules bắt gặp. Hercules bắn một mũi tên độc vào đùi Chiron vì tưởng chàng định làm hại người.", 
                 'status'=>1,
-                'created_at' => '2021-01-1 12:00:00',
-                'updated_at'=> '2021-01-1 12:02:00',
+                'created_at' => date('2021-11-1 12:00:00'),
+                'updated_at'=> date('2021-01-1 12:02:00'),
             ]);
                           
     }

@@ -24,7 +24,7 @@ Route::group(['as' => 'api.'], function () {
     Route::get('/user/{id}', [UsersController::class,'showOne'])->name('show');
     Route::get('/user-pro', [TypeController::class,'profile'])->name('show');
     Route::get('/logout',[UsersController::class,'logout'])->name('logout');
-    Route::put('/user/{id}', [UsersController::class,'update'])->name('update');
+    Route::put('/user', [UsersController::class,'update'])->name('update');
     Route::delete('/user/{id}', [UsersController::class,'delete'])->name('destroy');
     Route::post('/set-password', [UsersController::class,'setPassword'])->name('destroy');
     Route::post('/check_mail', [UsersController::class,'checkEmails'])->name('mail');
@@ -33,6 +33,7 @@ Route::group(['as' => 'api.'], function () {
     Route::post('/checkcode', [UsersController::class,'checkCode'])->name('code');
     Route::post('/getuser', [UsersController::class,'getUserId'])->name('code');
     
+
 });
 
 
@@ -47,13 +48,16 @@ Route::group(['as' => 'api.'], function () {
 });
 //commment
 Route::group(['as' => 'api.'], function () {
+    Route::get('/allcomment', [CommentController::class,'showAllComment'])->name('show');
     Route::get('/user-comment/{id}', [CommentController::class,'showUsersComment'])->name('show');
     Route::get('/story-comment/{id}', [CommentController::class,'showStoryComment'])->name('show');
     Route::post('/comment', [CommentController::class,'add'])->name('addcomment');
+    Route::put('/comment', [CommentController::class,'edit'])->name('edit');
     Route::delete('/comment/{id}', [CommentController::class,'delete'])->name('destroy');
 });
 //wishlist
 Route::group(['as' => 'api.'], function () {
+    Route::get('/wishlist', [WishListController::class,'showAll'])->name('show');
     Route::get('/wishlist/{id}', [WishListController::class,'show'])->name('show');
     Route::post('/wishlist', [WishListController::class,'add'])->name('add');
     Route::delete('/wishlist/{id}', [WishListController::class,'delete'])->name('destroy');
@@ -61,9 +65,19 @@ Route::group(['as' => 'api.'], function () {
 
 //storyType
 Route::group(['as' => 'api.'], function () {
+    Route::get('/edit_type/{id}', [TypeController::class,'showId'])->name('show');
+    Route::get('/edit_type', [TypeController::class,'show'])->name('show');
+    Route::get('/profile', [TypeController::class,'profile'])->name('profile');
+    Route::post('/edit_type', [TypeController::class,'add'])->name('add');
+    Route::put('/edit_type/{id}',[TypeController::class,'edit'])->name('edit');
+    Route::delete('/edit_type/{id}', [TypeController::class,'delete'])->name('destroy');
+
+
+    Route::get('/type/{id}', [TypeController::class,'showId'])->name('show');
     Route::get('/type', [TypeController::class,'show'])->name('show');
     Route::get('/profile', [TypeController::class,'profile'])->name('profile');
     Route::post('/type', [TypeController::class,'add'])->name('add');
+    Route::put('/type/{id}',[TypeController::class,'edit'])->name('edit');
     Route::delete('/type/{id}', [TypeController::class,'delete'])->name('destroy');
 });
 //video
@@ -86,8 +100,8 @@ Route::group(['as' => 'api.'], function () {
 Route::group(['as' => 'api.'], function () {
     Route::get('/author', [AuthorController::class,'showall'])->name('show');
     Route::get('/author/{id}', [AuthorController::class,'show'])->name('show');
-    Route::put('/author', [AuthorController::class,'edit'])->name('update');
-    Route::post('/author', [AudioController::class,'add'])->name('add');
+    Route::put('/author/{id}', [AuthorController::class,'edit'])->name('update');
+    Route::post('/author', [AuthorController::class,'add'])->name('add');
     Route::delete('/author/{id}', [AuthorController::class,'delete'])->name('destroy');
 });
 
@@ -95,12 +109,11 @@ Route::group(['as' => 'api.'], function () {
 // api for admin page
 Route::group(['as' => 'api.'], function () {
     Route::get('/admin/user',  [AdminController::class,'getListUser']);
+    Route::get('/admin/user/{id}',  [AdminController::class,'showOne']);
     Route::get('/admin/story',  [AdminController::class,'getListStories']);
     Route::get('/admin/type-story',  [AdminController::class,'getListTypeStories']);
     Route::get('/admin/comment',  [AdminController::class,'getListComment']);
     Route::get('/admin/author',  [AdminController::class,'getListAuthor']);
-
-
     Route::get('/admin/count-user',  [AdminController::class,'getCountUser']);
     Route::get('/admin/count-story',  [AdminController::class,'getCountStory']);
     Route::get('/admin/count-comment',  [AdminController::class,'getCountComment']);
@@ -108,10 +121,13 @@ Route::group(['as' => 'api.'], function () {
     Route::delete('/admin/deleteUser/{id}',  [AdminController::class,'deleteUser']);
     Route::delete('/admin/deleteComment/{id}',  [AdminController::class,'deleteComment']);
     Route::get('/admin/story-line-chart',  [AdminController::class,'getLineStoriesChart']);
+    Route::get('/admin/user-line-chart',  [AdminController::class,'getLineUserChart']);
     Route::get('/admin/story-pie-chart',  [AdminController::class,'storyPieChart']);
-    Route::post('/admin/add',  [AdminController::class,'addStory']); 
-    Route::get('/admin/update/{id}',  [AdminController::class,'editStory']); 
-    Route::put('/admin/update/{id}',  [AdminController::class,'updateStory']); 
+    Route::post('/admin/add',  [AdminController::class,'addStory']);
+    Route::post('/admin/admin/updateProfile/{id}',  [AdminController::class,'updateProfile']);
+    Route::get('/admin/update/{id}',  [AdminController::class,'editStory']);
+    Route::put('/admin/update/{id}',  [AdminController::class,'updateStory']);
     Route::delete('/admin/deleteStory/{id}',  [AdminController::class,'deleteStory']);
-    Route::post('/admin/login',  [AdminController::class,'login']); 
+    Route::post('/admin/login',  [AdminController::class,'login']);
 });
+

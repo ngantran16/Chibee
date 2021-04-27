@@ -78,7 +78,7 @@
                         <table align='center' border='0' cellpadding='0' cellspacing='0' role='presentation' style='width:100%;'>
                            <tbody>
                               <tr style="">
-                                 <td style='direction:ltr;font-size:0px;padding:20px;text-align:center;vertical-align:top;'>
+                                 <td style='display:flex;direction:ltr;font-size:0px;padding:20px;text-align:center;vertical-align:top;'>
                                     
                                              <div class='dys-column-per-60 outlook-group-fix' style='direction:ltr;display:inline-block;font-size:13px;text-align:left;vertical-align:top;width:100%;'>
                                                 <table border='0' cellpadding='0' cellspacing='0' role='presentation' style='vertical-align:top;' width='100%'>
@@ -132,48 +132,42 @@
                                 
                      <div class='dys-column-per-100 outlook-group-fix' style='direction:ltr;display:inline-block;font-size:13px;text-align:left;vertical-align:top;width:100%;'>
                         <table border='0' cellpadding='0' cellspacing='0' role='presentation' style='vertical-align:top;' width='100%'>
-                           <tr>
-                              <td align='center' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
-                                 <table border='0' cellpadding='0' cellspacing='0' role='presentation' style='border-collapse:collapse;border-spacing:0px;'>
-                                    <tbody>
-                                       <tr style="display: flex; flex-direction:column;">
-                                       <div>
-                                          <td>
-                                             <img alt='Welcome!'  src='https://raw.githubusercontent.com/LeMinhQuoc/My-Image/master/iconapp%20(1).png' style='border:0;display:block;font-size:13px;height:180px;outline:none;text-decoration:none;width:220px;' />
-                                          </td>
-                                        </div>
-                                        
-                                       </tr>
+                           <tr style="display:flex;align-items:center;">
+                                                <td style='margin:auto;font-size:0px;padding:11px 25px;word-break:break-word;display:flex;flex-direction:column;align-items: center;'>
+                                                   <table border='0' cellpadding='0' cellspacing='0' role='presentation' style='border-collapse:collapse;border-spacing:0px;'>
+                                                      <tbody style="display:flex;flex-direction:column;align-items: center;">
+                                                      
+                                                            <div>
+                                                               <img alt='Welcome!'  src='https://raw.githubusercontent.com/LeMinhQuoc/My-Image/master/iconapp%20(1).png' style='border:0;display:block;font-size:13px;height:180px;outline:none;text-decoration:none;width:220px;' />
+                                                            </div>
+                                                            
+                                                            <div>3
+                                                               <img alt='Welcome!'  src='https://raw.githubusercontent.com/LeMinhQuoc/My-Image/master/autodraw%203_27_2021%20(1)%20(2).png' style='border:0;display:block;font-size:13px;height:88px;outline:none;text-decoration:none;width:230px;' />
+                                                            </div>
+                                                        
+                                                      </tbody>
+                                                   </table>
+                                                </td>
 
 
-                                       <tr style="display: flex; flex-direction:column;">
-                                       <div>
-                                          <td>
-                                             <img alt='Welcome!'  src='https://raw.githubusercontent.com/LeMinhQuoc/My-Image/master/logo%20(1).png' style='border:0;display:block;font-size:13px;height:80px;outline:none;text-decoration:none;width:220px;' />
-                                          </td>
-                                        </div>
-                                        
-                                       </tr>
+                                                   <tr>
+                                                      <td style='direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;'>                               
+                                                         <div class='dys-column-per-100 outlook-group-fix' style='direction:ltr;display:inline-block;font-size:13px;text-align:left;vertical-align:top;width:100%;'>
+                                                            <table border='0' cellpadding='0' cellspacing='0' role='presentation' style='vertical-align:top;' width='100%'>
+                                                               <tr>
+                                                                  <td align='center' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+                                                                     <div style='color:black;font-family:Open Sans, Arial, sans-serif;font-size:25px;line-height:22px;text-align:center;'>
+                                                                        You have just register in ChiBee by this email
+                                                                     </div>
+                                                                  </td>
+                                                               </tr>
+                                                            </table>
+                                                         </div>
+                                                      </td>
+                                                   </tr>
 
-                                       
-                                    </tbody>
-                                 </table>
-                              </td>
-                           <tr>
-                              <td style='direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;'>                               
-                                 <div class='dys-column-per-100 outlook-group-fix' style='direction:ltr;display:inline-block;font-size:13px;text-align:left;vertical-align:top;width:100%;'>
-                                    <table border='0' cellpadding='0' cellspacing='0' role='presentation' style='vertical-align:top;' width='100%'>
-                                       <tr>
-                                          <td align='center' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
-                                             <div style='color:#999999;font-family:Open Sans, Arial, sans-serif;font-size:15px;line-height:22px;text-align:center;'>
-                                                You have just register in ChiBee by this email
-                                             </div>
-                                          </td>
-                                       </tr>
-                                    </table>
-                                 </div>
-                              </td>
-                           </tr>
+
+
                                        <div class='dys-column-per-100 outlook-group-fix' style='direction:ltr;display:inline-block;font-size:13px;text-align:left;vertical-align:top;width:100%;'>
                                              <table border='0' cellpadding='0' cellspacing='0' role='presentation' style='vertical-align:top;' width='100%'>
                                                 <tr>
@@ -269,24 +263,14 @@
                                                                <tr>
                                                                   <td align='center' style='font-size:0px;padding:5px;word-break:break-word;'>
                                                                      <div style='color:#848789;font-family:Open Sans, Arial, sans-serif;font-size:12px;line-height:18px;text-align:center;text-transform:uppercase;'>
-                                                                        <a href='# Privacy' style='text-decoration:underline; color:#848789;' target='_blank'>
-                                                                        PRIVACY STATEMENT
-                                                                        </a>
-                                                                        &nbsp;&nbsp;|&nbsp;&nbsp;
-                                                                        <a href='# TOS' style='text-decoration:underline; color:#848789;' target='_blank'>
-                                                                        TERMS OF SERVICE
-                                                                        </a>
-                                                                        &nbsp;&nbsp;|&nbsp;&nbsp;
-                                                                        <a href='# Returns' style='text-decoration:underline; color:#848789;' target='_blank'>
-                                                                        RETURNS
-                                                                        </a>
+                                                                       
                                                                      </div>
                                                                   </td>
                                                                </tr>
                                                                <tr>
                                                                   <td align='center' style='font-size:0px;padding:5px;word-break:break-word;'>
                                                                      <div style='color:#848789;font-family:Open Sans, Arial, sans-serif;font-size:12px;line-height:18px;text-align:center;text-transform:uppercase;'>
-                                                                        ©2‌019 ChiBee-AudioBook. All Rights Reserved.
+                                                                        ©2‌019 ChiBee-AudioBooks. All Rights Reserved.
                                                                      </div>
                                                                   </td>
                                                                </tr>

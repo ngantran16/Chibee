@@ -129,5 +129,6 @@ Route::group(['as' => 'api.'], function () {
     Route::put('/admin/update/{id}',  [AdminController::class,'updateStory']);
     Route::delete('/admin/deleteStory/{id}',  [AdminController::class,'deleteStory']);
     Route::post('/admin/login',  [AdminController::class,'login']);
+    Route::get('/admin/age-line-chart',  [AdminController::class,'getLineAgeChart']);
 });
 

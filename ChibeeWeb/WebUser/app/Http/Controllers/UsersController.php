@@ -41,6 +41,7 @@ class UsersController extends Controller
         $user->phone_number = $this->checkPhone($input['phone_number']);
         $user->email = $this->checkEmail($input['email']);
         $user->avatar = "default.png";
+        $user->age=$input->age;
         if (isset($input['avatar'])) {
             $user->avatar = $input['avatar'];
         } else {
@@ -71,18 +72,19 @@ class UsersController extends Controller
     public function create(Request $input)
     {
         $user = new User();
-        $user->full_name = $input['full_name'];
-        $user->phone_number = $this->checkPhone($input['phone_number']);
-        $user->email = $this->checkEmail($input['email']);
+        $user->age = $input->age;
+        $user->full_name = $input->full_name;
+        $user->phone_number = $this->checkPhone($input->phone_number);
+        $user->email = $this->checkEmail($input->email);
         $user->avatar = "default.png";
-        if (isset($input['avatar'])) {
-            $user->avatar = $input['avatar'];
+        if (isset($input->avatar)) {
+            $user->avatar = $input->avatar;
         } else {
             $user->avatar = "default.png";
         }
-        $user->password = Hash::make($input['password']);
-        if (isset($input['role'])) {
-            $user->role = $input['role'];
+        $user->password = Hash::make($input->password);
+        if (isset($input->role)) {
+            $user->role = $input->role;
         } else {
             $user->role = "user";
         }
@@ -103,7 +105,7 @@ class UsersController extends Controller
 
 
 //verify phone number
-    public function checkPhone(string $phone)
+    public function checkPhone($phone)
     {
         //set check =0 it mean no problem with phone number
         $check = 0;
@@ -132,7 +134,7 @@ class UsersController extends Controller
 
 
 //verify email
-    public function checkEmail(string $email)
+    public function checkEmail($email)
     {
 
         //make sure that email already exist
@@ -224,7 +226,6 @@ class UsersController extends Controller
             $user = User::where("id", $id)->delete();
             return "user deleted!";
         }
-
     }
 
 //show all user
@@ -246,10 +247,6 @@ class UsersController extends Controller
             return $user;
         }
     }
-
-
-
-
 
 //logout
 
@@ -462,7 +459,6 @@ class UsersController extends Controller
 
     public function test(Request $dd)
     {
-
         $code = "000";
         try {
             Mail::send('check-login', ['user' => 'user', 'submitCode' => $code], function ($m) use ($dd) {

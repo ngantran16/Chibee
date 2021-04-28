@@ -76,6 +76,23 @@ class AdminController extends Controller
         return $commentt;
     }
 
+
+
+//update profile
+
+    public function updateProfile($id,Request $input)
+    {
+        $user = User::where("id", $id)->first();
+        
+
+        $user->avatar=$input->avatar;
+        $user->full_name=$input->full_name;
+        $user->phone_number=$input->phone_number;
+        $user->email=$input->email;
+        $user->save();
+     
+    }
+
     // count data to display on dashboard
 
     public function getCountUser()
@@ -110,11 +127,7 @@ class AdminController extends Controller
             ->groupBy('month')->get();
         $storymonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         $armonth=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
-        foreach ($story as $story) {
-
-    
-
-           
+        foreach ($story as $story) {          
              for ($i = 0; $i <= 11; $i++) {
                 if ($armonth[$i] == $story["month"]) {
                     $storymonth[$i] = $story["sum"];
@@ -124,6 +137,25 @@ class AdminController extends Controller
             // }
         }
         return $storymonth;
+    }
+
+    //chart age of user
+    public function getLineAgeChart()
+    {
+        $users = User::all();
+        $list = [0, 0, 0];
+       
+        foreach ($users as $user) {          
+             
+                if ($user->age<5) {
+                    $list[0] = $list[0]+1;
+                }elseif($user->age<=10){
+                    $list[1] = $list[1]+1;
+                }else{
+                    $list[2] = $list[2]+1;
+                }          
+        }
+        return $list;
     }
 
     public function getLineUserChart()

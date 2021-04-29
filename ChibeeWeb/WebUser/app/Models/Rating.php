@@ -13,12 +13,12 @@ class Rating extends Model
     
     
     protected $fillable=[
-        'name','profile'
+        'id_user','id_story','point','detail'
     ];
 
     protected $primarykey ='id';
-    protected $table ='author';
-    public function stories()
+    protected $table ='rating';
+    public function story()
     {
         return $this->belongsTo('App\Models\Stories','id_story','id');
     }

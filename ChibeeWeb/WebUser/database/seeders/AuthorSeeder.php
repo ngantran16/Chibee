@@ -20,5 +20,14 @@ class AuthorSeeder extends Seeder
             'country'=>'Việt Nam'    
         ]);
        
+        DB::table('author')->insert([
+            'author_name'=>'Truyện ngụ ngôn', 
+            'country'=>'Việt Nam'    
+        ]);
+        
+        DB::table('author')->insert([
+            'author_name'=>'Quà tặng cuộc sống', 
+            'country'=>'Việt Nam'    
+        ]);
     }
 }

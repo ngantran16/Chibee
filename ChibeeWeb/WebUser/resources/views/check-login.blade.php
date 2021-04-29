@@ -1,0 +1,303 @@
+<!doctype html>
+<html >
+   <head>
+      <title>
+      </title>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <style type="text/css">
+         #outlook a{padding: 0;}
+         .ReadMsgBody{width: 100%;}
+         .ExternalClass{width: 100%;}
+         .ExternalClass *{line-height: 100%;}
+         body{margin: 0; padding: 0; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;}
+         table, td{border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;}
+         img{border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;}
+         p{display: block; margin: 13px 0;}
+      </style>
+      <!--[if !mso]><!-->
+      <style type="text/css">
+         @media only screen and (max-width:480px) {
+         @-ms-viewport {width: 320px;}
+         @viewport { width: 320px; }
+         }
+      </style>
+      
+      <style type="text/css">
+         @media only screen and (min-width:480px) {
+         .dys-column-per-60 {
+         width: 60% !important;
+         max-width: 60%;
+         }
+         .dys-column-per-40 {
+         width: 40% !important;
+         max-width: 40%;
+         }
+         }
+         @media only screen and (max-width:480px) {
+         table.full-width-mobile { width: 100% !important; }
+         td.full-width-mobile { width: auto !important; }
+         }
+         @media only screen and (min-width:480px) {
+         .dys-column-per-100 {
+         width: 100.000000% !important;
+         max-width: 100.000000%;
+         }
+         }
+         @media only screen and (min-width:480px) {
+         .dys-column-per-100 {
+         width: 100.000000% !important;
+         max-width: 100.000000%;
+         }
+         }
+         @media only screen and (min-width:480px) {
+         .dys-column-per-100 {
+         width: 100.000000% !important;
+         max-width: 100.000000%;
+         }
+         }
+         @media only screen and (min-width:480px) {
+         .dys-column-per-100 {
+         width: 100.000000% !important;
+         max-width: 100.000000%;
+         }
+         }
+      </style>
+   </head>
+   <body >
+      <div>
+             
+         <table align='center' border='0' cellpadding='0' cellspacing='0' role='presentation' style='background:#30373b;background-color:#30373b;width:100%; border-radius: 20px;'>
+            <tbody>
+               <tr>
+
+                  <tr>
+                  <td >
+                     <div style='margin:0px auto;max-width:600px;'>
+                        <table align='center' border='0' cellpadding='0' cellspacing='0' role='presentation' style='width:100%;'>
+                           <tbody>
+                              <tr style="">
+                                 <td style='display:flex;direction:ltr;font-size:0px;padding:20px;text-align:center;vertical-align:top;'>
+                                    
+                                             <div class='dys-column-per-60 outlook-group-fix' style='direction:ltr;display:inline-block;font-size:13px;text-align:left;vertical-align:top;width:100%;'>
+                                                <table border='0' cellpadding='0' cellspacing='0' role='presentation' style='vertical-align:top;' width='100%'>
+                                                   <tr>
+                                                      <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+                                                         <div style='color:#848789;font-family:Open Sans, Arial, sans-serif;font-size:12px;line-height:18px;text-align:left;text-decoration:none;'>
+                                                           Have fun with ChiBee
+                                                         </div>
+                                                      </td>
+                                                   </tr>
+                                                </table>
+                                             </div>
+                                            
+                                             <div class='dys-column-per-40 outlook-group-fix' style='direction:ltr;display:inline-block;font-size:13px;text-align:left;vertical-align:top;width:100%;'>
+                                                <table border='0' cellpadding='0' cellspacing='0' role='presentation' style='vertical-align:top;' width='100%'>
+                                                   <tr>
+                                                      <td align='right' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+                                                         <div style='color:#848789;font-family:Open Sans, Arial, sans-serif;font-size:12px;line-height:18px;text-align:right;text-decoration:none;'>
+                                                            <a href='#' style='text-decoration:underline; color:#848789;' target='_blank'>
+                                                            View Online
+                                                            </a>
+                                                         </div>
+                                                      </td>
+                                                   </tr>
+                                                </table>
+                                             </div> 
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </td>
+               </tr>
+                  <td>
+                     <div style='margin:0px auto;max-width:600px;'>
+                        <table align='center' border='0' cellpadding='0' cellspacing='0' role='presentation' style='width:100%;'>
+                           <tbody>
+                              <tr>
+                                 <td style='direction:ltr;font-size:0px;padding:2px;text-align:center;vertical-align:top;'>
+                                   
+                                             <div class='dys-column-per-100 outlook-group-fix' style='direction:ltr;display:inline-block;font-size:13px;text-align:left;vertical-align:top;width:100%;'>
+
+
+
+
+
+                        <table align='center' border='0' cellpadding='0' cellspacing='0' role='presentation' style='width:100%;'>
+                        <tbody>
+                           <tr>
+                              <td style='background-color: white ; border-radius: 20px; direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;'>
+                                
+                     <div class='dys-column-per-100 outlook-group-fix' style='direction:ltr;display:inline-block;font-size:13px;text-align:left;vertical-align:top;width:100%;'>
+                        <table border='0' cellpadding='0' cellspacing='0' role='presentation' style='vertical-align:top;' width='100%'>
+                           <tr>
+                              <td align='center' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+                                 <table border='0' cellpadding='0' cellspacing='0' role='presentation' style='border-collapse:collapse;border-spacing:0px;'>
+                                    <tbody>
+                                       <tr style="display: flex;flex-direction: column;">
+                                          <td>
+                                             <img alt='Welcome!'  src='https://raw.githubusercontent.com/LeMinhQuoc/My-Image/master/iconapp%20(1).png' style='border:0;display:block;font-size:13px;height:180px;outline:none;text-decoration:none;width:220px;' />
+                                          </td>
+                                          
+                                          <td>
+                                             <img alt='Welcome!'  src='https://raw.githubusercontent.com/LeMinhQuoc/My-Image/master/autodraw%203_27_2021%20(1)%20(2).png' style='border:0;display:block;font-size:13px;height:88px;outline:none;text-decoration:none;width:230px;' />
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                           <tr>
+                              <td style='direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;'>                               
+                                 <div class='dys-column-per-100 outlook-group-fix' style='direction:ltr;display:inline-block;font-size:13px;text-align:left;vertical-align:top;width:100%;'>
+                                    <table border='0' cellpadding='0' cellspacing='0' role='presentation' style='vertical-align:top;' width='100%'>
+                                       <tr>
+                                          <td align='center' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+                                             <div style='color:black;font-family:Open Sans, Arial, sans-serif;font-size:25px;line-height:22px;text-align:center;'>
+                                                You have just register in ChiBee by this email
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </table>
+                                 </div>
+                              </td>
+                           </tr>
+                                       <div class='dys-column-per-100 outlook-group-fix' style='direction:ltr;display:inline-block;font-size:13px;text-align:left;vertical-align:top;width:100%;'>
+                                             <table border='0' cellpadding='0' cellspacing='0' role='presentation' style='vertical-align:top;' width='100%'>
+                                                <tr>
+                                                   <td align='center' style='font-size:0px;padding:10px 25px;word-break:break-word;' vertical-align='middle'>
+                                                      <table border='0' cellpadding='0' cellspacing='0' role='presentation' style='border-collapse:separate;line-height:100%;width:210px;'>
+                                                         <tr>
+                                                            <td align='center' bgcolor='#feae39' role='presentation' style='background-color:#feae39;border:none;border-radius:3px;cursor:auto;height:25px;padding:10px 25px;' valign='middle'>
+                                                               <a href='#' style='background:#feae39;color:#ffffff;font-family:Open Sans, Arial, sans-serif;font-size:17px;font-weight:bold;line-height:120%;margin:0;text-decoration:none;text-transform:uppercase;' target='_blank'>
+                                                               Code
+                                                               </a>
+                                                            </td>
+                                                         </tr>
+                                                      </table>
+                                                   </td>
+                                                </tr>
+                                             </table>
+                                          </div>  
+                                       </tr>
+                                 </table>
+                              </div>    
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+
+
+
+
+
+
+
+
+
+                                                <table border='0' cellpadding='0' cellspacing='0' role='presentation' width='100%'>
+                                                   <tbody>
+                                                      <tr>
+                                                         <td style='padding:10px;vertical-align:top;'>
+                                                            <table border='0' cellpadding='0' cellspacing='0' role='presentation' style='' width='100%'>
+                                                               <!-- Social Icons -->
+                                                               <tr>
+                                                                  <td align='left' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
+                                                                     <table border='0' cellpadding='0' cellspacing='0' style='cellpadding:0;cellspacing:0;color:#000000;font-family:Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;' width='100%'>
+                                                                        <tr>
+                                                                           <td align='center' valign='top'>
+                                                                              <table align='center' border='0' cellpadding='0' cellspacing='0'>
+                                                                                 <tr>
+                                                                                    <td valign='top'>
+                                                                                       <a href='# Facebook' style='text-decoration:none;' target='_blank'>
+                                                                                       <img alt='Facebook' border='0' height='26' src='https://www.sendwithus.com/assets/img/emailmonks/images/fb.png' style='display:block;font-family: Arial, sans-serif; font-size:10px; line-height:18px; color:#feae39; ' width='26' />
+                                                                                       </a>
+                                                                                    </td>
+                                                                                    <td width='7'>
+                                                                                       &nbsp;
+                                                                                    </td>
+                                                                                    <td valign='top'>
+                                                                                       <a href='# Twitter' style='text-decoration:none;' target='_blank'>
+                                                                                       <img alt='Twitter' border='0' height='26' src='https://www.sendwithus.com/assets/img/emailmonks/images/tw.png' style='display:block;font-family: Arial, sans-serif; font-size:10px; line-height:18px; color:#feae39; ' width='26' />
+                                                                                       </a>
+                                                                                    </td>
+                                                                                    <td width='7'>
+                                                                                       &nbsp;
+                                                                                    </td>
+                                                                                    <td valign='top'>
+                                                                                       <a href='# Pinterest' style='text-decoration:none;' target='_blank'>
+                                                                                       <img alt='Pinterest' border='0' height='26' src='https://www.sendwithus.com/assets/img/emailmonks/images/pint.png' style='display:block;font-family: Arial, sans-serif; font-size:10px; line-height:18px; color:#feae39; ' width='26' />
+                                                                                       </a>
+                                                                                    </td>
+                                                                                    <td width='7'>
+                                                                                       &nbsp;
+                                                                                    </td>
+                                                                                    <td valign='top'>
+                                                                                       <a href='# Instagram' style='text-decoration:none;' target='_blank'>
+                                                                                       <img alt='Instagram' border='0' height='26' src='https://www.sendwithus.com/assets/img/emailmonks/images/insta.png' style='display:block;font-family: Arial, sans-serif; font-size:10px; line-height:18px; color:#feae39; ' width='26' />
+                                                                                       </a>
+                                                                                    </td>
+                                                                                    <td width='7'>
+                                                                                       &nbsp;
+                                                                                    </td>
+                                                                                    <td valign='top'>
+                                                                                       <a href='# Youtube' style='text-decoration:none;' target='_blank'>
+                                                                                       <img alt='Youtube' border='0' height='26' src='https://www.sendwithus.com/assets/img/emailmonks/images/yt.png' style='display:block;font-family: Arial, sans-serif; font-size:10px; line-height:18px; color:#feae39; ' width='26' />
+                                                                                       </a>
+                                                                                    </td>
+                                                                                 </tr>
+                                                                              </table>
+                                                                           </td>
+                                                                        </tr>
+                                                                     </table>
+                                                                  </td>
+                                                               </tr>
+                                                               <!-- End Social Icons -->
+                                                               <!-- Footer Content -->
+                                                               <tr>
+                                                                  <td align='center' style='font-size:0px;padding:5px;word-break:break-word;'>
+                                                                     <div style='color:#848789;font-family:Open Sans, Arial, sans-serif;font-size:12px;line-height:18px;text-align:center;text-transform:uppercase;'>
+                                                                       
+                                                                     </div>
+                                                                  </td>
+                                                               </tr>
+                                                               <tr>
+                                                                  <td align='center' style='font-size:0px;padding:5px;word-break:break-word;'>
+                                                                     <div style='color:#848789;font-family:Open Sans, Arial, sans-serif;font-size:12px;line-height:18px;text-align:center;text-transform:uppercase;'>
+                                                                        ©2‌019 ChiBee-AudioBooks. All Rights Reserved.
+                                                                     </div>
+                                                                  </td>
+                                                               </tr>
+                                                               <tr>
+                                                                  <td align='center' style='font-size:0px;padding:5px;word-break:break-word;'>
+                                                                     <div style='color:#848789;font-family:Open Sans, Arial, sans-serif;font-size:12px;line-height:18px;text-align:center;text-transform:uppercase;'>
+                                                                        If you do not wish to receive any further emails from us, please
+                                                                        <span style='text-decoration:underline;'>
+                                                                        <a href='#' style='text-decoration:underline; color:#848789;' target='_blank'>
+                                                                        unsubscribe
+                                                                        </a>
+                                                                        </span>
+                                                                     </div>
+                                                                  </td>
+                                                               </tr>
+                                                               <!-- End Footer Content -->
+                                                            </table>
+                                                         </td>
+                                                      </tr>
+                                                   </tbody>
+                                                </table>
+                                             </div>
+                                         
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </body>
+</html>

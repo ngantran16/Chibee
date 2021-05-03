@@ -16,12 +16,12 @@ class CreateStoryTypeTable extends Migration
         Schema::create('story_type', function (Blueprint $table) {
             $table->integer('id')->autoIncrement();
             $table->string('name');
-            $table->string('description');         
+            $table->longText('description',4000000000);         
             $table->timestamps();
         });
     }
 
-    /**
+    /**\s
      * Reverse the migrations.
      *
      * @return void

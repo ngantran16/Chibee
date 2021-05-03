@@ -16,6 +16,7 @@ class CreateStoriesTable extends Migration
         Schema::create('stories', function (Blueprint $table) {
             $table->integer('id')->autoIncrement();
             $table->integer('id_video');
+            $table->string('image')->default("default.png");
             $table->foreign('id_video')->references('id')->on('video');
             $table->integer('id_audio');
             $table->foreign('id_audio')->references('id')->on('audio');
@@ -24,9 +25,11 @@ class CreateStoriesTable extends Migration
             $table->integer('id_author');
             $table->foreign('id_author')->references('id')->on('author');
             $table->string('story_name');
-            $table->string('description');
-            $table->text('content');
+            $table->longText('description',2000000000);
+            $table->longText('content',6000000000);
             $table->string('status');
+           
+            
             $table->timestamps();
         });
     }

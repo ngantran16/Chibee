@@ -5,23 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Audio extends Model
+class UserTerm extends Model
 {
+    
     use HasFactory;
    
     public $timestamps = true;//set time to false
     
     
     protected $fillable=[
-        'link_audio','length'
+        'full_name',
+        'email',
+        'password',
+        'phone_number'
     ];
 
     protected $primarykey ='id';
-    protected $table ='audio';
-    public function story()
-    {
-        return $this->belongsTo('App\Models\Stories','id_audio','id');
-    }
-
-   
+    protected $table ='user_term';
 }

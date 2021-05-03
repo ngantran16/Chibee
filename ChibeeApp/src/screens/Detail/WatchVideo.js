@@ -124,7 +124,7 @@ const WatchVideo = () => {
           <TouchableOpacity onPress={() => NavigationUtils.pop()}>
             <Icon name="angle-left" size={25} style={styles.iconBack} />
           </TouchableOpacity>
-          <Text style={styles.titleStory}>Chú Cừu Con</Text>
+          <Text style={styles.titleStory}>Cô Bé Choàng Khăn Đỏ</Text>
         </View>
         <View style={styles.itemVideo}>
           <Video
@@ -162,7 +162,7 @@ const WatchVideo = () => {
         </View>
         <View style={styles.iconInteract}>
           <View style={styles.itemCenter}>
-            <Icon name="heart" style={styles.iconHeart} />
+            <Icon name="heart" size={26} style={styles.iconHeart} />
             <Text style={styles.nameIcon}>Yêu thích</Text>
           </View>
 
@@ -170,12 +170,12 @@ const WatchVideo = () => {
             style={[styles.itemCenter, styles.button]}
             onPress={() => setModalVisible(true)}
           >
-            <Icon name="share-square" style={styles.iconShare} />
+            <Icon name="share-square" size={26} style={styles.iconShare} />
             <Text style={styles.nameIcon}>Chia sẻ</Text>
           </Pressable>
 
           <View style={styles.itemCenter}>
-            <Icon name="download" style={styles.iconDown} />
+            <Icon name="download" size={26} style={styles.iconDown} />
             <Text style={styles.nameIcon}>Tải về</Text>
           </View>
         </View>
@@ -311,8 +311,8 @@ const styles = StyleSheet.create({
     marginTop: 11,
   },
   titleStory: {
-    marginLeft: 115,
-    marginTop: 7,
+    marginLeft: 35,
+    marginTop: 18,
     fontSize: 20,
     fontWeight: 'bold',
   },

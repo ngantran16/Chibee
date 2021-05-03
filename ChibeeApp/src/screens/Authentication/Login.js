@@ -44,6 +44,8 @@ const Login = () => {
   };
   const onLogin = () => {
     console.log('Data login: ' + dataLogin.password);
+
+    // dispatch(LoginTypes.userLogin({ email: 'ngan.tran@gmail.com', password: 'password' }));
     dispatch(LoginTypes.userLogin(dataLogin));
   };
   const onForgotPassword = () => {
@@ -87,6 +89,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: 'white',
+    marginTop: 15,
   },
   image: {
     flex: 1,

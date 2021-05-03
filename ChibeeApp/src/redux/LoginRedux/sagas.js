@@ -1,9 +1,8 @@
-import { put, call, takeLatest, select } from 'redux-saga/effects';
+import { put, call, takeLatest } from 'redux-saga/effects';
 import LoginActions, { LoginTypes } from './actions';
-import HomeActions, { HomeTypes } from '../HomeRedux/actions';
 import { startup } from '../AppRedux/actions';
 import { userLoginApi } from '../../api/auth';
-
+import AsyncStorage from '@react-native-community/async-storage';
 export function* userLoginSaga({ data }) {
   try {
     console.log('Data Saga' + data.email);
@@ -13,9 +12,9 @@ export function* userLoginSaga({ data }) {
       data: response.data,
       token: response.data.access_token,
     };
+    yield AsyncStorage.setItem('token', response.data.access_token);
+    yield put(startup());
     yield put(LoginActions.userLoginSuccess(newResponse));
-    yield put(HomeActions.getStoryHome());
-    yield put(HomeActions.getTypes());
   } catch (error) {
     console.log(error);
     yield put(LoginActions.userLoginFailure(error));

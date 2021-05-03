@@ -52,10 +52,14 @@ const ListenStory = () => {
   ];
   const [cmt, setCmt] = useState('   Viết nhận xét ... ');
   const onReadStory = () => {
-    NavigationUtils.push({ screen: 'ReadStory', isTopBarEnable: false });
+    NavigationUtils.push({ screen: 'ReadStory', isTopBarEnable: false, isBottomTabsEnable: false });
   };
   const onWatchStory = () => {
-    NavigationUtils.push({ screen: 'WatchVideo', isTopBarEnable: false });
+    NavigationUtils.push({
+      screen: 'WatchVideo',
+      isTopBarEnable: false,
+      isBottomTabsEnable: false,
+    });
   };
   return (
     <View style={styles.container}>

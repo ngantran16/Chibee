@@ -162,10 +162,31 @@ class NavigationUtils {
       },
     });
   }
+  DetailStory() {
+    Navigation.setRoot({
+      root: {
+        stack: {
+          children: [
+            {
+              component: {
+                name: 'DetailStory',
+                options: {
+                  topBar: {
+                    visible: false,
+                  },
+                },
+              },
+            },
+          ],
+        },
+      },
+    });
+  }
   startMainContent() {
     Navigation.setRoot({
       root: {
         bottomTabs: {
+          id: 'bottomTab',
           children: [
             {
               stack: {
@@ -317,19 +338,16 @@ class NavigationUtils {
     subtitle,
     subtitleColor,
     passProps,
-    topBarComponent,
-    isBack = true,
     isTopBarEnable = true,
-    leftButtons,
-    rightButtons,
-    noBorder = true,
-    isBottomTabsEnable = false,
+    isBottomTabsEnable,
   }) {
     if (this.allowPush) {
       Navigation.push(this.currentScreenId, {
         component: {
           name: screen,
-          passProps,
+          passProps: {
+            data: passProps,
+          },
           options: {
             popGesture: true,
             bottomTabs: {
@@ -368,6 +386,15 @@ class NavigationUtils {
   }
 
   pop = () => {
+    Navigation.pop(this.currentScreenId);
+    // Navigation.mergeOptions(this.currentScreenId);
+  };
+  popShowBottomTab = () => {
+    Navigation.mergeOptions('bottomTab', {
+      bottomTabs: {
+        visible: true,
+      },
+    });
     Navigation.pop(this.currentScreenId);
   };
 

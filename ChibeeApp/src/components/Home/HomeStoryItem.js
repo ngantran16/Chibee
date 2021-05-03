@@ -1,10 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity } from 'react-native';
 import Fonts from '../../themes/Fonts';
 import Colors from '../../themes/Colors';
 import IconStar from './IconStar';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { NavigationUtils } from '../../navigation';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
@@ -17,14 +16,16 @@ const HomeStoryItem = (props) => {
   for (let i = 0; i < 5 - props.item.rating; i++) {
     iconRatings.push(<IconStar color={Colors.greyAuthor} />);
   }
-  console.log('====================================');
-  console.log(props.item.image);
-  console.log('====================================');
   const onImageClicked = () => {
-    NavigationUtils.push({ screen: 'DetailStory', isTopBarEnable: false });
+    NavigationUtils.push({
+      screen: 'DetailStory',
+      passProps: props.item.id,
+      isTopBarEnable: false,
+      isBottomTabsEnable: false,
+    });
   };
   return (
-    <TouchableOpacity onPress={onImageClicked}>
+    <TouchableOpacity onPress={() => onImageClicked()}>
       <View style={[styles.container, props.style && props.style]}>
         <View>
           <Image

@@ -10,7 +10,7 @@ const screenWidth = Dimensions.get('screen').width;
 const IntroItem = (props) => {
   const dispatch = useDispatch();
   const skipIntroAndShowLogin = () => {
-    // dispatch(markSkipIntro(true));
+    dispatch(markSkipIntro(true));
     NavigationUtils.startLoginContent();
   };
   return (

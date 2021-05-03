@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TextInput, ScrollView } from 'react-native';
-import Images from '../../themes/Images';
+import { StyleSheet, View, TextInput, ScrollView } from 'react-native';
 import SearchItem from '../../components/Search/SearchItem';
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -10,7 +9,6 @@ const Search = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        {/* <Image source={Images.search} style={styles.iconSearch} /> */}
         <Icon name="search" size={20} style={styles.iconSearch} />
         <TextInput
           style={styles.inputSearch}
@@ -20,7 +18,7 @@ const Search = () => {
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
-          {listTypes.map((type, key) => {
+          {listTypes?.map((type, key) => {
             return <SearchItem item={type} key={key} />;
           })}
         </View>

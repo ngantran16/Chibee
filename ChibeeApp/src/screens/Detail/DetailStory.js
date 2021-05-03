@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { NavigationUtils } from '../../navigation';
 import Images from '../../themes/Images';
@@ -8,54 +8,44 @@ import HomeStoryItem from '../../components/Home/HomeStoryItem';
 import Icon from 'react-native-vector-icons/FontAwesome';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
+import DetailActions from '../../redux/DetailRedux/actions';
+import { useDispatch, useSelector } from 'react-redux';
 
-const DetailStory = () => {
+const DetailStory = (props) => {
+  console.log('pros', props.data);
   const [checkViewAll, setCheckViewAll] = useState(false);
   const onViewAll = () => {
     setCheckViewAll(!checkViewAll);
   };
   const onListen = () => {
-    NavigationUtils.push({ screen: 'Invite', isTopBarEnable: false });
+    NavigationUtils.push({ screen: 'Invite', isTopBarEnable: false, isBottomTabsEnable: false });
   };
   const onListenStory = () => {
-    NavigationUtils.push({ screen: 'ListenStory', isTopBarEnable: false });
+    NavigationUtils.push({
+      screen: 'ListenStory',
+      isTopBarEnable: false,
+      isBottomTabsEnable: false,
+    });
   };
-  const data = [
-    {
-      id: 1,
-      image: Images.story1,
-      name: 'Bà cụ non',
-      rating: 3,
-      numberBuyer: 123,
-    },
-    {
-      id: 2,
-      image: Images.story2,
-      name: 'Bà cụ non',
-      rating: 4,
-      numberBuyer: 123,
-    },
-    {
-      id: 3,
-      image: Images.story3,
-      name: 'Bà cụ non',
-      rating: 5,
-      numberBuyer: 123,
-    },
-    {
-      id: 4,
-      image: Images.story4,
-      name: 'Bà cụ non',
-      rating: 3,
-      numberBuyer: 123,
-    },
-  ];
+  const listStory = useSelector((state) => state.home.dataStory);
+  const data = listStory?.filter((item) => {
+    return item;
+  });
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(DetailActions.getStoryDetails(props.data));
+  }, [dispatch, props.data]);
+  const histories = useSelector((state) => state.storyDetails);
+  console.log('histories', histories);
   return (
     <ScrollView style={styles.container}>
       <View>
-        <Image source={Images.story2} style={styles.imgBackground} />
+        <Image
+          source={{ uri: histories.getStoryDetailsResponse?.image }}
+          style={styles.imgBackground}
+        />
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => NavigationUtils.pop()}>
+          <TouchableOpacity onPress={() => NavigationUtils.popShowBottomTab()}>
             <Icon name="angle-left" size={25} />
           </TouchableOpacity>
         </View>
@@ -63,9 +53,12 @@ const DetailStory = () => {
 
       <View style={styles.subContainer}>
         <View style={styles.storyTitle}>
-          <Image source={Images.story2} style={styles.imgStory} />
-          <View>
-            <Text style={styles.textTitle}>Chú Ếch Xanh</Text>
+          <Image
+            source={{ uri: histories.getStoryDetailsResponse?.image }}
+            style={styles.imgStory}
+          />
+          <View style={styles.startTitle}>
+            <Text style={styles.textTitle}>{histories.getStoryDetailsResponse?.story_name}</Text>
             <View style={styles.starContainer}>
               <Image source={Images.star} style={styles.imgStar} />
               <Image source={Images.star} style={styles.imgStar} />
@@ -78,11 +71,11 @@ const DetailStory = () => {
 
         <View style={styles.btnContainer}>
           <TouchableOpacity style={styles.btnListen} onPress={onListen}>
-            <Image source={Images.headphones} style={styles.imgPlay} />
+            <Icon name="headphones" size={26} style={styles.imgPlay} />
             <Text style={styles.txtBtn}>Cùng nghe</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.btnInvite} onPress={onListenStory}>
-            <Image source={Images.play} style={styles.imgPlay} />
+            <Icon name="play" size={26} style={styles.imgPlay} />
             <Text style={styles.txtBtn}>Nghe thử</Text>
           </TouchableOpacity>
         </View>
@@ -97,10 +90,16 @@ const DetailStory = () => {
               <Text style={styles.txtTitle}>Đánh giá </Text>
             </View>
             <View>
-              <Text style={styles.txtContent}>Trịnh Công Hoang</Text>
-              <Text style={styles.txtContent}>32 phút 10 giây</Text>
-              <Text style={styles.txtContent}>Cổ tích</Text>
-              <Text style={styles.txtContent}>4.5</Text>
+              <Text style={styles.txtContent}>
+                {histories.getStoryDetailsResponse?.author[0]?.author_name}
+              </Text>
+              <Text style={styles.txtContent}>
+                {histories.getStoryDetailsResponse?.audio[0]?.length}
+              </Text>
+              <Text style={styles.txtContent}>
+                {histories.getStoryDetailsResponse?.type[0]?.name}
+              </Text>
+              <Text style={styles.txtContent}>{histories.getStoryDetailsResponse?.rating}</Text>
             </View>
           </View>
         </View>
@@ -109,11 +108,7 @@ const DetailStory = () => {
           <Text style={styles.txtTitle}>Lời tựa</Text>
           {checkViewAll ? (
             <View>
-              <Text style={styles.content}>
-                Những ký sự đó đã khắc họa chân dung của người lính mà thời ấy gọi là bộ đội Cụ Hồ
-                trong đó ca ngợi những phẩm chất của họ như lòng yêu nước, thương nhà, tình đồng
-                đội, tinh thần dũng cảm trong chiến đấu
-              </Text>
+              <Text style={styles.content}>{histories.getStoryDetailsResponse?.description}</Text>
               <TouchableOpacity onPress={() => onViewAll()}>
                 <Text style={styles.viewAll}>Ẩn bớt</Text>
               </TouchableOpacity>
@@ -121,9 +116,7 @@ const DetailStory = () => {
           ) : (
             <View>
               <Text style={styles.content} numberOfLines={2}>
-                Những ký sự đó đã khắc họa chân dung của người lính mà thời ấy gọi là bộ đội Cụ Hồ
-                trong đó ca ngợi những phẩm chất của họ như lòng yêu nước, thương nhà, tình đồng
-                đội, tinh thần dũng cảm trong chiến đấu
+                {histories.getStoryDetailsResponse?.description}
               </Text>
               <TouchableOpacity onPress={() => onViewAll()}>
                 <Text style={styles.viewAll}>Xem thêm</Text>
@@ -133,7 +126,7 @@ const DetailStory = () => {
         </View>
 
         <View style={styles.listViewContainer}>
-          <Text style={styles.txtList}>Có thể bạn muốn nghe</Text>
+          <Text style={styles.txtList}>Bạn muốn nghe</Text>
 
           <ScrollView
             showsHorizontalScrollIndicator={false}
@@ -154,7 +147,8 @@ export default DetailStory;
 
 const styles = StyleSheet.create({
   scvContainer: {
-    marginTop: 8,
+    marginTop: 10,
+    height: 200,
   },
   header: {
     marginTop: -screenHeight * 0.15,
@@ -163,19 +157,18 @@ const styles = StyleSheet.create({
   },
   imgBackground: {
     width: Dimensions.get('window').width,
-    height: screenHeight * 0.18,
+    height: screenHeight * 0.19,
     opacity: 0.5,
   },
   storyTitle: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 18,
   },
   imgStory: {
-    width: screenWidth * 0.48,
-    height: screenHeight * 0.18,
-    borderRadius: 5,
+    width: screenWidth * 0.4,
+    height: screenWidth * 0.3,
+    borderRadius: 10,
     marginTop: -50,
   },
   imgStar: {
@@ -183,12 +176,15 @@ const styles = StyleSheet.create({
     height: screenWidth * 0.05,
     tintColor: 'orange',
   },
+  startTitle: {
+    marginLeft: 18,
+  },
   starContainer: {
     flexDirection: 'row',
     marginTop: 10,
   },
   textTitle: {
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -217,6 +213,7 @@ const styles = StyleSheet.create({
   imgPlay: {
     tintColor: 'white',
     marginRight: 10,
+    color: 'white',
   },
   txtBtn: {
     color: 'white',

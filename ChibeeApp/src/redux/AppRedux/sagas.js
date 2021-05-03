@@ -2,9 +2,8 @@ import { takeLatest, select, put, call, take } from 'redux-saga/effects';
 import { AppTypes } from './actions';
 import http from '../../api/http';
 import { NavigationUtils } from '../../navigation';
-import { getStoryHome, getTypes } from '../HomeRedux/actions';
-import { getTypesApi } from '../../api/stories';
-
+import AsyncStorage from '@react-native-community/async-storage';
+import HomeActions from '../../redux/HomeRedux/actions';
 function* waitFor(selector) {
   if (yield select(selector)) {
     return;
@@ -22,20 +21,26 @@ export function* startupSaga() {
   try {
     // call api
     // set data to reducer
-    const { token } = yield select((state) => state.login);
-    const { isSkip } = yield select((state) => state.app);
+    const token = yield AsyncStorage.getItem('token');
+    const isSkip = yield select((state) => state.app.isSkip);
     http.setAuthorizationHeader(token);
     //
     if (!isSkip) {
       NavigationUtils.startIntroContent();
     } else {
+      console.log('111', token);
       if (token) {
-        yield put(getStoryHome());
-        yield put(getTypes());
-        yield call(
-          waitFor,
-          (state) => state.home.dataStory != null && state.home.dataTypes != null,
-        );
+        console.log('====================================');
+        console.log('run');
+        console.log('====================================');
+        //yield put(getStoryHome());
+        //yield put(getTypes());
+        // yield call(
+        //   waitFor,
+        //   (state) => state.home.dataStory != null && state.home.dataTypes != null,
+        // );
+        yield put(HomeActions.getStoryHome());
+        yield put(HomeActions.getTypes());
         NavigationUtils.startMainContent();
       } else {
         NavigationUtils.startLoginContent();

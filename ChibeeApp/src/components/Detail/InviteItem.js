@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import Images from '../../themes/Images';
 import Colors from '../../themes/Colors';
 
 const InviteItem = (props) => {

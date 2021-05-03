@@ -1,14 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
-import Images from '../../themes/Images';
 import HomeStoryItem from '../../components/Home/HomeStoryItem';
 import { useSelector } from 'react-redux';
 const screenWidth = Dimensions.get('screen').width;
 
 const SearchItem = (props) => {
   const listStory = useSelector((state) => state.home.dataStory);
-  const storyByType = listStory.filter((item) => {
+  const storyByType = listStory?.filter((item) => {
     return item.id_type === props.item.id;
   });
   return (

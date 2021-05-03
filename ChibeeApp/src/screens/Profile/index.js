@@ -11,7 +11,8 @@ import WishlistItem from '../../components/Profile/WishlistItem';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileAction from '../../redux/UserRedux/actions';
-const index = () => {
+const index = (props) => {
+  console.log('pros', props.data);
   const data = [
     {
       id: 1,
@@ -60,14 +61,16 @@ const index = () => {
     NavigationUtils.push({ screen: 'Setting', isTopBarEnable: false });
   };
   const [selected, setSelected] = useState('Đã nghe');
+
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(ProfileAction.userProfile({ id: 1 }));
-  }, [dispatch]);
-  const user = useSelector((state) => state.loginResponse);
+    dispatch(ProfileAction.userProfile(props.data));
+  }, [dispatch,props.data]);
+  const user = useSelector((state) => state.userDetail);
   console.log('=================User===================');
   console.log(user);
-  console.log('====================================');
+  console.log('================hh====================');
+
   return (
     <View style={styles.container}>
       <View style={styles.con}>

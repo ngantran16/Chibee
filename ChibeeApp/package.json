@@ -28,6 +28,7 @@
     "react-native-navigation": "^7.11.2",
     "react-native-orientation-locker": "^1.2.0",
     "react-native-reanimated": "^2.0.0",
+    "react-native-search-filter": "^0.1.5",
     "react-native-slider": "^0.11.0",
     "react-native-super-grid": "^4.1.1",
     "react-native-swift": "^1.2.3",

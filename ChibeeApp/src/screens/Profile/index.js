@@ -11,7 +11,8 @@ import WishlistItem from '../../components/Profile/WishlistItem';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileAction from '../../redux/UserRedux/actions';
-const index = () => {
+const index = (props) => {
+  console.log('pros', props.data);
   const data = [
     {
       id: 1,

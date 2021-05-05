@@ -4,7 +4,8 @@ import { getMeApi } from '../../api/auth';
 export function* getMe({ id }) {
   try {
     const response = yield call(getMeApi, id);
-    yield put(ProfileAction.userProfileSuccess(response.data));
+    const data = response?.data?.[0];
+    yield put(ProfileAction.userProfileSuccess(data));
   } catch (error) {
     console.log('====================================');
     console.log(error);

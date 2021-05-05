@@ -60,14 +60,14 @@ const index = () => {
     NavigationUtils.push({ screen: 'Setting', isTopBarEnable: false });
   };
   const [selected, setSelected] = useState('Đã nghe');
+  const id = useSelector((state) => state.login.loginResponse.data.id);
+
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(ProfileAction.userProfile({ id: 1 }));
-  }, [dispatch]);
-  const user = useSelector((state) => state.loginResponse);
-  console.log('=================User===================');
-  console.log(user);
-  console.log('====================================');
+    dispatch(ProfileAction.userProfile({ id_user: id }));
+  }, [dispatch, id]);
+
+  const user = useSelector((state) => state.user.user);
   return (
     <View style={styles.container}>
       <View style={styles.con}>
@@ -77,8 +77,8 @@ const index = () => {
           </TouchableOpacity>
         </View>
         <View style={styles.nameContain}>
-          <Image source={Images.avatar} style={styles.avatar} />
-          <Text style={styles.name}>Nguyen Minh Anh</Text>
+          <Image source={{ uri: user?.avatar }} style={styles.avatar} />
+          <Text style={styles.name}>{user?.full_name}</Text>
         </View>
       </View>
       <View style={styles.allStory}>

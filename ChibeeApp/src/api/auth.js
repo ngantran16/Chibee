@@ -6,5 +6,5 @@ export async function userSignUpApi(data) {
   return http.post('/api/signUp', data);
 }
 export async function getMeApi(id) {
-  return http.get('/api/user/' + id);
+  return http.get('/api/user/' + id.id_user);
 }

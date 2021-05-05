@@ -44,7 +44,6 @@ const Login = () => {
   };
   const onLogin = () => {
     console.log('Data login: ' + dataLogin.password);
-
     // dispatch(LoginTypes.userLogin({ email: 'ngan.tran@gmail.com', password: 'password' }));
     dispatch(LoginTypes.userLogin(dataLogin));
   };

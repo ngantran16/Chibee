@@ -4,21 +4,21 @@ import { ProfileTypes } from './actions';
 
 export const INITIAL_STATE = Immutable({
   loading: false,
-  getUserInfor: null,
+  user: null,
   type: '',
 });
 //LOGIN
 export const userProfile = (state) =>
   state.merge({
     loading: true,
-    getUserInforRepsponse: null,
+    user: null,
     type: 'Get me',
   });
 
-export const userProfileSuccess = (state, { response }) =>{
-let newState = {
+export const userProfileSuccess = (state, { response }) => {
+  let newState = {
     loading: false,
-    getUserInforRepsponse: response,
+    user: response,
     type: 'get me success',
   };
   return state.merge(newState);

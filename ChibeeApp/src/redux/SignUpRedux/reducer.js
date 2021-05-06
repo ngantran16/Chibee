@@ -18,7 +18,7 @@ export const userSignUp = (state, { response }) =>
 export const userSignUpSuccess = (state, { response }) =>
   state.merge({
     loadingSignUp: false,
-    signUpResponse: response.data,
+    signUpResponse: response,
     errorSignUp: null,
   });
 export const userSignUpFailure = (state, { error }) =>

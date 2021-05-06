@@ -32,6 +32,7 @@ const SignUp = (props) => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [age, setAge] = useState('');
   const [password, setPass] = useState('');
   const [confirm, setConfirm] = useState('');
   const onLogin = () => {
@@ -48,6 +49,7 @@ const SignUp = (props) => {
             email: email,
             password: password,
             phone_number: phone,
+            age: age,
           };
           dispatch(SignUpTypes.userSignUp(data));
         } else {
@@ -71,6 +73,7 @@ const SignUp = (props) => {
       <TextInputItem title="Họ và tên" ChangeText={(val) => setFullName(val)} />
       <TextInputItem title="Email" ChangeText={(val) => setEmail(val)} />
       <TextInputItem title="Số điện thoại" ChangeText={(val) => setPhone(val)} />
+      <TextInputItem title="Tuổi" ChangeText={(val) => setAge(val)} />
       <PasswordItem
         title="Mật khẩu"
         imageClose={Images.visibility2}

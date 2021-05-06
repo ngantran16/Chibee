@@ -1,8 +1,8 @@
 import { put, call, takeLatest } from 'redux-saga/effects';
 import SignUpActions, { SignUpTypes } from './actions';
-import { startup } from '../AppRedux/actions';
+// import { startup } from '../AppRedux/actions';
 import { userSignUpApi } from '../../api/auth';
-
+import { NavigationUtils } from '../../navigation';
 export function* userSignUpSaga({ data }) {
   try {
     const response = yield call(userSignUpApi, data);
@@ -10,8 +10,9 @@ export function* userSignUpSaga({ data }) {
     const newResponse = {
       data: response.data,
     };
+    console.log(newResponse);
     yield put(SignUpActions.userSignUpSuccess(newResponse));
-    yield put(startup());
+    NavigationUtils.startMainContent();
   } catch (error) {
     console.log(error);
     yield put(SignUpActions.userSignUpFailure(error.data.message));

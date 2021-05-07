@@ -1,69 +1,26 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import Images from '../../themes/Images';
-import ProfileItem from '../../components/Profile/ProfileItem';
+import Moment from 'moment';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView} from 'react-native';
 
-const VideoItem = () => {
-  const data = [
-    {
-      id: 1,
-      name: 'Bài học quý báu',
-      image: Images.discover1,
-      date: '20/10/2021',
-    },
-    {
-      id: 2,
-      name: 'Bài học quý báu',
-      image: Images.discover2,
-      date: '20/10/2021',
-    },
-    {
-      id: 3,
-      name: 'Bài học quý báu',
-      image: Images.discover3,
-      date: '20/10/2021',
-    },
-    {
-      id: 4,
-      name: 'Bài học quý báu',
-      image: Images.discover4,
-      date: '20/10/2021',
-    },
-    {
-      id: 2,
-      name: 'Bài học quý báu',
-      image: Images.story2,
-      date: '20/10/2021',
-    },
-    {
-      id: 3,
-      name: 'Bài học quý báu',
-      image: Images.story3,
-      date: '20/10/2021',
-    },
-    {
-      id: 4,
-      name: 'Bài học quý báu',
-      image: Images.story4,
-      date: '20/10/2021',
-    },
-  ];
+const VideoItem = (props) => {
+  const data = props.data;
+  Moment.locale('en');
   return (
-    <View>
-      {data.map((item, key) => {
+    <ScrollView>
+      {(data && data.length > 0) ? (data.map((item, key) => {
         return (
-          <View key={key}>
-            <TouchableOpacity style={styles.storyContain}>
-              <Image source={item.image} style={styles.imgStory} />
+            <TouchableOpacity style={styles.storyContain} key={key}>
+              <Image source={{ uri: item.image }} style={styles.imgStory} />
               <View style={styles.content}>
-                <Text style={styles.nameStory}>{item.name}</Text>
-                <Text style={styles.dateStory}>{item.date}</Text>
+                <Text style={styles.nameStory}>{item.story_name}</Text>
+                <Text style={styles.dateStory}>{Moment(item.updated_at).format('DD/MM/YYYY')}</Text>
               </View>
             </TouchableOpacity>
-          </View>
-        );
-      })}
-    </View>
+          )
+        })
+      ) : (<Text style={styles.message}>You haven't added any story into your wishlist yet!</Text>)
+      }
+    </ScrollView>
   );
 };
 

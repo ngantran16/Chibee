@@ -1,20 +1,27 @@
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
-import Images from '../../themes/Images';
+import { StyleSheet, Text, ScrollView} from 'react-native';
 import ListItem from '../../components/Wishlist/ListItem';
 
 const WishlistItem = (props) => {
   const data = props.data;
-  console.log('WishlistItem ');
   return (
-    <View>
-      {data && data.map((item, key) => {
-        return <ListItem item={item} key={key} />;
-      })}
-    </View>
+    <ScrollView>
+      {
+        (data && data.length > 0) ? (
+          data.map((item, key) => {
+            return <ListItem item={item} key={key} />
+          })
+        ) : (<Text style={styles.message}>You haven't added any story into your wishlist yet!</Text>)
+      }
+    </ScrollView>
   );
 };
 
 export default WishlistItem;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  message: {
+    marginTop: 50,
+    fontSize: 20,
+  }
+});

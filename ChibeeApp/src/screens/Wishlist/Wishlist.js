@@ -24,7 +24,6 @@ const WishList = () => {
     dispatch(WishlistActions.getWishlist(token));
   }, [dispatch, token])
   const data = useSelector((state) => state.wishlist.dataWishlist);
-  console.log(data)
   return (
     <View style={styles.container}>
       <View style={styles.header}>

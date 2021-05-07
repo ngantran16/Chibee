@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import Images from '../../themes/Images';
 import { Dimensions } from 'react-native';
 import Colors from '../../themes/Colors';
@@ -11,63 +11,25 @@ import WishlistItem from '../../components/Profile/WishlistItem';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileAction from '../../redux/UserRedux/actions';
+import WishlistActions from '../../redux/WishlistRedux/actions';
+
 const index = () => {
-  const data = [
-    {
-      id: 1,
-      name: 'Bài học quý báu',
-      image: Images.story1,
-      date: '20/10/2021',
-    },
-    {
-      id: 2,
-      name: 'Bài học quý báu',
-      image: Images.story2,
-      date: '20/10/2021',
-    },
-    {
-      id: 3,
-      name: 'Bài học quý báu',
-      image: Images.story3,
-      date: '20/10/2021',
-    },
-    {
-      id: 4,
-      name: 'Bài học quý báu',
-      image: Images.story4,
-      date: '20/10/2021',
-    },
-    {
-      id: 2,
-      name: 'Bài học quý báu',
-      image: Images.story2,
-      date: '20/10/2021',
-    },
-    {
-      id: 3,
-      name: 'Bài học quý báu',
-      image: Images.story3,
-      date: '20/10/2021',
-    },
-    {
-      id: 4,
-      name: 'Bài học quý báu',
-      image: Images.story4,
-      date: '20/10/2021',
-    },
-  ];
+
   const onSettingIcon = () => {
     NavigationUtils.push({ screen: 'Setting', isTopBarEnable: false });
   };
   const [selected, setSelected] = useState('Đã nghe');
   const dispatch = useDispatch();
+
+  const token = useSelector((state) => state.login.token);
+
   useEffect(() => {
+    dispatch(WishlistActions.getWishlist(token));
     dispatch(ProfileAction.userProfile({ id: 1 }));
-  }, [dispatch]);
+  }, [dispatch, token]);
   const user = useSelector((state) => state.loginResponse);
-  console.log('=================User===================');
-  console.log(user);
-  console.log('====================================');
+  const data = useSelector((state) => state.wishlist.dataWishlist);
+  const isLoading = useSelector((state) => state.wishlist.loadingWishlist);
   return (
     <View style={styles.container}>
       <View style={styles.con}>
@@ -105,17 +67,23 @@ const index = () => {
             )}
           </TouchableOpacity>
         </View>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {selected === 'Đã nghe' ? (
-            data.map((item, key) => {
-              return <ProfileItem item={item} key={key} />;
-            })
-          ) : selected === 'Yêu thích' ? (
-            <WishlistItem />
-          ) : (
-            <Notifications />
-          )}
-        </ScrollView>
+        {isLoading && <ActivityIndicator size="large" color="#FF6600" />}
+        {
+          data && data.length > 0 ? (
+            <ScrollView showsVerticalScrollIndicator={false}>
+              {selected === 'Đã nghe' ? (
+                data.map((item, key) => {
+                  return <ProfileItem item={item} key={key} />;
+                })
+              ) : selected === 'Yêu thích' ? (
+                <WishlistItem data = {data} />
+              ) : (
+                <Notifications />
+              )}
+            </ScrollView>
+          ) : isLoading ? (<Text style={styles.message}>Loading</Text>) : <Text style={styles.message}>There doesn't have any story in your wishlist</Text>
+        }
+        
       </View>
     </View>
   );
@@ -186,4 +154,9 @@ const styles = StyleSheet.create({
   allStory: {
     paddingHorizontal: 18,
   },
+  message: {
+    textAlign: 'center',
+    marginTop: 10,
+    fontSize: 16,
+  }
 });

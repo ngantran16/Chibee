@@ -1,16 +1,18 @@
 import React from 'react';
+import Moment from 'moment';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 
 const ProfileItem = (props) => {
+  Moment.locale('en');
   return (
     <View>
       <TouchableOpacity style={styles.storyContain}>
-        <Image source={props.item.image} style={styles.imgStory} />
+        <Image source={{ uri: props.item.image }} style={styles.imgStory} />
         <View style={styles.content}>
-          <Text style={styles.nameStory}>{props.item.name}</Text>
-          <Text style={styles.dateStory}>{props.item.date}</Text>
+          <Text style={styles.nameStory}>{props.item.story_name}</Text>
+          <Text style={styles.dateStory}>{Moment(props.item.updated_at).format('DD/MM/YYYY')}</Text>
         </View>
       </TouchableOpacity>
     </View>

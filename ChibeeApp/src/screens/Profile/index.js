@@ -61,19 +61,12 @@ const index = () => {
   };
   const [selected, setSelected] = useState('Đã nghe');
   const id = useSelector((state) => state.login.loginResponse.data.id);
-  console.log('================IDDD====================');
-  console.log(id);
-  console.log('====================================');
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(ProfileAction.userProfile({ id_user: id }));
   }, [dispatch, id]);
 
   const user = useSelector((state) => state.userDetail.user);
-  console.log('================Users====================');
-  console.log(user);
-  console.log('====================================');
   return (
     <View style={styles.container}>
       <View style={styles.con}>

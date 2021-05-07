@@ -20,12 +20,16 @@ export function* userLoginSaga({ data }) {
     yield put(LoginActions.userLoginFailure(error));
   }
 }
-export function* userLogoutSaga() {
+export function* userLogout() {
+  console.log('run');
+  yield AsyncStorage.clear();
+  yield AsyncStorage.setItem('skip', JSON.stringify(true));
   yield put(startup());
 }
+
 const loginSagas = () => [
   takeLatest(LoginTypes.USER_LOGIN, userLoginSaga),
-  takeLatest(LoginTypes.USER_LOGOUT, userLogoutSaga),
+  takeLatest(LoginTypes.USER_LOGOUT, userLogout),
 ];
 
 export default loginSagas();

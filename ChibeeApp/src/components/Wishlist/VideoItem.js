@@ -6,7 +6,7 @@ const VideoItem = (props) => {
   const data = props.data;
   Moment.locale('en');
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       {(data && data.length > 0) ? (data.map((item, key) => {
         return (
             <TouchableOpacity style={styles.storyContain} key={key}>

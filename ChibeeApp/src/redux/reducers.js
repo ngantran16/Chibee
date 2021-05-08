@@ -6,6 +6,8 @@ import signUp from './SignUpRedux/reducer';
 import storyDetails from './DetailRedux/reducer';
 import user from './UserRedux/reducer';
 import wishlist from './WishlistRedux/reducer';
+import comment from './CommentRedux/reducer';
+
 const rootReducer = combineReducers({
   app,
   login,
@@ -14,5 +16,6 @@ const rootReducer = combineReducers({
   storyDetails,
   user,
   wishlist,
+  comment,
 });
 export default rootReducer;

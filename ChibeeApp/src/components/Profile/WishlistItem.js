@@ -1,11 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, ScrollView} from 'react-native';
+import { StyleSheet, Text,View} from 'react-native';
 import ListItem from '../../components/Wishlist/ListItem';
 
 const WishlistItem = (props) => {
   const data = props.data;
+  console.log('ỨIHLIfhfjh')
+  console.log(data)
   return (
-    <ScrollView>
+    <View>
       {
         (data && data.length > 0) ? (
           data.map((item, key) => {
@@ -13,7 +15,7 @@ const WishlistItem = (props) => {
           })
         ) : (<Text style={styles.message}>You haven't added any story into your wishlist yet!</Text>)
       }
-    </ScrollView>
+    </View>
   );
 };
 

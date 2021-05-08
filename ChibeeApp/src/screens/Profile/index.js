@@ -68,9 +68,10 @@ const index = () => {
           </TouchableOpacity>
         </View>
         {isLoading && <ActivityIndicator size="large" color="#FF6600" />}
-        {
+      </View>
+      {
           data && data.length > 0 ? (
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView showsVerticalScrollIndicator={false} style={styles.storyContain}>
               {selected === 'Đã nghe' ? (
                 data.map((item, key) => {
                   return <ProfileItem item={item} key={key} />;
@@ -83,8 +84,6 @@ const index = () => {
             </ScrollView>
           ) : isLoading ? (<Text style={styles.message}>Loading</Text>) : <Text style={styles.message}>There doesn't have any story in your wishlist</Text>
         }
-        
-      </View>
     </View>
   );
 };
@@ -158,5 +157,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 10,
     fontSize: 16,
+  },
+  storyContain: {
+    paddingHorizontal: 18,
   }
 });

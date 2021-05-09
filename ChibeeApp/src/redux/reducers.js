@@ -4,13 +4,18 @@ import login from './LoginRedux/reducer';
 import home from './HomeRedux/reducer';
 import signUp from './SignUpRedux/reducer';
 import storyDetails from './DetailRedux/reducer';
-import userDetail from './UserRedux/reducer';
+import user from './UserRedux/reducer';
+import wishlist from './WishlistRedux/reducer';
+import comment from './CommentRedux/reducer';
+
 const rootReducer = combineReducers({
   app,
   login,
   home,
   signUp,
   storyDetails,
-  userDetail,
+  user,
+  wishlist,
+  comment,
 });
 export default rootReducer;

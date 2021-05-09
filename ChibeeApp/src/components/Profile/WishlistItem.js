@@ -1,62 +1,29 @@
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
-import Images from '../../themes/Images';
-import ProfileItem from '../../components/Profile/ProfileItem';
+import { StyleSheet, Text,View} from 'react-native';
+import ListItem from '../../components/Wishlist/ListItem';
 
-const WishlistItem = () => {
-  const data = [
-    {
-      id: 1,
-      name: 'Bài học quý báu',
-      image: Images.discover1,
-      date: '20/10/2021',
-    },
-    {
-      id: 2,
-      name: 'Bài học quý báu',
-      image: Images.discover2,
-      date: '20/10/2021',
-    },
-    {
-      id: 3,
-      name: 'Bài học quý báu',
-      image: Images.discover3,
-      date: '20/10/2021',
-    },
-    {
-      id: 4,
-      name: 'Bài học quý báu',
-      image: Images.discover4,
-      date: '20/10/2021',
-    },
-    {
-      id: 2,
-      name: 'Bài học quý báu',
-      image: Images.story2,
-      date: '20/10/2021',
-    },
-    {
-      id: 3,
-      name: 'Bài học quý báu',
-      image: Images.story3,
-      date: '20/10/2021',
-    },
-    {
-      id: 4,
-      name: 'Bài học quý báu',
-      image: Images.story4,
-      date: '20/10/2021',
-    },
-  ];
+const WishlistItem = (props) => {
+  const data = props.data;
+  console.log('ỨIHLIfhfjh')
+  console.log(data)
   return (
     <View>
-      {data.map((item, key) => {
-        return <ProfileItem item={item} key={key} />;
-      })}
+      {
+        (data && data.length > 0) ? (
+          data.map((item, key) => {
+            return <ListItem item={item} key={key} />
+          })
+        ) : (<Text style={styles.message}>You haven't added any story into your wishlist yet!</Text>)
+      }
     </View>
   );
 };
 
 export default WishlistItem;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  message: {
+    marginTop: 50,
+    fontSize: 20,
+  }
+});

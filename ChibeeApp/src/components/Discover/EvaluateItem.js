@@ -9,7 +9,7 @@ const EvaluateItem = (props) => {
     <View style={styles.evaluateContainer}>
       <View style={styles.commentContent}>
         <View style={styles.rowContent}>
-          <Image source={Images.avatar} style={styles.imgUser} />
+          <Image source={{ uri: props.avatar }} style={styles.imgUser} />
           <View style={styles.nameContent}>
             <Text style={styles.txtAuthor}>{props.author}</Text>
             <View style={styles.star}>
@@ -70,9 +70,10 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   textDate: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: '300',
     color: 'black',
+    right: 18,
   },
 });
 export default EvaluateItem;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -12,42 +12,24 @@ import Images from '../../themes/Images';
 import { NavigationUtils } from '../../navigation';
 import EvaluateItem from '../../components/Discover/EvaluateItem';
 import Colors from '../../themes/Colors';
+import CommentActions from '../../redux/CommentRedux/actions';
+import { useDispatch, useSelector } from 'react-redux';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 
 const ListenStory = () => {
+  const dataComment = useSelector((state) => state.comment.dataComment);
+  console.log('COMMENT*********************************');
+  console.log(dataComment);
+  
   const data = [
     {
       id: 1,
-      author: 'Nguyen Van A',
+      author: 'Nguyen',
       avatar: Images.avatar,
-      content: 'Câu chuyện hay qua!',
+      content: 'qua!!!!',
       dateComment: '20/11/2021',
       isFirst: true,
-    },
-    {
-      id: 2,
-      author: 'Nguyen Van A',
-      avatar: Images.discover1,
-      content: 'Câu chuyện hay qua!',
-      dateComment: '20/11/2021',
-      isFirst: false,
-    },
-    {
-      id: 3,
-      author: 'Nguyen Van A',
-      avatar: Images.discover2,
-      content: 'Câu chuyện hay qua!',
-      dateComment: '20/11/2021',
-      isFirst: false,
-    },
-    {
-      id: 2,
-      author: 'Nguyen Van A',
-      avatar: Images.discover1,
-      content: 'Câu chuyện hay qua!',
-      dateComment: '20/11/2021',
-      isFirst: false,
     },
   ];
   const [cmt, setCmt] = useState('   Viết nhận xét ... ');
@@ -106,7 +88,7 @@ const ListenStory = () => {
       </View>
 
       <View>
-        <Text style={styles.txtComment}>Bình luận (5) </Text>
+        <Text style={styles.txtComment}>Bình luận ({dataComment && dataComment.length > 0 ? dataComment.length : 0}) </Text>
         <View style={styles.btnContainer}>
           <TextInput
             style={styles.inputComment}
@@ -118,18 +100,23 @@ const ListenStory = () => {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.listComment}>
-          {data.map((item, key) => {
-            return (
-              <EvaluateItem
-                author="Nguyen Van A"
-                isFirst={item.isFirst}
-                content="Cau chuyen hay qua!"
-                key={key}
-              />
-            );
-          })}
-        </View>
+        {
+          dataComment && dataComment.length > 0 ? (
+            <View style={styles.listComment}>
+              {dataComment.map((item, key) => {
+                return (
+                  <EvaluateItem
+                    author= {item.full_name}
+                    isFirst= {item.isFirst}
+                    content= {item.content}
+                    avatar = {item.avatar}
+                    key={key}
+                  />
+                );
+              })}
+            </View>) : (<Text>This story hasn't had any comment yet</Text>)
+          }
+        
       </View>
       <TouchableOpacity>
         <Text style={styles.viewAll}>Xem thêm</Text>

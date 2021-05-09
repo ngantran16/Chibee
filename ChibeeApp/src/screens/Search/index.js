@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, ScrollView } from 'react-native';
 import SearchItem from '../../components/Search/SearchItem';
 import { useSelector } from 'react-redux';
@@ -6,10 +6,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Search = () => {
   const listTypes = useSelector((state) => state.home.dataTypes);
-  console.log('Liejt ke', listTypes);
-
+  const [searchText, setSearchText] = useState('');
   const onSearch = (searchText) => {
-    console.log('search', searchText);
+    setSearchText(searchText);
   };
   return (
     <View style={styles.container}>
@@ -19,13 +18,14 @@ const Search = () => {
           style={styles.inputSearch}
           placeholder="Tìm kiếm..."
           placeholderTextColor="black"
-          onChangeText={(searchText) => onSearch(searchText)}
+          onChangeText={onSearch}
+          value={searchText}
         />
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           {listTypes?.map((type, key) => {
-            return <SearchItem item={type} key={key} />;
+            return <SearchItem item={type} key={key} searchText = {searchText} />;
           })}
         </View>
       </ScrollView>

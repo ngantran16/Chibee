@@ -4,10 +4,9 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'rea
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 
-const ProfileItem = (props) => {
+const ListItem = (props) => {
   Moment.locale('en');
   return (
-    <View>
       <TouchableOpacity style={styles.storyContain}>
         <Image source={{ uri: props.item.image }} style={styles.imgStory} />
         <View style={styles.content}>
@@ -15,11 +14,10 @@ const ProfileItem = (props) => {
           <Text style={styles.dateStory}>{Moment(props.item.updated_at).format('DD/MM/YYYY')}</Text>
         </View>
       </TouchableOpacity>
-    </View>
   );
 };
 
-export default ProfileItem;
+export default ListItem;
 
 const styles = StyleSheet.create({
   storyContain: {

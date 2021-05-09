@@ -26,7 +26,7 @@ import PersonalInfo from '../screens/Setting/PersonalInfo';
 import Policy from '../screens/Setting/Policy';
 import Setting from '../screens/Setting/Profile';
 import Support from '../screens/Setting/Support';
-import Wishlist from '../screens/Wishlist';
+import Wishlist from '../screens/Wishlist/Wishlist';
 import PlayStory from '../screens/Detail/PlayStory';
 import SliderStory from '../screens/Detail/SliderStory';
 import ControlItem from '../components/Detail/ControlItem';

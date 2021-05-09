@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -13,9 +13,17 @@ import { NavigationUtils } from '../../navigation';
 import Colors from '../../themes/Colors';
 import WishlistItem from '../../components/Profile/WishlistItem';
 import AudioItem from '../../components/Wishlist/VideoItem';
+import WishlistActions from '../../redux/WishlistRedux/actions';
+import { useDispatch, useSelector } from 'react-redux';
 
-const index = () => {
+const WishList = () => {
   const [selected, setSelected] = useState('Audio');
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.login.token);
+  useEffect(() => {
+    dispatch(WishlistActions.getWishlist(token));
+  }, [dispatch, token])
+  const data = useSelector((state) => state.wishlist.dataWishlist);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -38,16 +46,16 @@ const index = () => {
             )}
           </TouchableOpacity>
         </View>
-
         <ScrollView showsVerticalScrollIndicator={false}>
-          {selected === 'Audio' ? <WishlistItem /> : <AudioItem />}
+          {selected === 'Audio' ? <WishlistItem data = {data}/> : <AudioItem data = {data}/>}
         </ScrollView>
+        
       </View>
     </View>
   );
 };
 
-export default index;
+export default WishList;
 
 const styles = StyleSheet.create({
   header: {

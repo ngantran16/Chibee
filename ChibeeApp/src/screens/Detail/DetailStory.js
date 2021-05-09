@@ -9,10 +9,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 import DetailActions from '../../redux/DetailRedux/actions';
+import CommentActions from '../../redux/CommentRedux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const DetailStory = (props) => {
-  console.log('pros', props.data);
   const [checkViewAll, setCheckViewAll] = useState(false);
   const onViewAll = () => {
     setCheckViewAll(!checkViewAll);
@@ -34,9 +34,9 @@ const DetailStory = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(DetailActions.getStoryDetails(props.data));
+    dispatch(CommentActions.getComment(props.data));
   }, [dispatch, props.data]);
   const histories = useSelector((state) => state.storyDetails);
-  console.log('histories', histories);
   return (
     <ScrollView style={styles.container}>
       <View>
@@ -174,7 +174,6 @@ const styles = StyleSheet.create({
   imgStar: {
     width: screenWidth * 0.05,
     height: screenWidth * 0.05,
-    tintColor: 'orange',
   },
   startTitle: {
     marginLeft: 18,

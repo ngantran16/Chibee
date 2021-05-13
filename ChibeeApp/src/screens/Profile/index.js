@@ -21,13 +21,15 @@ const index = () => {
   const [selected, setSelected] = useState('Đã nghe');
   const id = useSelector((state) => state.login.loginResponse.data.id);
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    dispatch(ProfileAction.userProfile({ id_user: id }));
+  }, [dispatch, id]);
   const token = useSelector((state) => state.login.token);
 
   useEffect(() => {
     dispatch(WishlistActions.getWishlist(token));
   }, [dispatch, token]);
-  const user = useSelector((state) => state.loginResponse);
+  const user = useSelector((state) => state.user.user);
   const data = useSelector((state) => state.wishlist.dataWishlist);
   const isLoading = useSelector((state) => state.wishlist.loadingWishlist);
   return (

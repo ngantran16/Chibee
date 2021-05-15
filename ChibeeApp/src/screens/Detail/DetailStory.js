@@ -34,7 +34,7 @@ const DetailStory = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(DetailActions.getStoryDetails(props.data));
-    dispatch(CommentActions.getComment(props.data));
+    // dispatch(CommentActions.getComment(props.data));
   }, [dispatch, props.data]);
   const histories = useSelector((state) => state.storyDetails);
   return (
@@ -210,7 +210,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imgPlay: {
-    tintColor: 'white',
     marginRight: 10,
     color: 'white',
   },

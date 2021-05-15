@@ -14,7 +14,7 @@ import Images from '../../themes/Images';
 import { NavigationUtils } from '../../navigation';
 import EvaluateItem from '../../components/Discover/EvaluateItem';
 import Colors from '../../themes/Colors';
-import CommentActions, { CommentTypes } from '../../redux/CommentRedux/actions';
+import CommentActions from '../../redux/CommentRedux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;

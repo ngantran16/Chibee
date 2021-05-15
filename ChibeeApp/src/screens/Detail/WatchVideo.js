@@ -13,6 +13,7 @@ import {
   Pressable,
   Alert,
   Modal,
+  ActivityIndicator,
 } from 'react-native';
 import Images from '../../themes/Images';
 import Videos from '../../themes/Videos';
@@ -23,37 +24,15 @@ import EvaluateItem from '../../components/Discover/EvaluateItem';
 import Colors from '../../themes/Colors';
 import { NavigationUtils } from '../../navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useDispatch, useSelector } from 'react-redux';
+import CommentActions from '../../redux/CommentRedux/actions';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 
 const WatchVideo = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const data = [
-    {
-      id: 1,
-      author: 'Nguyen Van A',
-      avatar: Images.avatar,
-      content: 'Câu chuyện hay qua!',
-      dateComment: '20/11/2021',
-      isFirst: true,
-    },
-    {
-      id: 2,
-      author: 'Nguyen Van A',
-      avatar: Images.discover1,
-      content: 'Câu chuyện hay qua!',
-      dateComment: '20/11/2021',
-      isFirst: false,
-    },
-    {
-      id: 3,
-      author: 'Nguyen Van A',
-      avatar: Images.discover2,
-      content: 'Câu chuyện hay qua!',
-      dateComment: '20/11/2021',
-      isFirst: false,
-    },
-  ];
+  const dataComment = useSelector((state) => state.comment.dataComment);
+  const isCommentLoading = useSelector((state) => state.comment.loadingComment);
   const videoPlayer = useRef(null);
 
   const [duration, setDuration] = useState(0);
@@ -116,7 +95,21 @@ const WatchVideo = () => {
     }
     setIsFullScreen(!isFullScreen);
   };
-  const [cmt, setCmt] = useState('   Viết nhận xét ... ');
+
+  const dispatch = useDispatch();
+  const story_detail = useSelector((state) => state.storyDetails.getStoryDetailsResponse);
+  const token = useSelector((state) => state.login.token);
+  const id_story = story_detail.id;
+  const addComment = () => {
+    const data = {    
+      token: token,
+      id_story: id_story,
+      content: cmt,
+    }
+    dispatch(CommentActions.addComment(data));
+    setCmt('');
+  }
+  const [cmt, setCmt] = useState('');
   return (
     <ScrollView style={styles.container}>
       <View style={{ marginHorizontal: isFullScreen ? 50 : 0 }}>
@@ -124,7 +117,7 @@ const WatchVideo = () => {
           <TouchableOpacity onPress={() => NavigationUtils.pop()}>
             <Icon name="angle-left" size={25} style={styles.iconBack} />
           </TouchableOpacity>
-          <Text style={styles.titleStory}>Cô Bé Choàng Khăn Đỏ</Text>
+          <Text style={styles.titleStory}>{story_detail.story_name}</Text>
         </View>
         <View style={styles.itemVideo}>
           <Video
@@ -136,6 +129,7 @@ const WatchVideo = () => {
             ref={(ref) => (videoPlayer.current = ref)}
             resizeMode={'cover'}
             source={Videos.demo}
+            // source={{ uri: story_detail.video[0].link_video }}
             style={styles.playVideo}
             fullscreen={true}
             playWhenInactive={false}
@@ -183,35 +177,40 @@ const WatchVideo = () => {
       </View>
 
       <View>
-        <Text style={styles.txtComment}>Bình luận (5) </Text>
+        <Text style={styles.txtComment}>Bình luận ({dataComment.length}) </Text>
         <View style={styles.btnContainer}>
           <TextInput
             style={styles.inputComment}
             value={cmt}
+            placeholder="Viết nhận xét ..."
             onChangeText={(text) => setCmt(text)}
           />
-          <TouchableOpacity style={styles.sendContain}>
+          <TouchableOpacity style={styles.sendContain} onPress={addComment}>
             <Icon name="paper-plane" size={25} />
           </TouchableOpacity>
         </View>
-
-        <View style={styles.listComment}>
-          {data.map((item, key) => {
-            return (
-              <EvaluateItem
-                author="Nguyen Van A"
-                isFirst={item.isFirst}
-                content="Cau chuyen hay qua!"
-                key={key}
-              />
-            );
-          })}
-        </View>
+        {
+          dataComment && dataComment.length > 0 ? (
+            <View style={styles.listComment}>
+              {dataComment.map((item, key) => {
+                return (
+                  <EvaluateItem
+                    author= {item.full_name}
+                    isFirst= {item.isFirst}
+                    content= {item.content}
+                    avatar = {item.avatar}
+                    dataComment = {item.created_at}
+                    key={key}
+                  />
+                );
+              })}
+            <TouchableOpacity>
+              <Text style={styles.viewAll}>Xem thêm</Text>
+            </TouchableOpacity>
+            </View>
+          ) : isCommentLoading ? <ActivityIndicator size="large" color="#FF6600" /> : <Text>This story hasn't had any comment yet</Text>
+          }
       </View>
-      <TouchableOpacity>
-        <Text style={styles.viewAll}>Xem thêm</Text>
-      </TouchableOpacity>
-
       <View style={styles.centeredView}>
         <Modal
           animationType="slide"

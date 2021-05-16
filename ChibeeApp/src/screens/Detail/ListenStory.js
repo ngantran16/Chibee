@@ -120,7 +120,7 @@ const ListenStory = () => {
                     isFirst= {item.isFirst}
                     content= {item.content}
                     avatar = {item.avatar}
-                    dataComment = {item.created_at}
+                    dateComment = {item.created_at}
                     key={key}
                   />
                 );

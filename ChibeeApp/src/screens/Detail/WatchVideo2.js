@@ -129,7 +129,7 @@ const WatchVideo = () => {
             ref={(ref) => (videoPlayer.current = ref)}
             resizeMode={'cover'}
             // source={Videos.demo}
-            source={{ uri: 'https://www.w3schools.com/html/mov_bbb.mp4' }}
+            source={{ uri: 'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4?_=1' }}
             style={styles.playVideo}
             fullscreen={true}
             playWhenInactive={false}

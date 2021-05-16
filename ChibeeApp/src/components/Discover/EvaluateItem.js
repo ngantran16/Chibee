@@ -6,6 +6,8 @@ import Moment from 'moment';
 const screenWidth = Dimensions.get('screen').width;
 
 const EvaluateItem = (props) => {
+  console.log('*************************************************')
+  console.log(props.dateComment)
   return (
     <View style={styles.evaluateContainer}>
       <View style={styles.commentContent}>

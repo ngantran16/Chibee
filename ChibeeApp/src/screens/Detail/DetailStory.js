@@ -11,7 +11,8 @@ const screenWidth = Dimensions.get('screen').width;
 import DetailActions from '../../redux/DetailRedux/actions';
 import CommentActions from '../../redux/CommentRedux/actions';
 import { useDispatch, useSelector } from 'react-redux';
-
+import IconStar from '../../components/Home/IconStar';
+ 
 const DetailStory = (props) => {
   const [checkViewAll, setCheckViewAll] = useState(false);
   const onViewAll = () => {
@@ -22,7 +23,7 @@ const DetailStory = (props) => {
   };
   const onListenStory = () => {
     NavigationUtils.push({
-      screen: 'ListenStory',
+      screen: 'PlayStory',
       isTopBarEnable: false,
       isBottomTabsEnable: false,
     });
@@ -37,6 +38,14 @@ const DetailStory = (props) => {
     dispatch(CommentActions.getComment(props.data));
   }, [dispatch, props.data]);
   const histories = useSelector((state) => state.storyDetails);
+ 
+  var iconRatings = [];
+  for (let i = 0; i < histories.getStoryDetailsResponse?.rating; i++) {
+    iconRatings.push(<IconStar color={Colors.primary}/>);
+  }
+  for (let i = 0; i < 5 - histories.getStoryDetailsResponse?.rating; i++) {
+    iconRatings.push(<IconStar color={Colors.greyAuthor} />);
+  }
   return (
     <ScrollView style={styles.container}>
       <View>
@@ -50,7 +59,7 @@ const DetailStory = (props) => {
           </TouchableOpacity>
         </View>
       </View>
-
+ 
       <View style={styles.subContainer}>
         <View style={styles.storyTitle}>
           <Image
@@ -60,15 +69,11 @@ const DetailStory = (props) => {
           <View style={styles.startTitle}>
             <Text style={styles.textTitle}>{histories.getStoryDetailsResponse?.story_name}</Text>
             <View style={styles.starContainer}>
-              <Image source={Images.star} style={styles.imgStar} />
-              <Image source={Images.star} style={styles.imgStar} />
-              <Image source={Images.star} style={styles.imgStar} />
-              <Image source={Images.star} style={styles.imgStar} />
-              <Image source={Images.star} style={styles.imgStar} />
+            {iconRatings}
             </View>
           </View>
         </View>
-
+ 
         <View style={styles.btnContainer}>
           <TouchableOpacity style={styles.btnListen} onPress={onListen}>
             <Icon name="headphones" size={26} style={styles.imgPlay} />
@@ -79,7 +84,7 @@ const DetailStory = (props) => {
             <Text style={styles.txtBtn}>Nghe thử</Text>
           </TouchableOpacity>
         </View>
-
+ 
         <View style={styles.introContainer}>
           <Text style={styles.txtIntro}>Giới thiệu</Text>
           <View style={styles.introContent}>
@@ -99,11 +104,11 @@ const DetailStory = (props) => {
               <Text style={styles.txtContent}>
                 {histories.getStoryDetailsResponse?.type[0]?.name}
               </Text>
-              <Text style={styles.txtContent}>{histories.getStoryDetailsResponse?.rating}</Text>
+              <View style={styles.startContent}>{iconRatings}</View>
             </View>
           </View>
         </View>
-
+ 
         <View style={styles.detail}>
           <Text style={styles.txtTitle}>Lời tựa</Text>
           {checkViewAll ? (
@@ -124,10 +129,10 @@ const DetailStory = (props) => {
             </View>
           )}
         </View>
-
+ 
         <View style={styles.listViewContainer}>
           <Text style={styles.txtList}>Bạn muốn nghe</Text>
-
+ 
           <ScrollView
             showsHorizontalScrollIndicator={false}
             horizontal={true}
@@ -142,9 +147,9 @@ const DetailStory = (props) => {
     </ScrollView>
   );
 };
-
+ 
 export default DetailStory;
-
+ 
 const styles = StyleSheet.create({
   scvContainer: {
     marginTop: 10,
@@ -254,6 +259,10 @@ const styles = StyleSheet.create({
   txtContent: {
     fontSize: 16,
     marginTop: 10,
+  },
+  startContent: {
+    flexDirection: 'row',
+    marginTop: 15,
   },
   titleContainer: {
     width: 150,

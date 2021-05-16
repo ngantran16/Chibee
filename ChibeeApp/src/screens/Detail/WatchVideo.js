@@ -15,7 +15,6 @@ import {
   Modal,
 } from 'react-native';
 import Images from '../../themes/Images';
-import Videos from '../../themes/Videos';
 import Video from 'react-native-video';
 import MediaControls, { PLAYER_STATES } from 'react-native-media-controls';
 import Orientation from 'react-native-orientation-locker';
@@ -23,6 +22,7 @@ import EvaluateItem from '../../components/Discover/EvaluateItem';
 import Colors from '../../themes/Colors';
 import { NavigationUtils } from '../../navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useSelector } from 'react-redux';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 
@@ -117,6 +117,8 @@ const WatchVideo = () => {
     setIsFullScreen(!isFullScreen);
   };
   const [cmt, setCmt] = useState('   Viết nhận xét ... ');
+  const getWatchStory = useSelector((state) => state.storyDetails);
+  console.log(getWatchStory.getStoryDetailsResponse?.video?.link_video);
   return (
     <ScrollView style={styles.container}>
       <View style={{ marginHorizontal: isFullScreen ? 50 : 0 }}>
@@ -124,7 +126,7 @@ const WatchVideo = () => {
           <TouchableOpacity onPress={() => NavigationUtils.pop()}>
             <Icon name="angle-left" size={25} style={styles.iconBack} />
           </TouchableOpacity>
-          <Text style={styles.titleStory}>Cô Bé Choàng Khăn Đỏ</Text>
+          <Text style={styles.titleStory}>{getWatchStory.getStoryDetailsResponse?.story_name}</Text>
         </View>
         <View style={styles.itemVideo}>
           <Video
@@ -135,7 +137,7 @@ const WatchVideo = () => {
             paused={paused}
             ref={(ref) => (videoPlayer.current = ref)}
             resizeMode={'cover'}
-            source={Videos.demo}
+            source={getWatchStory.getStoryDetailsResponse?.video?.link_video}
             style={styles.playVideo}
             fullscreen={true}
             playWhenInactive={false}

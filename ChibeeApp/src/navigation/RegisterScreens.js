@@ -29,7 +29,7 @@ import Support from '../screens/Setting/Support';
 import Wishlist from '../screens/Wishlist/Wishlist';
 import PlayStory from '../screens/Detail/PlayStory';
 import SliderStory from '../screens/Detail/SliderStory';
-import ControlItem from '../components/Detail/ControlItem';
+import ControlItem from '../screens/Detail/ControlItem';
 
 function ReduxProvider(Component) {
   return (props) => (

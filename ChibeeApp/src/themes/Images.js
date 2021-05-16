@@ -40,6 +40,7 @@ import playstory from '../assets/Images/playstory.png';
 import video from '../assets/Images/video.png';
 import clock from '../assets/Images/clock.png';
 import heart from '../assets/Images/heart2.png';
+import heartstory from '../assets/Images/heartstory.png';
 import share from '../assets/Images/share.png';
 import download from '../assets/Images/download.png';
 import zalo from '../assets/Images/zalo.png';
@@ -102,6 +103,7 @@ const Images = {
   bluetooth,
   copy,
   down,
+  heartstory
 };
 
 export default Images;

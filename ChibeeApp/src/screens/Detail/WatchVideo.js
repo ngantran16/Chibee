@@ -1,13 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState, useCallback, useRef } from "react";
-import YoutubePlayer from "react-native-youtube-iframe";
+import React, { useState, useCallback, useRef } from 'react';
+import YoutubePlayer from 'react-native-youtube-iframe';
 import {
   View,
   Text,
   StyleSheet,
   Image,
   TouchableOpacity,
-  Platform,
   Dimensions,
   ScrollView,
   TextInput,
@@ -35,21 +34,21 @@ const WatchVideo = () => {
   const token = useSelector((state) => state.login.token);
   const id_story = story_detail.id;
   const addComment = () => {
-    const data = {    
+    const data = {
       token: token,
       id_story: id_story,
       content: cmt,
-    }
+    };
     dispatch(CommentActions.addComment(data));
     setCmt('');
-  }
+  };
 
   const [playing, setPlaying] = useState(false);
 
   const onStateChange = useCallback((state) => {
-    if (state === "ended") {
+    if (state === 'ended') {
       setPlaying(false);
-      Alert.alert("video has finished playing!");
+      Alert.alert('video has finished playing!');
     }
   }, []);
 
@@ -71,10 +70,10 @@ const WatchVideo = () => {
         </View>
         <View style={styles.itemVideo}>
           <YoutubePlayer
-              height={220}
-              play={playing}
-              videoId={"7nyNMBiFp8s"}
-              onChangeState={onStateChange}
+            height={220}
+            play={playing}
+            videoId={story_detail.video[0].id_video}
+            onChangeState={onStateChange}
           />
           {/* <Button title={playing ? "pause" : "play"} onPress={togglePlaying} /> */}
         </View>
@@ -113,27 +112,29 @@ const WatchVideo = () => {
             <Icon name="paper-plane" size={25} />
           </TouchableOpacity>
         </View>
-        {
-          dataComment && dataComment.length > 0 ? (
-            <View style={styles.listComment}>
-              {dataComment.map((item, key) => {
-                return (
-                  <EvaluateItem
-                    author= {item.full_name}
-                    isFirst= {item.isFirst}
-                    content= {item.content}
-                    avatar = {item.avatar}
-                    dateComment = {item.created_at}
-                    key={key}
-                  />
-                );
-              })}
+        {dataComment && dataComment.length > 0 ? (
+          <View style={styles.listComment}>
+            {dataComment.map((item, key) => {
+              return (
+                <EvaluateItem
+                  author={item.full_name}
+                  isFirst={item.isFirst}
+                  content={item.content}
+                  avatar={item.avatar}
+                  dateComment={item.created_at}
+                  key={key}
+                />
+              );
+            })}
             <TouchableOpacity>
               <Text style={styles.viewAll}>Xem thêm</Text>
             </TouchableOpacity>
-            </View>
-          ) : isCommentLoading ? <ActivityIndicator size="large" color="#FF6600" /> : <Text>This story hasn't had any comment yet</Text>
-          }
+          </View>
+        ) : isCommentLoading ? (
+          <ActivityIndicator size="large" color="#FF6600" />
+        ) : (
+          <Text>This story hasn't had any comment yet</Text>
+        )}
       </View>
       <View style={styles.centeredView}>
         <Modal
@@ -267,13 +268,6 @@ const styles = StyleSheet.create({
   backgroundVideo: {
     height: 300,
     width: screenWidth,
-  },
-  mediaControls: {
-    width: '100%',
-    height: '100%',
-    flex: 1,
-    alignSelf:
-      Platform.OS === 'android' ? (screenHeight < 800 ? 'center' : 'flex-start') : 'center',
   },
   backgroundVideoFullScreen: {
     height: 300,

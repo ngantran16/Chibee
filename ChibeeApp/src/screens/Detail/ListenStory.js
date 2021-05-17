@@ -42,14 +42,14 @@ const ListenStory = () => {
   };
 
   const addComment = () => {
-    const data = {    
+    const data = {
       token: token,
       id_story: id_story,
       content: cmt,
-    }
+    };
     dispatch(CommentActions.addComment(data));
     setCmt('');
-  }
+  };
   const isLoading = useSelector((state) => state.comment.loadingComment);
   const addCmtLoading = useSelector((state) => state.comment.loadingAddComment);
   const dataComment = useSelector((state) => state.comment.dataComment);
@@ -98,7 +98,9 @@ const ListenStory = () => {
       </View>
 
       <View>
-        <Text style={styles.txtComment}>Bình luận ({dataComment && dataComment.length > 0 ? dataComment.length : 0}) </Text>
+        <Text style={styles.txtComment}>
+          Bình luận ({dataComment && dataComment.length > 0 ? dataComment.length : 0}){' '}
+        </Text>
         <View style={styles.btnContainer}>
           <TextInput
             style={styles.inputComment}
@@ -110,27 +112,29 @@ const ListenStory = () => {
             <Image source={Images.send} />
           </TouchableOpacity>
         </View>
-        {
-          dataComment && dataComment.length > 0 ? (
-            <View style={styles.listComment}>
-              {dataComment.map((item, key) => {
-                return (
-                  <EvaluateItem
-                    author= {item.full_name}
-                    isFirst= {item.isFirst}
-                    content= {item.content}
-                    avatar = {item.avatar}
-                    dateComment = {item.created_at}
-                    key={key}
-                  />
-                );
-              })}
+        {dataComment && dataComment.length > 0 ? (
+          <View style={styles.listComment}>
+            {dataComment.map((item, key) => {
+              return (
+                <EvaluateItem
+                  author={item.full_name}
+                  isFirst={item.isFirst}
+                  content={item.content}
+                  avatar={item.avatar}
+                  dateComment={item.created_at}
+                  key={key}
+                />
+              );
+            })}
             <TouchableOpacity>
               <Text style={styles.viewAll}>Xem thêm</Text>
             </TouchableOpacity>
-            </View>
-          ) : isLoading || addCmtLoading ? <ActivityIndicator size="large" color="#FF6600" /> : <Text>This story hasn't had any comment yet</Text>
-          }
+          </View>
+        ) : isLoading || addCmtLoading ? (
+          <ActivityIndicator size="large" color="#FF6600" />
+        ) : (
+          <Text>This story hasn't had any comment yet</Text>
+        )}
       </View>
     </ScrollView>
   );

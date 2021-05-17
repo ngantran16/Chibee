@@ -27,9 +27,8 @@ import Policy from '../screens/Setting/Policy';
 import Setting from '../screens/Setting/Profile';
 import Support from '../screens/Setting/Support';
 import Wishlist from '../screens/Wishlist/Wishlist';
-import PlayStory from '../screens/Detail/PlayStory';
 import SliderStory from '../screens/Detail/SliderStory';
-import ControlItem from '../components/Detail/ControlItem';
+import PlayerControl from '../screens/Detail/PlayerControl';
 
 function ReduxProvider(Component) {
   return (props) => (
@@ -166,18 +165,13 @@ export function registerScreens() {
     () => Wishlist,
   );
   Navigation.registerComponent(
-    'PlayStory',
-    () => ReduxProvider(PlayStory),
-    () => PlayStory,
-  );
-  Navigation.registerComponent(
     'SliderStory',
     () => ReduxProvider(SliderStory),
     () => SliderStory,
   );
   Navigation.registerComponent(
-    'ControlItem',
-    () => ReduxProvider(ControlItem),
-    () => ControlItem,
+    'PlayerControl',
+    () => ReduxProvider(PlayerControl),
+    () => PlayerControl,
   );
 }

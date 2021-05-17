@@ -101,14 +101,14 @@ const WatchVideo = () => {
   const token = useSelector((state) => state.login.token);
   const id_story = story_detail.id;
   const addComment = () => {
-    const data = {    
+    const data = {
       token: token,
       id_story: id_story,
       content: cmt,
-    }
+    };
     dispatch(CommentActions.addComment(data));
     setCmt('');
-  }
+  };
   const [cmt, setCmt] = useState('');
   return (
     <ScrollView style={styles.container}>
@@ -129,7 +129,10 @@ const WatchVideo = () => {
             ref={(ref) => (videoPlayer.current = ref)}
             resizeMode={'cover'}
             // source={Videos.demo}
-            source={{ uri: 'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4?_=1' }}
+            source={{
+              uri:
+                'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4?_=1',
+            }}
             style={styles.playVideo}
             fullscreen={true}
             playWhenInactive={false}
@@ -189,27 +192,29 @@ const WatchVideo = () => {
             <Icon name="paper-plane" size={25} />
           </TouchableOpacity>
         </View>
-        {
-          dataComment && dataComment.length > 0 ? (
-            <View style={styles.listComment}>
-              {dataComment.map((item, key) => {
-                return (
-                  <EvaluateItem
-                    author= {item.full_name}
-                    isFirst= {item.isFirst}
-                    content= {item.content}
-                    avatar = {item.avatar}
-                    dateComment = {item.created_at}
-                    key={key}
-                  />
-                );
-              })}
+        {dataComment && dataComment.length > 0 ? (
+          <View style={styles.listComment}>
+            {dataComment.map((item, key) => {
+              return (
+                <EvaluateItem
+                  author={item.full_name}
+                  isFirst={item.isFirst}
+                  content={item.content}
+                  avatar={item.avatar}
+                  dateComment={item.created_at}
+                  key={key}
+                />
+              );
+            })}
             <TouchableOpacity>
               <Text style={styles.viewAll}>Xem thêm</Text>
             </TouchableOpacity>
-            </View>
-          ) : isCommentLoading ? <ActivityIndicator size="large" color="#FF6600" /> : <Text>This story hasn't had any comment yet</Text>
-          }
+          </View>
+        ) : isCommentLoading ? (
+          <ActivityIndicator size="large" color="#FF6600" />
+        ) : (
+          <Text>This story hasn't had any comment yet</Text>
+        )}
       </View>
       <View style={styles.centeredView}>
         <Modal

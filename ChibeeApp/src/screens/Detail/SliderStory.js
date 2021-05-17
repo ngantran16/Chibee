@@ -1,57 +1,83 @@
-import React from 'react';
-// import TrackPlayer, { useProgress } from 'react-native-track-player';
-import { StyleSheet, Text, View } from 'react-native';
+/* eslint-disable react-native/no-inline-styles */
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import Slider from '@react-native-community/slider';
+import TrackPlayer from 'react-native-track-player';
+import { useTrackPlayerProgress } from 'react-native-track-player/lib/hooks';
+import { PLAYBACK_TRACK_CHANGED } from 'react-native-track-player/lib/eventTypes';
 
-const formatTime = (secs) => {
-  let minutes = Math.floor(secs / 60);
-  let seconds = Math.ceil(secs - minutes * 60);
+const { width } = Dimensions.get('window');
+export default function SliderStory() {
+  const { position, duration } = useTrackPlayerProgress(1000, null);
+  const [isSeeking, setIsSeeking] = useState(false);
+  const [seek, setSeek] = useState(0);
 
-  if (seconds < 10) {
-    seconds = `0${seconds}`;
-  }
-  return `${minutes}:${seconds}`;
-};
-const SliderStory = () => {
-  // const { position, duration } = useProgress();
-  // const handleChange = (val) => {
-  //   TrackPlayer.seekTo(val);
-  // };
+  useEffect(() => {
+    TrackPlayer.addEventListener(PLAYBACK_TRACK_CHANGED, () => {
+      setIsSeeking(false);
+    });
+  }, []);
+
+  const formatTime = (secs) => {
+    let minutes = Math.floor(secs / 60);
+    let seconds = Math.ceil(secs - minutes * 60);
+
+    if (seconds < 10) {
+      seconds = `0${seconds}`;
+    }
+
+    return `${minutes}:${seconds}`;
+  };
+
+  const handleChange = (val) => {
+    TrackPlayer.seekTo(val);
+    TrackPlayer.play().then(() => {
+      setTimeout(() => {
+        setIsSeeking(false);
+      }, 1000);
+    });
+  };
+
+  //components
   return (
     <View style={styles.container}>
       <Slider
-        // eslint-disable-next-line react-native/no-inline-styles
-        style={{ width: 360, height: 15, alignItems: 'center' }}
-        minimumValue={70}
-        // maximumValue={duration}
-        // value={position}
+        style={{ width: width - 36 }}
+        minimumValue={0}
+        value={isSeeking ? seek : position}
+        onValueChange={(value) => {
+          TrackPlayer.pause();
+          setIsSeeking(true);
+          setSeek(value);
+        }}
+        maximumValue={duration}
         minimumTrackTintColor="#00D1FF"
-        maximumTrackTintColor="#595959"
-        thumbTintColor="#595959"
-        // onSlidingComplete={handleChange}
+        onSlidingComplete={handleChange}
+        maximumTrackTintColor="#4d4d4d"
+        thumbTintColor="#e6e6e6"
       />
-      <View style={styles.timerContainer}>
-        {/* <Text style={styles.timer}>{formatTime(position)}</Text> */}
-        {/* <Text style={styles.timer}>{formatTime(duration)}</Text> */}
+      <View style={styles.timeContainer}>
+        <Text style={styles.timers}>{formatTime(isSeeking ? seek : position)}</Text>
+        <Text style={styles.timers}>{formatTime(duration)}</Text>
       </View>
     </View>
   );
-};
-
-export default SliderStory;
+}
 
 const styles = StyleSheet.create({
   container: {
-    height: 30,
+    marginTop: 10,
+    height: 35,
+    width: width,
   },
-  timerContainer: {
+  timers: {
+    color: '#000000',
+    fontSize: 16,
+  },
+  timeContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  timer: {
-    color: 'black',
-    fontSize: 12,
-    paddingLeft: 15,
-    paddingRight: 16,
+    alignItems: 'center',
+    width: width - 36,
   },
 });

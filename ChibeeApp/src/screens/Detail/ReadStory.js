@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { NavigationUtils } from '../../navigation';
 import Colors from '../../themes/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -19,14 +12,13 @@ const ReadStory = () => {
   };
 
   const storyDetails = useSelector((state) => state.storyDetails.getStoryDetailsResponse);
-  console.log(storyDetails.image)
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => NavigationUtils.pop()}>
           <Icon name="angle-left" size={25} />
         </TouchableOpacity>
-        <Text style={styles.titleHeader}>Cô Bé Choàng Khăn Đỏ</Text>
+        <Text style={styles.titleHeader}>{storyDetails?.story_name}</Text>
         <Text />
       </View>
 
@@ -35,9 +27,7 @@ const ReadStory = () => {
       </View>
       {checkViewAll ? (
         <View style={styles.story}>
-          <Text style={styles.content}>
-            {storyDetails.content}
-          </Text>
+          <Text style={styles.content}>{storyDetails.content}</Text>
           <TouchableOpacity onPress={() => onViewAll()}>
             <Text style={styles.viewAll}>Ẩn bớt</Text>
           </TouchableOpacity>

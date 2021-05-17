@@ -10,6 +10,7 @@ const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 import DetailActions from '../../redux/DetailRedux/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import IconStar from '../../components/Home/IconStar';
 
 const DetailStory = (props) => {
   const [checkViewAll, setCheckViewAll] = useState(false);
@@ -35,6 +36,14 @@ const DetailStory = (props) => {
     dispatch(DetailActions.getStoryDetails(props.data));
   }, [dispatch, props.data]);
   const histories = useSelector((state) => state.storyDetails);
+
+  var iconRatings = [];
+  for (let i = 0; i < histories.getStoryDetailsResponse?.rating; i++) {
+    iconRatings.push(<IconStar color={Colors.primary} />);
+  }
+  for (let i = 0; i < 5 - histories.getStoryDetailsResponse?.rating; i++) {
+    iconRatings.push(<IconStar color={Colors.greyAuthor} />);
+  }
   return (
     <ScrollView style={styles.container}>
       <View>
@@ -57,13 +66,7 @@ const DetailStory = (props) => {
           />
           <View style={styles.startTitle}>
             <Text style={styles.textTitle}>{histories.getStoryDetailsResponse?.story_name}</Text>
-            <View style={styles.starContainer}>
-              <Image source={Images.star} style={styles.imgStar} />
-              <Image source={Images.star} style={styles.imgStar} />
-              <Image source={Images.star} style={styles.imgStar} />
-              <Image source={Images.star} style={styles.imgStar} />
-              <Image source={Images.star} style={styles.imgStar} />
-            </View>
+            <View style={styles.starContainer}>{iconRatings}</View>
           </View>
         </View>
 
@@ -97,7 +100,7 @@ const DetailStory = (props) => {
               <Text style={styles.txtContent}>
                 {histories.getStoryDetailsResponse?.type[0]?.name}
               </Text>
-              <Text style={styles.txtContent}>{histories.getStoryDetailsResponse?.rating}</Text>
+              <View style={styles.startContent}>{iconRatings}</View>
             </View>
           </View>
         </View>
@@ -251,6 +254,10 @@ const styles = StyleSheet.create({
   txtContent: {
     fontSize: 16,
     marginTop: 10,
+  },
+  startContent: {
+    flexDirection: 'row',
+    marginTop: 15,
   },
   titleContainer: {
     width: 150,

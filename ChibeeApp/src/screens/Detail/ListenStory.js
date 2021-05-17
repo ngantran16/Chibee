@@ -21,7 +21,7 @@ const ListenStory = () => {
   const dataComment = useSelector((state) => state.comment.dataComment);
   console.log('COMMENT*********************************');
   console.log(dataComment);
-  
+
   const data = [
     {
       id: 1,
@@ -88,7 +88,9 @@ const ListenStory = () => {
       </View>
 
       <View>
-        <Text style={styles.txtComment}>Bình luận ({dataComment && dataComment.length > 0 ? dataComment.length : 0}) </Text>
+        <Text style={styles.txtComment}>
+          Bình luận ({dataComment && dataComment.length > 0 ? dataComment.length : 0}){' '}
+        </Text>
         <View style={styles.btnContainer}>
           <TextInput
             style={styles.inputComment}
@@ -100,23 +102,23 @@ const ListenStory = () => {
           </TouchableOpacity>
         </View>
 
-        {
-          dataComment && dataComment.length > 0 ? (
-            <View style={styles.listComment}>
-              {dataComment.map((item, key) => {
-                return (
-                  <EvaluateItem
-                    author= {item.full_name}
-                    isFirst= {item.isFirst}
-                    content= {item.content}
-                    avatar = {item.avatar}
-                    key={key}
-                  />
-                );
-              })}
-            </View>) : (<Text>This story hasn't had any comment yet</Text>)
-          }
-        
+        {dataComment && dataComment.length > 0 ? (
+          <View style={styles.listComment}>
+            {dataComment.map((item, key) => {
+              return (
+                <EvaluateItem
+                  author={item.full_name}
+                  isFirst={item.isFirst}
+                  content={item.content}
+                  avatar={item.avatar}
+                  key={key}
+                />
+              );
+            })}
+          </View>
+        ) : (
+          <Text>This story hasn't had any comment yet</Text>
+        )}
       </View>
       <TouchableOpacity>
         <Text style={styles.viewAll}>Xem thêm</Text>

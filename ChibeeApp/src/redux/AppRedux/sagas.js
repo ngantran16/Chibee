@@ -19,26 +19,13 @@ function* waitFor(selector) {
 
 export function* startupSaga() {
   try {
-    // call api
-    // set data to reducer
     const token = yield AsyncStorage.getItem('token');
     const isSkip = yield select((state) => state.app.isSkip);
     http.setAuthorizationHeader(token);
-    //
     if (!isSkip) {
       NavigationUtils.startIntroContent();
     } else {
-      console.log('111', token);
       if (token) {
-        console.log('====================================');
-        console.log('run');
-        console.log('====================================');
-        //yield put(getStoryHome());
-        //yield put(getTypes());
-        // yield call(
-        //   waitFor,
-        //   (state) => state.home.dataStory != null && state.home.dataTypes != null,
-        // );
         yield put(HomeActions.getStoryHome());
         yield put(HomeActions.getTypes());
         NavigationUtils.startMainContent();
@@ -47,7 +34,6 @@ export function* startupSaga() {
       }
     }
   } catch (error) {
-    console.log('error startup: ' + error);
     NavigationUtils.startLoginContent();
   }
 }

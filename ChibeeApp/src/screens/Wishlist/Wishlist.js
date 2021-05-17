@@ -46,7 +46,7 @@ const WishList = () => {
             )}
           </TouchableOpacity>
         </View>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollContain}>
           {selected === 'Audio' ? <WishlistItem data = {data}/> : <AudioItem data = {data}/>}
         </ScrollView>
         
@@ -91,4 +91,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.secondary,
     borderBottomWidth: 2,
   },
+  scrollContain: {
+    marginBottom: 150,
+  }
 });

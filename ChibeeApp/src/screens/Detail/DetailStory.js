@@ -9,7 +9,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 import DetailActions from '../../redux/DetailRedux/actions';
-import CommentActions from '../../redux/CommentRedux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const DetailStory = (props) => {
@@ -34,7 +33,6 @@ const DetailStory = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(DetailActions.getStoryDetails(props.data));
-    dispatch(CommentActions.getComment(props.data));
   }, [dispatch, props.data]);
   const histories = useSelector((state) => state.storyDetails);
   return (
@@ -210,7 +208,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imgPlay: {
-    tintColor: 'white',
     marginRight: 10,
     color: 'white',
   },

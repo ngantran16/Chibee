@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
-import Images from '../../themes/Images';
 import { Dimensions } from 'react-native';
 import Colors from '../../themes/Colors';
 import ProfileItem from '../../components/Profile/ProfileItem';
@@ -21,14 +20,13 @@ const index = () => {
   const [selected, setSelected] = useState('Đã nghe');
   const id = useSelector((state) => state.login.loginResponse.data.id);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(ProfileAction.userProfile({ id_user: id }));
-  }, [dispatch, id]);
   const token = useSelector((state) => state.login.token);
 
   useEffect(() => {
+    dispatch(ProfileAction.userProfile({ id_user: id }));
     dispatch(WishlistActions.getWishlist(token));
-  }, [dispatch, token]);
+  }, [dispatch, id, token]);
+  
   const user = useSelector((state) => state.user.user);
   const data = useSelector((state) => state.wishlist.dataWishlist);
   const isLoading = useSelector((state) => state.wishlist.loadingWishlist);
@@ -162,5 +160,6 @@ const styles = StyleSheet.create({
   },
   storyContain: {
     paddingHorizontal: 18,
+    marginBottom: 200,
   }
 });

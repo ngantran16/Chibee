@@ -3,10 +3,12 @@ import {
   StyleSheet,
   Text,
   View,
+  ScrollView,
   Image,
   TouchableOpacity,
   TextInput,
   Dimensions,
+  ActivityIndicator,
 } from 'react-native';
 import Images from '../../themes/Images';
 import { NavigationUtils } from '../../navigation';
@@ -18,24 +20,19 @@ const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 
 const ListenStory = () => {
-  const dataComment = useSelector((state) => state.comment.dataComment);
-  console.log('COMMENT*********************************');
-  console.log(dataComment);
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.login.token);
+  const id_story = useSelector((state) => state.storyDetails.getStoryDetailsResponse.id);
+  useEffect(() => {
+    dispatch(CommentActions.getComment(id_story));
+  }, [dispatch, id_story]);
 
-  const data = [
-    {
-      id: 1,
-      author: 'Nguyen',
-      avatar: Images.avatar,
-      content: 'qua!!!!',
-      dateComment: '20/11/2021',
-      isFirst: true,
-    },
-  ];
-  const [cmt, setCmt] = useState('   Viết nhận xét ... ');
+  const [cmt, setCmt] = useState('');
+
   const onReadStory = () => {
     NavigationUtils.push({ screen: 'ReadStory', isTopBarEnable: false, isBottomTabsEnable: false });
   };
+
   const onWatchStory = () => {
     NavigationUtils.push({
       screen: 'WatchVideo',
@@ -43,8 +40,21 @@ const ListenStory = () => {
       isBottomTabsEnable: false,
     });
   };
+
+  const addComment = () => {
+    const data = {
+      token: token,
+      id_story: id_story,
+      content: cmt,
+    };
+    dispatch(CommentActions.addComment(data));
+    setCmt('');
+  };
+  const isLoading = useSelector((state) => state.comment.loadingComment);
+  const addCmtLoading = useSelector((state) => state.comment.loadingAddComment);
+  const dataComment = useSelector((state) => state.comment.dataComment);
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => NavigationUtils.pop()}>
           <Image source={Images.back} />
@@ -95,13 +105,13 @@ const ListenStory = () => {
           <TextInput
             style={styles.inputComment}
             value={cmt}
+            placeholder="Viết nhận xét ..."
             onChangeText={(text) => setCmt(text)}
           />
-          <TouchableOpacity style={styles.sendContain}>
+          <TouchableOpacity style={styles.sendContain} onPress={addComment}>
             <Image source={Images.send} />
           </TouchableOpacity>
         </View>
-
         {dataComment && dataComment.length > 0 ? (
           <View style={styles.listComment}>
             {dataComment.map((item, key) => {
@@ -111,19 +121,22 @@ const ListenStory = () => {
                   isFirst={item.isFirst}
                   content={item.content}
                   avatar={item.avatar}
+                  dateComment={item.created_at}
                   key={key}
                 />
               );
             })}
+            <TouchableOpacity>
+              <Text style={styles.viewAll}>Xem thêm</Text>
+            </TouchableOpacity>
           </View>
+        ) : isLoading || addCmtLoading ? (
+          <ActivityIndicator size="large" color="#FF6600" />
         ) : (
           <Text>This story hasn't had any comment yet</Text>
         )}
       </View>
-      <TouchableOpacity>
-        <Text style={styles.viewAll}>Xem thêm</Text>
-      </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 export default ListenStory;

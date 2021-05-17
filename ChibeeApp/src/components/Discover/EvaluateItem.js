@@ -1,10 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-import Images from '../../themes/Images';
+import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Moment from 'moment';
+const screenWidth = Dimensions.get('screen').width;
 
 const EvaluateItem = (props) => {
+  console.log('*************************************************');
+  console.log(props.dateComment);
   return (
     <View style={styles.evaluateContainer}>
       <View style={styles.commentContent}>
@@ -19,16 +22,7 @@ const EvaluateItem = (props) => {
         </View>
         <View style={styles.rowContent}>
           <View>
-            {props.isFirst ? (
-              <View style={styles.rowContent}>
-                <Icon name="edit" size={23} style={styles.iconEdit} />
-                <Icon name="trash" size={23} />
-              </View>
-            ) : (
-              <View>
-                <Text style={styles.textDate}>20/10/2021</Text>
-              </View>
-            )}
+            <Text style={styles.textDate}>{Moment(props.dateComment).format('DD/MM/YYYY')}</Text>
           </View>
         </View>
       </View>
@@ -53,6 +47,7 @@ const styles = StyleSheet.create({
   star: {
     flexDirection: 'row',
     marginRight: 10,
+    width: 0.6 * screenWidth,
   },
   txtAuthor: {
     fontSize: 14,

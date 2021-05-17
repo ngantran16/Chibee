@@ -1,13 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import Moment from 'moment';
 const screenWidth = Dimensions.get('screen').width;
 
 const EvaluateItem = (props) => {
-  console.log('*************************************************');
-  console.log(props.dateComment);
   return (
     <View style={styles.evaluateContainer}>
       <View style={styles.commentContent}>

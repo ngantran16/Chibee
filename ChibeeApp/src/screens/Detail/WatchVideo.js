@@ -1,12 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState, useRef } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
+import YoutubePlayer from 'react-native-youtube-iframe';
 import {
   View,
   Text,
   StyleSheet,
   Image,
   TouchableOpacity,
-  Platform,
   Dimensions,
   ScrollView,
   TextInput,
@@ -16,10 +16,6 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import Images from '../../themes/Images';
-import Videos from '../../themes/Videos';
-import Video from 'react-native-video';
-import MediaControls, { PLAYER_STATES } from 'react-native-media-controls';
-import Orientation from 'react-native-orientation-locker';
 import EvaluateItem from '../../components/Discover/EvaluateItem';
 import Colors from '../../themes/Colors';
 import { NavigationUtils } from '../../navigation';
@@ -30,71 +26,8 @@ const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 
 const WatchVideo = () => {
-  const [modalVisible, setModalVisible] = useState(false);
   const dataComment = useSelector((state) => state.comment.dataComment);
   const isCommentLoading = useSelector((state) => state.comment.loadingComment);
-  const videoPlayer = useRef(null);
-
-  const [duration, setDuration] = useState(0);
-  const [paused, setPaused] = useState(true);
-
-  const [currentTime, setCurrentTime] = useState(0);
-  const [playerState, setPlayerState] = useState(PLAYER_STATES.PAUSED);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const onSeek = (seek) => {
-    videoPlayer?.current.seek(seek);
-  };
-
-  const onSeeking = (currentVideoTime) => setCurrentTime(currentVideoTime);
-
-  const onPaused = (newState) => {
-    setPaused(!paused);
-    setPlayerState(newState);
-  };
-
-  const onReplay = () => {
-    videoPlayer?.current.seek(0);
-    setCurrentTime(0);
-    if (Platform.OS === 'android') {
-      setPlayerState(PLAYER_STATES.PAUSED);
-      setPaused(true);
-    } else {
-      setPlayerState(PLAYER_STATES.PLAYING);
-      setPaused(false);
-    }
-  };
-
-  const onProgress = (data) => {
-    if (!isLoading) {
-      setCurrentTime(data.currentTime);
-    }
-  };
-
-  const onLoad = (data) => {
-    setDuration(Math.round(data.duration));
-    setIsLoading(false);
-  };
-
-  const onLoadStart = () => setIsLoading(true);
-  const onEnd = () => {
-    setPlayerState(PLAYER_STATES.ENDED);
-    setCurrentTime(duration);
-  };
-
-  const [isFullScreen, setIsFullScreen] = useState(false);
-
-  const onFullScreen = () => {
-    if (!isFullScreen) {
-      Orientation.lockToLandscape();
-    } else {
-      if (Platform.OS === 'ios') {
-        Orientation.lockToPortrait();
-      }
-      Orientation.lockToPortrait();
-    }
-    setIsFullScreen(!isFullScreen);
-  };
 
   const dispatch = useDispatch();
   const story_detail = useSelector((state) => state.storyDetails.getStoryDetailsResponse);
@@ -109,10 +42,26 @@ const WatchVideo = () => {
     dispatch(CommentActions.addComment(data));
     setCmt('');
   };
+
+  const [playing, setPlaying] = useState(false);
+
+  const onStateChange = useCallback((state) => {
+    if (state === 'ended') {
+      setPlaying(false);
+      Alert.alert('video has finished playing!');
+    }
+  }, []);
+
+  const togglePlaying = useCallback(() => {
+    setPlaying((prev) => !prev);
+  }, []);
+
+  const [modalVisible, setModalVisible] = useState(false);
+
   const [cmt, setCmt] = useState('');
   return (
     <ScrollView style={styles.container}>
-      <View style={{ marginHorizontal: isFullScreen ? 50 : 0 }}>
+      <View>
         <View style={styles.itemScreen}>
           <TouchableOpacity onPress={() => NavigationUtils.pop()}>
             <Icon name="angle-left" size={25} style={styles.iconBack} />
@@ -120,39 +69,13 @@ const WatchVideo = () => {
           <Text style={styles.titleStory}>{story_detail.story_name}</Text>
         </View>
         <View style={styles.itemVideo}>
-          <Video
-            onEnd={onEnd}
-            onLoad={onLoad}
-            onLoadStart={onLoadStart}
-            onProgress={onProgress}
-            paused={paused}
-            ref={(ref) => (videoPlayer.current = ref)}
-            resizeMode={'cover'}
-            // source={Videos.demo}
-            source={{ uri: 'https://www.w3schools.com/html/mov_bbb.mp4' }}
-            style={styles.playVideo}
-            fullscreen={true}
-            playWhenInactive={false}
+          <YoutubePlayer
+            height={220}
+            play={playing}
+            videoId={story_detail.video[0].id_video}
+            onChangeState={onStateChange}
           />
-          <MediaControls
-            isFullScreen={isFullScreen}
-            duration={duration}
-            isLoading={isLoading}
-            progress={currentTime}
-            onFullScreen={onFullScreen}
-            onPaused={onPaused}
-            onReplay={onReplay}
-            onSeek={onSeek}
-            onSeeking={onSeeking}
-            mainColor={'orange'}
-            playerState={playerState}
-            style={isFullScreen ? styles.backgroundVideoFullScreen : styles.backgroundVideo}
-            sliderStyle={
-              isFullScreen
-                ? { containerStyle: styles.mediaControls, thumbStyle: {}, trackStyle: {} }
-                : { containerStyle: {}, thumbStyle: {}, trackStyle: {} }
-            }
-          />
+          {/* <Button title={playing ? "pause" : "play"} onPress={togglePlaying} /> */}
         </View>
         <View style={styles.iconInteract}>
           <View style={styles.itemCenter}>
@@ -274,6 +197,9 @@ const WatchVideo = () => {
 export default WatchVideo;
 
 const styles = StyleSheet.create({
+  itemVideo: {
+    marginTop: 20,
+  },
   txtComment: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -306,14 +232,13 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 45,
     flexDirection: 'row',
+    alignItems: 'center',
   },
   iconBack: {
-    padding: 10,
-    marginTop: 11,
+    margin: 10,
   },
   titleStory: {
-    marginLeft: 35,
-    marginTop: 18,
+    marginLeft: screenWidth * 0.25,
     fontSize: 20,
     fontWeight: 'bold',
   },
@@ -343,13 +268,6 @@ const styles = StyleSheet.create({
   backgroundVideo: {
     height: 300,
     width: screenWidth,
-  },
-  mediaControls: {
-    width: '100%',
-    height: '100%',
-    flex: 1,
-    alignSelf:
-      Platform.OS === 'android' ? (screenHeight < 800 ? 'center' : 'flex-start') : 'center',
   },
   backgroundVideoFullScreen: {
     height: 300,

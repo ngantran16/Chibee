@@ -1,17 +1,13 @@
 import React, { useEffect, useRef } from 'react';
-import { View, TouchableOpacity, StyleSheet, ActivityIndicator, Dimensions } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import TrackPlayer, { usePlaybackState } from 'react-native-track-player';
-const screenWidth = Dimensions.get('screen').width;
 
-export default function ControlItem({ onNext, onPrv }) {
+export default function ControlItem({ jumpForward, jumpBackward }) {
   const playbackState = usePlaybackState();
-  const isPlaying = useRef('paused'); //paused play loading
+  const isPlaying = useRef('paused');
 
   useEffect(() => {
-    console.log('Player State', playbackState);
-
-    //set the player state
     if (playbackState === 'playing' || playbackState === 3) {
       isPlaying.current = 'playing';
     } else if (playbackState === 'paused' || playbackState === 2) {
@@ -24,11 +20,11 @@ export default function ControlItem({ onNext, onPrv }) {
   const returnPlayBtn = () => {
     switch (isPlaying.current) {
       case 'playing':
-        return <Icon color="#000000" name="play-arrow" size={45} />;
+        return <Icon color="#000000" name="play-circle" size={45} />;
       case 'paused':
-        return <Icon color="#000000" name="pause" size={45} />;
+        return <Icon color="#000000" name="pause-circle" size={45} />;
       default:
-        return <ActivityIndicator size={45} color="#000000" />;
+        return <Icon color="#000000" name="pause-circle" size={45} />;
     }
   };
 
@@ -42,12 +38,14 @@ export default function ControlItem({ onNext, onPrv }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={onPrv}>
-        <Icon color="#000000" name="skip-previous" size={45} />
+      <TouchableOpacity onPress={jumpBackward} style={styles.controlStyle}>
+        <Icon color="#000" name="backward" size={35} />
       </TouchableOpacity>
-      <TouchableOpacity onPress={onPlayPause}>{returnPlayBtn()}</TouchableOpacity>
-      <TouchableOpacity onPress={onNext}>
-        <Icon color="#000000" name="skip-next" size={45} />
+      <TouchableOpacity onPress={onPlayPause} style={styles.controlStyle}>
+        {returnPlayBtn()}
+      </TouchableOpacity>
+      <TouchableOpacity onPress={jumpForward}>
+        <Icon color="#000" name="forward" size={35} />
       </TouchableOpacity>
     </View>
   );
@@ -58,5 +56,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  controlStyle: {
+    marginRight: 20,
   },
 });

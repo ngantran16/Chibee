@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  TextInput,
+} from 'react-native';
 import { NavigationUtils } from '../../navigation';
-import Images from '../../themes/Images';
 import { Dimensions } from 'react-native';
 import Colors from '../../themes/Colors';
 import HomeStoryItem from '../../components/Home/HomeStoryItem';
@@ -11,8 +18,11 @@ const screenWidth = Dimensions.get('screen').width;
 import DetailActions from '../../redux/DetailRedux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import IconStar from '../../components/Home/IconStar';
+import { AirbnbRating } from 'react-native-ratings';
 
 const DetailStory = (props) => {
+  const [review, setReview] = useState('');
+  const [showReview, setShowReview] = useState(false);
   const [checkViewAll, setCheckViewAll] = useState(false);
   const onViewAll = () => {
     setCheckViewAll(!checkViewAll);
@@ -44,6 +54,9 @@ const DetailStory = (props) => {
   for (let i = 0; i < 5 - histories.getStoryDetailsResponse?.rating; i++) {
     iconRatings.push(<IconStar color={Colors.greyAuthor} />);
   }
+  const ratingCompleted = (rating) => {
+    console.log('Rating is: ' + rating);
+  };
   return (
     <ScrollView style={styles.container}>
       <View>
@@ -138,6 +151,34 @@ const DetailStory = (props) => {
               return <HomeStoryItem item={item} key={key} />;
             })}
           </ScrollView>
+          <TouchableOpacity style={styles.commentHeader} onPress={() => setShowReview(!showReview)}>
+            <Text style={styles.ratingTitle}>Đánh giá và bình luận</Text>
+            <Icon
+              color="#000000"
+              name={showReview ? 'angle-double-up' : 'angle-double-down'}
+              size={24}
+            />
+          </TouchableOpacity>
+          <View style={showReview ? styles.ratingStory : [styles.ratingStory, { display: 'none' }]}>
+            <AirbnbRating
+              count={5}
+              reviews={['Terrible', 'Bad', 'OK', 'Good', 'Amazing']}
+              defaultRating={5}
+              size={20}
+              onFinishRating={ratingCompleted}
+            />
+            <TextInput
+              multiline={true}
+              numberOfLines={4}
+              style={styles.inputReview}
+              onChangeText={(text) => setReview(text)}
+              value={review}
+              placeholder="Hãy chia sẻ những điều bạn thích về câu chuyện này nhé."
+            />
+            <TouchableOpacity style={styles.btnSubmit}>
+              <Text>Gửi</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </ScrollView>
@@ -150,6 +191,36 @@ const styles = StyleSheet.create({
   scvContainer: {
     marginTop: 10,
     height: 200,
+  },
+  inputReview: {
+    borderWidth: 0.5,
+    borderRadius: 5,
+    margin: 10,
+    backgroundColor: 'white',
+  },
+  ratingStory: {
+    backgroundColor: '#F5F5F5',
+    marginBottom: 50,
+    borderRadius: 10,
+  },
+  ratingTitle: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    marginBottom: 10,
+    marginRight: 5,
+  },
+  commentHeader: {
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  btnSubmit: {
+    width: 80,
+    height: 40,
+    margin: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    backgroundColor: Colors.primary,
   },
   header: {
     marginTop: -screenHeight * 0.15,

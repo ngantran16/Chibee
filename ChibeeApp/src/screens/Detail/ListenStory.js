@@ -15,17 +15,13 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import TrackPlayer, { TrackPlayerEvents } from 'react-native-track-player';
-
-import songs from './data';
 import ControlItem from './PlayerControl';
 import SliderStory from './SliderStory';
-import { PLAYBACK_TRACK_CHANGED } from 'react-native-track-player/lib/eventTypes';
 import { NavigationUtils } from '../../navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Images from '../../themes/Images';
 import EvaluateItem from '../../components/Discover/EvaluateItem';
 import CommentActions from '../../redux/CommentRedux/actions';
-
 const { width, height } = Dimensions.get('window');
 
 const TRACK_PLAYER_CONTROLS_OPTS = {
@@ -35,67 +31,44 @@ const TRACK_PLAYER_CONTROLS_OPTS = {
   capabilities: [
     TrackPlayer.CAPABILITY_PLAY,
     TrackPlayer.CAPABILITY_PAUSE,
-    TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
-    TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
     TrackPlayer.CAPABILITY_SEEK_TO,
   ],
-  compactCapabilities: [
-    TrackPlayer.CAPABILITY_PLAY,
-    TrackPlayer.CAPABILITY_PAUSE,
-    TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
-    TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
-  ],
+  compactCapabilities: [TrackPlayer.CAPABILITY_PLAY, TrackPlayer.CAPABILITY_PAUSE],
 };
 
 export default function PlayStory() {
   const scrollX = useRef(new Animated.Value(0)).current;
+  const isLoading = useSelector((state) => state.comment.loadingComment);
+  const addCmtLoading = useSelector((state) => state.comment.loadingAddComment);
+  const dataComment = useSelector((state) => state.comment.dataComment);
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.login.token);
+  const detail_story = useSelector((state) => state.storyDetails.getStoryDetailsResponse);
+  const story = [
+    {
+      url: detail_story?.audio[0].link_audio,
+      duration: detail_story?.audio[0].length,
+    },
+  ];
 
   const slider = useRef(null);
   const isPlayerReady = useRef(false);
-  const index = useRef(0);
 
-  const [songIndex, setSongIndex] = useState(0);
-
-  const isItFromUser = useRef(true);
-  const position = useRef(Animated.divide(scrollX, width)).current;
+  const [, setSongIndex] = useState(0);
 
   useEffect(() => {
     scrollX.addListener(({ value }) => {
       const val = Math.round(value / width);
-
       setSongIndex(val);
     });
 
     TrackPlayer.setupPlayer().then(async () => {
-      console.log('Player ready');
       await TrackPlayer.reset();
-      await TrackPlayer.add(songs);
+      await TrackPlayer.add(story);
       TrackPlayer.play();
       isPlayerReady.current = true;
 
       await TrackPlayer.updateOptions(TRACK_PLAYER_CONTROLS_OPTS);
-
-      TrackPlayer.addEventListener(PLAYBACK_TRACK_CHANGED, async (e) => {
-        console.log('song ended', e);
-
-        const trackId = (await TrackPlayer.getCurrentTrack()) - 1;
-
-        console.log('track id', trackId, 'index', index.current);
-
-        if (trackId !== index.current) {
-          setSongIndex(trackId);
-          isItFromUser.current = false;
-
-          if (trackId > index.current) {
-            goNext();
-          } else {
-            goPrv();
-          }
-          setTimeout(() => {
-            isItFromUser.current = true;
-          }, 200);
-        }
-      });
 
       TrackPlayer.addEventListener(TrackPlayerEvents.REMOTE_DUCK, (e) => {
         if (e.paused) {
@@ -110,39 +83,42 @@ export default function PlayStory() {
       scrollX.removeAllListeners();
       TrackPlayer.destroy();
     };
-  }, [scrollX]);
+  }, [scrollX, story]);
 
-  useEffect(() => {
-    if (isPlayerReady.current && isItFromUser.current) {
-      TrackPlayer.skip(songs[songIndex].id)
-        .then((_) => {
-          console.log('changed track');
-        })
-        .catch((e) => console.log('error in changing track ', e));
+  async function jumpForward() {
+    const offset = 10;
+    try {
+      const position = await TrackPlayer.getPosition();
+      const duration = await TrackPlayer.getDuration();
+
+      console.log({ position, duration });
+
+      if (duration - position > offset) {
+        console.log('jumping in fact');
+        await TrackPlayer.seekTo(position + offset);
+      }
+    } catch (err) {
+      console.log(err);
     }
-    index.current = songIndex;
-  }, [songIndex]);
+  }
 
-  const goNext = async () => {
-    slider.current.scrollToOffset({
-      offset: (index.current + 1) * width,
-    });
+  async function jumpBackward() {
+    const offset = 10;
+    try {
+      const position = await TrackPlayer.getPosition();
+      if (position - offset > 0) {
+        await TrackPlayer.seekTo(position - offset);
+      } else {
+        await TrackPlayer.seekTo(0);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
-    await TrackPlayer.play();
-  };
-  const goPrv = async () => {
-    slider.current.scrollToOffset({
-      offset: (index.current - 1) * width,
-    });
-
-    await TrackPlayer.play();
-  };
-  const dispatch = useDispatch();
-  const token = useSelector((state) => state.login.token);
-  const id_story = useSelector((state) => state.storyDetails.getStoryDetailsResponse.id);
   useEffect(() => {
-    dispatch(CommentActions.getComment(id_story));
-  }, [dispatch, id_story]);
+    dispatch(CommentActions.getComment(detail_story.id));
+  }, [dispatch, detail_story.id]);
 
   const [cmt, setCmt] = useState('');
 
@@ -161,15 +137,12 @@ export default function PlayStory() {
   const addComment = () => {
     const data = {
       token: token,
-      id_story: id_story,
+      id_story: detail_story.id_story,
       content: cmt,
     };
     dispatch(CommentActions.addComment(data));
     setCmt('');
   };
-  const isLoading = useSelector((state) => state.comment.loadingComment);
-  const addCmtLoading = useSelector((state) => state.comment.loadingAddComment);
-  const dataComment = useSelector((state) => state.comment.dataComment);
   const renderItem = ({ index, item }) => {
     return (
       <View>
@@ -177,7 +150,7 @@ export default function PlayStory() {
           <TouchableOpacity onPress={() => NavigationUtils.popShowBottomTab()}>
             <Icon name="angle-left" size={25} />
           </TouchableOpacity>
-          <Text style={styles.titleHeader}>Cô Bé Choàng Khăn đỏ</Text>
+          <Text style={styles.titleHeader}>{detail_story.story_name}</Text>
         </View>
         <Animated.View
           style={{
@@ -186,7 +159,7 @@ export default function PlayStory() {
             width: width,
           }}
         >
-          <Animated.Image source={item.artwork} style={styles.imageStyle} />
+          <Animated.Image source={{ uri: detail_story.image }} style={styles.imageStyle} />
           <SliderStory />
         </Animated.View>
       </View>
@@ -202,7 +175,7 @@ export default function PlayStory() {
           pagingEnabled
           showsHorizontalScrollIndicator={false}
           scrollEventThrottle={16}
-          data={songs}
+          data={story}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {
@@ -210,7 +183,7 @@ export default function PlayStory() {
           })}
         />
       </SafeAreaView>
-      <ControlItem onNext={goNext} onPrv={goPrv} />
+      <ControlItem jumpForward={jumpForward} jumpBackward={jumpBackward} />
 
       <View style={styles.playStory}>
         <TouchableOpacity>
@@ -229,7 +202,7 @@ export default function PlayStory() {
 
       <View style={styles.commentContain}>
         <Text style={styles.txtComment}>
-          Bình luận ({dataComment && dataComment.length > 0 ? dataComment.length : 0}){' '}
+          Bình luận ({dataComment && dataComment.length > 0 ? dataComment.length : 0})
         </Text>
         <View style={styles.btnContainer}>
           <TextInput
@@ -238,7 +211,7 @@ export default function PlayStory() {
             onChangeText={(text) => setCmt(text)}
           />
           <TouchableOpacity style={styles.sendContain} onPress={addComment}>
-            <Image source={Images.send} />
+            <Icon name="paper-plane" size={25} />
           </TouchableOpacity>
         </View>
         <View>
@@ -286,6 +259,8 @@ const styles = StyleSheet.create({
     height: height * 0.3,
     width: height * 0.3,
     borderRadius: (height * 0.3) / 2,
+    borderColor: '#E8E8E8',
+    borderWidth: 1,
   },
   artist: {
     fontSize: 18,

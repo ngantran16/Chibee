@@ -38,7 +38,6 @@ export default function SliderStory() {
     });
   };
 
-  //components
   return (
     <View style={styles.container}>
       <Slider

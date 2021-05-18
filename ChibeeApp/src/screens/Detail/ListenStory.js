@@ -22,6 +22,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Images from '../../themes/Images';
 import EvaluateItem from '../../components/Discover/EvaluateItem';
 import CommentActions from '../../redux/CommentRedux/actions';
+import WishlistActions from '../../redux/WishlistRedux/actions';
 const { width, height } = Dimensions.get('window');
 
 const TRACK_PLAYER_CONTROLS_OPTS = {
@@ -44,6 +45,9 @@ export default function PlayStory() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.login.token);
   const detail_story = useSelector((state) => state.storyDetails.getStoryDetailsResponse);
+  const wishlistList = useSelector((state) => state.wishlist.dataWishlist);
+  const [isWishlist, setIsWishlist] = useState(false);
+
   const story = [
     {
       url: detail_story?.audio[0].link_audio,
@@ -118,7 +122,12 @@ export default function PlayStory() {
 
   useEffect(() => {
     dispatch(CommentActions.getComment(detail_story.id));
-  }, [dispatch, detail_story.id]);
+    for (let i = 0; i < wishlistList.length; i++) {
+      if (wishlistList[i].id_story === detail_story.id) {
+        setIsWishlist(true);
+      }
+    }
+  }, [dispatch, detail_story.id, wishlistList]);
 
   const [cmt, setCmt] = useState('');
 
@@ -142,6 +151,15 @@ export default function PlayStory() {
     };
     dispatch(CommentActions.addComment(data));
     setCmt('');
+  };
+  const onAddToWishlist = () => {
+    const dataWishlist = {
+      token: token,
+      id_story: detail_story.id,
+    };
+
+    dispatch(WishlistActions.addToWishlist(dataWishlist));
+    setIsWishlist(true);
   };
   const renderItem = ({ index, item }) => {
     return (
@@ -186,9 +204,9 @@ export default function PlayStory() {
       <ControlItem jumpForward={jumpForward} jumpBackward={jumpBackward} />
 
       <View style={styles.playStory}>
-        <TouchableOpacity>
-          <Image source={Images.heartstory} style={styles.iconStory} />
-          <Text style={styles.typeStory}>Yêu thích</Text>
+        <TouchableOpacity onPress={onAddToWishlist} disabled={isWishlist ? true : false}>
+          <Icon name="heart" size={25} color={isWishlist ? '#CC0000' : '#000'} />
+          <Text style={styles.typeStory}>{isWishlist ? 'Đã thích' : 'Yêu thích'}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={onReadStory}>
           <Image source={Images.book} style={styles.iconStory} />

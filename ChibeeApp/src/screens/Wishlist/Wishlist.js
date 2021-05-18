@@ -1,15 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useEffect } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-  Dimensions,
-} from 'react-native';
-import { NavigationUtils } from '../../navigation';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import Colors from '../../themes/Colors';
 import WishlistItem from '../../components/Profile/WishlistItem';
 import AudioItem from '../../components/Wishlist/VideoItem';
@@ -22,7 +13,7 @@ const WishList = () => {
   const token = useSelector((state) => state.login.token);
   useEffect(() => {
     dispatch(WishlistActions.getWishlist(token));
-  }, [dispatch, token])
+  }, [dispatch, token]);
   const data = useSelector((state) => state.wishlist.dataWishlist);
   return (
     <View style={styles.container}>
@@ -47,9 +38,8 @@ const WishList = () => {
           </TouchableOpacity>
         </View>
         <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollContain}>
-          {selected === 'Audio' ? <WishlistItem data = {data}/> : <AudioItem data = {data}/>}
+          {selected === 'Audio' ? <WishlistItem data={data} /> : <AudioItem data={data} />}
         </ScrollView>
-        
       </View>
     </View>
   );
@@ -93,5 +83,5 @@ const styles = StyleSheet.create({
   },
   scrollContain: {
     marginBottom: 150,
-  }
+  },
 });

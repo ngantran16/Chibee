@@ -4,5 +4,5 @@ export async function wishlistApi(token) {
 }
 
 export async function addToWishlist(data) {
-  return http.post('/api/wishlist/', data);
+  return http.post('/api/wishlist', data);
 }

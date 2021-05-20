@@ -23,6 +23,8 @@ import Images from '../../themes/Images';
 import EvaluateItem from '../../components/Discover/EvaluateItem';
 import CommentActions from '../../redux/CommentRedux/actions';
 import WishlistActions from '../../redux/WishlistRedux/actions';
+import AwesomeAlert from 'react-native-awesome-alerts';
+import Colors from '../../themes/Colors';
 const { width, height } = Dimensions.get('window');
 
 const TRACK_PLAYER_CONTROLS_OPTS = {
@@ -47,6 +49,7 @@ export default function PlayStory() {
   const detail_story = useSelector((state) => state.storyDetails.getStoryDetailsResponse);
   const wishlistList = useSelector((state) => state.wishlist.dataWishlist);
   const [isWishlist, setIsWishlist] = useState(false);
+  const [show, setShow] = useState(false);
 
   const story = [
     {
@@ -94,8 +97,6 @@ export default function PlayStory() {
     try {
       const position = await TrackPlayer.getPosition();
       const duration = await TrackPlayer.getDuration();
-
-      console.log({ position, duration });
 
       if (duration - position > offset) {
         console.log('jumping in fact');
@@ -160,6 +161,7 @@ export default function PlayStory() {
 
     dispatch(WishlistActions.addToWishlist(dataWishlist));
     setIsWishlist(true);
+    setShow(true);
   };
   const renderItem = ({ index, item }) => {
     return (
@@ -204,15 +206,19 @@ export default function PlayStory() {
       <ControlItem jumpForward={jumpForward} jumpBackward={jumpBackward} />
 
       <View style={styles.playStory}>
-        <TouchableOpacity onPress={onAddToWishlist} disabled={isWishlist ? true : false}>
+        <TouchableOpacity
+          onPress={onAddToWishlist}
+          disabled={isWishlist ? true : false}
+          style={styles.reactIcon}
+        >
           <Icon name="heart" size={25} color={isWishlist ? '#CC0000' : '#000'} />
           <Text style={styles.typeStory}>{isWishlist ? 'Đã thích' : 'Yêu thích'}</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={onReadStory}>
+        <TouchableOpacity onPress={onReadStory} style={styles.reactIcon}>
           <Image source={Images.book} style={styles.iconStory} />
           <Text style={styles.typeStory}>Đọc truyện</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={onWatchStory}>
+        <TouchableOpacity onPress={onWatchStory} style={styles.reactIcon}>
           <Image source={Images.video} style={styles.iconStory} />
           <Text style={styles.typeStory}>Xem video</Text>
         </TouchableOpacity>
@@ -258,6 +264,18 @@ export default function PlayStory() {
           )}
         </View>
       </View>
+      <AwesomeAlert
+        show={show}
+        showProgress={false}
+        message="Bạn đã thêm vào Yêu thích thành công!"
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={false}
+        showConfirmButton={true}
+        confirmText="OK"
+        confirmButtonColor={Colors.primary}
+        onCancelPressed={() => setShow(false)}
+        onConfirmPressed={() => setShow(false)}
+      />
     </ScrollView>
   );
 }
@@ -267,11 +285,14 @@ const styles = StyleSheet.create({
     marginTop: 18,
     flexDirection: 'row',
   },
+  reactIcon: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   titleHeader: {
     fontSize: 18,
-    fontWeight: 'bold',
     color: 'gray',
-    marginLeft: width * 0.25,
+    marginLeft: 20,
   },
   imageStyle: {
     height: height * 0.3,
@@ -301,7 +322,6 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   iconStory: {
-    marginLeft: 19,
     width: 30,
     height: 30,
   },

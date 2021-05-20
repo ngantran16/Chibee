@@ -17,3 +17,7 @@ export async function getTypesApi() {
 export async function getDetailStories(id) {
   return http.get('/api/stories/' + id);
 }
+
+export async function rating(data) {
+  return http.post('/api/rate', data);
+}

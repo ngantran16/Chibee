@@ -8,6 +8,7 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native';
+import AwesomeAlert from 'react-native-awesome-alerts';
 import { NavigationUtils } from '../../navigation';
 import { Dimensions } from 'react-native';
 import Colors from '../../themes/Colors';
@@ -22,8 +23,12 @@ import { AirbnbRating } from 'react-native-ratings';
 
 const DetailStory = (props) => {
   const [review, setReview] = useState('');
+  const [show, setShow] = useState(false);
+  const [rating, setRating] = useState(5);
   const [showReview, setShowReview] = useState(false);
   const [checkViewAll, setCheckViewAll] = useState(false);
+  const token = useSelector((state) => state.login.token);
+
   const onViewAll = () => {
     setCheckViewAll(!checkViewAll);
   };
@@ -54,8 +59,19 @@ const DetailStory = (props) => {
   for (let i = 0; i < 5 - histories.getStoryDetailsResponse?.rating; i++) {
     iconRatings.push(<IconStar color={Colors.greyAuthor} />);
   }
-  const ratingCompleted = (rating) => {
-    console.log('Rating is: ' + rating);
+  const ratingCompleted = (value) => {
+    setRating(value);
+  };
+  const onSubmitRating = () => {
+    const ratingData = {
+      token: token,
+      id_story: histories.getStoryDetailsResponse?.id,
+      review: review,
+      point: rating,
+    };
+    dispatch(DetailActions.userRating(ratingData));
+    setReview('');
+    setShow(true);
   };
   return (
     <ScrollView style={styles.container}>
@@ -175,12 +191,25 @@ const DetailStory = (props) => {
               value={review}
               placeholder="Hãy chia sẻ những điều bạn thích về câu chuyện này nhé."
             />
-            <TouchableOpacity style={styles.btnSubmit}>
+            <TouchableOpacity style={styles.btnSubmit} onPress={onSubmitRating}>
               <Text>Gửi</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
+      <AwesomeAlert
+        show={show}
+        showProgress={false}
+        title="Xác nhận"
+        message="Bạn đã đánh giá thành công!"
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={false}
+        showConfirmButton={true}
+        confirmText="OK"
+        confirmButtonColor={Colors.primary}
+        onCancelPressed={() => setShow(false)}
+        onConfirmPressed={() => setShow(false)}
+      />
     </ScrollView>
   );
 };
@@ -197,6 +226,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     margin: 10,
     backgroundColor: 'white',
+    padding: 10,
   },
   ratingStory: {
     backgroundColor: '#F5F5F5',

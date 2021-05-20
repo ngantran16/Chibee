@@ -1,8 +1,8 @@
 import { put, call, takeLatest, select, take } from 'redux-saga/effects';
 import getStoryDetailActions, { getStoryDetailTypes } from './actions';
-import { getDetailStories } from '../../api/stories';
+import { getDetailStories, rating } from '../../api/stories';
+import { userRating } from './reducer';
 
-//Get book details
 function* waitFor(selector) {
   if (yield select(selector)) {
     return;
@@ -27,7 +27,18 @@ export function* getStoryDetailsSaga({ id }) {
   }
 }
 
-const storyDetailSagas = () => {
-  return [takeLatest(getStoryDetailTypes.GET_STORY_DETAILS, getStoryDetailsSaga)];
-};
+export function* userRatingSaga({ data }) {
+  try {
+    const response = yield call(rating, data);
+    yield put(getStoryDetailActions.userRatingSuccess(response));
+  } catch (error) {
+    console.log('Error: ' + error);
+    yield put(getStoryDetailActions.userRatingFailure(error));
+  }
+}
+
+const storyDetailSagas = () => [
+  takeLatest(getStoryDetailTypes.GET_STORY_DETAILS, getStoryDetailsSaga),
+  takeLatest(getStoryDetailTypes.USER_RATING, userRatingSaga),
+];
 export default storyDetailSagas();

@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import YoutubePlayer from 'react-native-youtube-iframe';
 import {
   View,
@@ -22,6 +22,8 @@ import { NavigationUtils } from '../../navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 import CommentActions from '../../redux/CommentRedux/actions';
+import WishlistActions from '../../redux/WishlistRedux/actions';
+import AwesomeAlert from 'react-native-awesome-alerts';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 
@@ -33,6 +35,10 @@ const WatchVideo = () => {
   const story_detail = useSelector((state) => state.storyDetails.getStoryDetailsResponse);
   const token = useSelector((state) => state.login.token);
   const id_story = story_detail.id;
+  const wishlistList = useSelector((state) => state.wishlist.dataWishlist);
+  const [isWishlist, setIsWishlist] = useState(false);
+  const [show, setShow] = useState(false);
+
   const addComment = () => {
     const data = {
       token: token,
@@ -52,11 +58,25 @@ const WatchVideo = () => {
     }
   }, []);
 
-  const togglePlaying = useCallback(() => {
-    setPlaying((prev) => !prev);
-  }, []);
-
   const [modalVisible, setModalVisible] = useState(false);
+  useEffect(() => {
+    for (let i = 0; i < wishlistList.length; i++) {
+      if (wishlistList[i].id_story === story_detail.id) {
+        setIsWishlist(true);
+      }
+    }
+  }, [dispatch, story_detail.id, wishlistList]);
+
+  const onAddToWishlist = () => {
+    const dataWishlist = {
+      token: token,
+      id_story: story_detail.id,
+    };
+
+    dispatch(WishlistActions.addToWishlist(dataWishlist));
+    setIsWishlist(true);
+    setShow(true);
+  };
 
   const [cmt, setCmt] = useState('');
   return (
@@ -75,13 +95,21 @@ const WatchVideo = () => {
             videoId={story_detail.video[0].id_video}
             onChangeState={onStateChange}
           />
-          {/* <Button title={playing ? "pause" : "play"} onPress={togglePlaying} /> */}
         </View>
         <View style={styles.iconInteract}>
-          <View style={styles.itemCenter}>
-            <Icon name="heart" size={26} style={styles.iconHeart} />
+          <TouchableOpacity
+            style={styles.itemCenter}
+            disabled={isWishlist ? true : false}
+            onPress={onAddToWishlist}
+          >
+            <Icon
+              name="heart"
+              size={25}
+              color={isWishlist ? '#CC0000' : '#000'}
+              style={styles.iconHeart}
+            />
             <Text style={styles.nameIcon}>Yêu thích</Text>
-          </View>
+          </TouchableOpacity>
 
           <Pressable
             style={[styles.itemCenter, styles.button]}
@@ -190,6 +218,18 @@ const WatchVideo = () => {
           </View>
         </Modal>
       </View>
+      <AwesomeAlert
+        show={show}
+        showProgress={false}
+        message="Bạn đã thêm vào Yêu thích thành công!"
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={false}
+        showConfirmButton={true}
+        confirmText="OK"
+        confirmButtonColor={Colors.primary}
+        onCancelPressed={() => setShow(false)}
+        onConfirmPressed={() => setShow(false)}
+      />
     </ScrollView>
   );
 };
@@ -198,7 +238,7 @@ export default WatchVideo;
 
 const styles = StyleSheet.create({
   itemVideo: {
-    marginTop: 20,
+    marginTop: 5,
   },
   txtComment: {
     fontSize: 18,
@@ -234,13 +274,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  iconBack: {
-    margin: 10,
-  },
   titleStory: {
-    marginLeft: screenWidth * 0.25,
+    marginLeft: 20,
     fontSize: 20,
-    fontWeight: 'bold',
   },
   playVideo: {
     height: 300,

@@ -1,37 +1,60 @@
 import React from 'react';
 import Moment from 'moment';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
-const screenHeight = Dimensions.get('screen').height;
+import Colors from '../../themes/Colors';
+import PlayerControl from './PlayerControl';
+import SliderAudio from './SliderAudio';
+
 const screenWidth = Dimensions.get('screen').width;
 
 const ListItem = (props) => {
   Moment.locale('en');
   return (
-      <TouchableOpacity style={styles.storyContain}>
+    <TouchableOpacity style={styles.storyContain}>
+      <View style={styles.imgTitle}>
         <Image source={{ uri: props.item.image }} style={styles.imgStory} />
         <View style={styles.content}>
           <Text style={styles.nameStory}>{props.item.story_name}</Text>
           <Text style={styles.dateStory}>{Moment(props.item.updated_at).format('DD/MM/YYYY')}</Text>
+          <SliderAudio duration={100} />
         </View>
-      </TouchableOpacity>
+      </View>
+      <View>
+        <PlayerControl />
+      </View>
+    </TouchableOpacity>
   );
 };
 
 export default ListItem;
 
 const styles = StyleSheet.create({
+  imgTitle: {
+    flexDirection: 'row',
+  },
   storyContain: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginTop: 20,
+    backgroundColor: '#F5F5F5',
+    borderRadius: 10,
+    padding: 10,
+    borderBottomColor: Colors.primary,
+    borderRightColor: '#F5F5F5',
+    borderLeftColor: '#F5F5F5',
+    borderTopColor: '#F5F5F5',
+    borderWidth: 2,
   },
   imgStory: {
-    width: screenWidth * 0.45,
-    height: screenHeight * 0.15,
-    borderRadius: 10,
+    width: screenWidth * 0.2,
+    height: screenWidth * 0.2,
+    borderRadius: (screenWidth * 0.2) / 2,
   },
   content: {
-    marginLeft: screenWidth * 0.05,
+    marginLeft: screenWidth * 0.04,
     justifyContent: 'center',
+    width: screenWidth * 0.5,
   },
   nameStory: {
     fontSize: 18,

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import Colors from '../../themes/Colors';
 import WishlistItem from '../../components/Profile/WishlistItem';
-import AudioItem from '../../components/Wishlist/VideoItem';
+import AudioItem from '../../components/Wishlist/AudioItem';
 import WishlistActions from '../../redux/WishlistRedux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -38,7 +38,7 @@ const WishList = () => {
           </TouchableOpacity>
         </View>
         <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollContain}>
-          {selected === 'Audio' ? <WishlistItem data={data} /> : <AudioItem data={data} />}
+          {selected === 'Audio' ? <AudioItem data={data} /> : <WishlistItem data={data} />}
         </ScrollView>
       </View>
     </View>

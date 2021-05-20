@@ -1,29 +1,53 @@
 import React from 'react';
-import { StyleSheet, Text,View} from 'react-native';
-import ListItem from '../../components/Wishlist/ListItem';
+import Moment from 'moment';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
 
 const WishlistItem = (props) => {
   const data = props.data;
-  console.log('ỨIHLIfhfjh')
-  console.log(data)
+  Moment.locale('en');
   return (
-    <View>
-      {
-        (data && data.length > 0) ? (
-          data.map((item, key) => {
-            return <ListItem item={item} key={key} />
-          })
-        ) : (<Text style={styles.message}>You haven't added any story into your wishlist yet!</Text>)
-      }
-    </View>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      {data && data.length > 0 ? (
+        data.map((item, key) => {
+          return (
+            <TouchableOpacity style={styles.storyContain} key={key}>
+              <Image source={{ uri: item.image }} style={styles.imgStory} />
+              <View style={styles.content}>
+                <Text style={styles.nameStory}>{item.story_name}</Text>
+                <Text style={styles.dateStory}>{Moment(item.updated_at).format('DD/MM/YYYY')}</Text>
+              </View>
+            </TouchableOpacity>
+          );
+        })
+      ) : (
+        <Text style={styles.message}>You haven't added any story into your wishlist yet!</Text>
+      )}
+    </ScrollView>
   );
 };
 
 export default WishlistItem;
 
 const styles = StyleSheet.create({
-  message: {
-    marginTop: 50,
-    fontSize: 20,
-  }
+  storyContain: {
+    marginTop: 20,
+  },
+  imgStory: {
+    width: '100%',
+    height: 200,
+    borderRadius: 10,
+  },
+  content: {
+    marginTop: 10,
+    justifyContent: 'center',
+  },
+  nameStory: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  dateStory: {
+    fontSize: 18,
+    color: 'gray',
+    textAlign: 'left',
+  },
 });

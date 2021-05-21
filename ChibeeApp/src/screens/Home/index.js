@@ -46,8 +46,8 @@ const Home = () => {
       </View>
       {isLoading && <ActivityIndicator size="large" color="#FF6600" />}
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-        {listTypes?.map((type, index) => {
-          return <Type item={type} key={index} />;
+        {listTypes?.map((type, key) => {
+          return <Type item={type} key={key} />;
         })}
       </ScrollView>
     </ScrollView>

@@ -9,7 +9,8 @@ export const getStoryDetailTypes = makeConstantCreator(
   'USER_RATING_FAILURE',
 );
 
-const getStoryDetails = (id) => makeActionCreator(getStoryDetailTypes.GET_STORY_DETAILS, { id });
+const getStoryDetails = (id, onSuccess, onFail) =>
+  makeActionCreator(getStoryDetailTypes.GET_STORY_DETAILS, { id, onSuccess, onFail });
 const getStoryDetailsSuccess = (response) =>
   makeActionCreator(getStoryDetailTypes.GET_STORY_DETAILS_SUCCESS, { response });
 const getStoryDetailsFailure = (error) =>

@@ -14,6 +14,11 @@ export async function getTypesApi() {
   return http.get('/api/type');
 }
 
+export async function getStoriesByType(id) {
+  console.log('ID ID ID' + id);
+  return http.get('/api/getStoriesByType/' + id);
+}
+
 export async function getDetailStories(id) {
   return http.get('/api/stories/' + id);
 }

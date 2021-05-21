@@ -2,25 +2,43 @@ import React from 'react';
 import Moment from 'moment';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 import Colors from '../../themes/Colors';
-import PlayerControl from './PlayerControl';
-import SliderAudio from './SliderAudio';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { NavigationUtils } from '../../navigation';
+import DetailActions from '../../redux/DetailRedux/actions';
+import { useDispatch } from 'react-redux';
 
 const screenWidth = Dimensions.get('screen').width;
 
 const ListItem = (props) => {
+  const dispatch = useDispatch();
   Moment.locale('en');
+
+  const onSuccess = () => {
+    NavigationUtils.push({
+      screen: 'ListenStory',
+      isTopBarEnable: false,
+      isBottomTabsEnable: false,
+    });
+  };
+
+  const onFail = () => {
+    console.log('Get story details fail');
+  };
+
+  const onListenStory = () => {
+    dispatch(DetailActions.getStoryDetails(props.item.id, onSuccess, onFail));
+  };
   return (
-    <TouchableOpacity style={styles.storyContain}>
+    <TouchableOpacity style={styles.storyContain} onPress={onListenStory}>
       <View style={styles.imgTitle}>
         <Image source={{ uri: props.item.image }} style={styles.imgStory} />
         <View style={styles.content}>
           <Text style={styles.nameStory}>{props.item.story_name}</Text>
           <Text style={styles.dateStory}>{Moment(props.item.updated_at).format('DD/MM/YYYY')}</Text>
-          <SliderAudio duration={100} />
         </View>
       </View>
       <View>
-        <PlayerControl />
+        <Icon color="#000000" name="headphones" size={35} />
       </View>
     </TouchableOpacity>
   );

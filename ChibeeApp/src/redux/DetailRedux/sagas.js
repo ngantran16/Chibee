@@ -1,7 +1,6 @@
 import { put, call, takeLatest, select, take } from 'redux-saga/effects';
 import getStoryDetailActions, { getStoryDetailTypes } from './actions';
 import { getDetailStories, rating } from '../../api/stories';
-import { userRating } from './reducer';
 
 function* waitFor(selector) {
   if (yield select(selector)) {
@@ -15,15 +14,17 @@ function* waitFor(selector) {
     } // (1b)
   }
 }
-export function* getStoryDetailsSaga({ id }) {
+export function* getStoryDetailsSaga({ id, onSuccess, onFail }) {
   try {
     const response = yield call(getDetailStories, id);
     const data = response?.data?.[0];
     yield put(getStoryDetailActions.getStoryDetailsSuccess(data));
     yield call(waitFor, (state) => state.storyDetails.getStoryDetailsResponse != null);
+    onSuccess && onSuccess(id);
   } catch (error) {
     console.log('Error: ' + error);
     yield put(getStoryDetailActions.getStoryDetailsFailure(error));
+    onFail && onFail();
   }
 }
 

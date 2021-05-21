@@ -10,6 +10,8 @@ target 'ChibeeApp' do
 
   pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
 
+  pod 'RNSoundPlayer', :path => '../node_modules/react-native-sound-player'
+
   target 'ChibeeAppTests' do
     inherit! :complete
     # Pods for testing

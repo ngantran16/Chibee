@@ -13,13 +13,15 @@ function* waitFor(selector) {
     }
   }
 }
-export function* getCommentSaga({ id }) {
+export function* getCommentSaga({ id, onSuccess, onFail }) {
   try {
     const response = yield call(getComments, id);
     yield put(CommentActions.getCommentSuccess(response));
     yield call(waitFor, (state) => state.comment.dataComment != null);
+    onSuccess && onSuccess();
   } catch (error) {
     yield put(CommentActions.getCommentFailure(error));
+    onFail && onFail();
   }
 }
 

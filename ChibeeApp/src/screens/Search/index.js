@@ -25,7 +25,7 @@ const Search = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           {listTypes?.map((type, key) => {
-            return <SearchItem item={type} key={key} searchText = {searchText} />;
+            return <SearchItem item={type} key={key} searchText={searchText} />;
           })}
         </View>
       </ScrollView>

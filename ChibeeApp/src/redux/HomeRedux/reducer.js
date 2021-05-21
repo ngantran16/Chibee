@@ -8,6 +8,9 @@ export const INITIAL_STATE = Immutable({
   loadingHome: true,
   dataTypes: null,
   errorTypes: false,
+  dataStoryByType: null,
+  loadingStoryByType: false,
+  errorStoryByType: null,
 });
 
 export const getStoryHomeSuccess = (state, { response }) =>
@@ -18,6 +21,15 @@ export const getStoryHomeSuccess = (state, { response }) =>
   });
 export const getStoryHomeFailure = (state, { error }) =>
   state.merge({ errorHome: error, loadingHome: false });
+
+export const getStoryByTypeSuccess = (state, { response }) =>
+  state.merge({
+    dataStoryByType: response.data,
+    errorStoryByType: false,
+    loadingStoryByType: false,
+  });
+export const getStoryByTypeFailure = (state, { error }) =>
+  state.merge({ errorStoryByType: error, loadingStoryByType: false });
 
 export const getTypesSuccess = (state, { response }) =>
   state.merge({
@@ -34,6 +46,8 @@ const reducer = makeReducerCreator(INITIAL_STATE, {
   [HomeTypes.GET_STORY_HOME_FAILURE]: getStoryHomeFailure,
   [HomeTypes.GET_TYPES_SUCCESS]: getTypesSuccess,
   [HomeTypes.GET_TYPES_FAILURE]: getTypesFailure,
+  [HomeTypes.GET_STORY_BY_TYPE_SUCCESS]: getStoryByTypeSuccess,
+  [HomeTypes.GET_STORY_BY_TYPE_FAILURE]: getStoryByTypeFailure,
 });
 
 export default reducer;

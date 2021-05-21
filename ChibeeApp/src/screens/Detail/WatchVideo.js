@@ -60,9 +60,11 @@ const WatchVideo = () => {
 
   const [modalVisible, setModalVisible] = useState(false);
   useEffect(() => {
-    for (let i = 0; i < wishlistList.length; i++) {
-      if (wishlistList[i].id_story === story_detail.id) {
-        setIsWishlist(true);
+    if (wishlistList) {
+      for (let i = 0; i < wishlistList.length; i++) {
+        if (wishlistList[i].id_story === story_detail.id) {
+          setIsWishlist(true);
+        }
       }
     }
   }, [dispatch, story_detail.id, wishlistList]);
@@ -140,7 +142,7 @@ const WatchVideo = () => {
             <Icon name="paper-plane" size={25} />
           </TouchableOpacity>
         </View>
-        {dataComment && dataComment.length > 0 ? (
+        {dataComment ? (
           <View style={styles.listComment}>
             {dataComment.map((item, key) => {
               return (

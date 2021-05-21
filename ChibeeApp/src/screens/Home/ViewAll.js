@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const screenWidth = Dimensions.get('screen').width;
 
 const ViewAll = () => {
-  const listStory = useSelector((state) => state.home.dataStory);
+  const listStory = useSelector((state) => state.home.dataStoryByType);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -22,7 +22,7 @@ const ViewAll = () => {
       </View>
       <ScrollView style={styles.mainContain} showsVerticalScrollIndicator={false}>
         <FlatGrid
-          itemDimension={screenWidth * 0.42}
+          itemDimension={screenWidth * 0.4}
           data={listStory}
           style={styles.gridView}
           spacing={10}

@@ -55,9 +55,6 @@ export default function PlayStory() {
     {
       url: detail_story?.audio[0].link_audio,
       duration: detail_story?.audio[0].length,
-      title: detail_story.story_name,
-      artist: 'Truyện cổ tích',
-      artwork: detail_story.image,
     },
   ];
 

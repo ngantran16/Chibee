@@ -5,9 +5,7 @@ import { userLoginApi } from '../../api/auth';
 import AsyncStorage from '@react-native-community/async-storage';
 export function* userLoginSaga({ data }) {
   try {
-    console.log('Data Saga' + data.email);
     const response = yield call(userLoginApi, data);
-    console.log('Response:    ', response.data.access_token);
     const newResponse = {
       data: response.data,
       token: response.data.access_token,
@@ -21,7 +19,6 @@ export function* userLoginSaga({ data }) {
   }
 }
 export function* userLogout() {
-  console.log('run');
   yield AsyncStorage.clear();
   yield AsyncStorage.setItem('skip', JSON.stringify(true));
   yield put(startup());

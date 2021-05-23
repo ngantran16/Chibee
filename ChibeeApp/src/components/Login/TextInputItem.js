@@ -18,7 +18,7 @@ const TextInputItem = (props) => {
 };
 const styleInput = StyleSheet.create({
   layoutInput: {
-    flex: 1,
+    height: 70,
   },
   titleInput: {
     color: 'gray',
@@ -30,6 +30,7 @@ const styleInput = StyleSheet.create({
     borderColor: '#ACA9A9',
     borderWidth: 1,
     marginBottom: 15,
+    borderRadius: 5,
   },
 });
 export default TextInputItem;

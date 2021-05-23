@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     borderColor: '#41B8C1',
     borderWidth: 2,
+    borderRadius: 5,
   },
   signUpButton: {
     paddingVertical: 10,
@@ -144,6 +145,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#41B8C1',
     borderColor: '#41B8C1',
     borderWidth: 2,
+    borderRadius: 5,
   },
   textSignUp: {
     color: 'white',

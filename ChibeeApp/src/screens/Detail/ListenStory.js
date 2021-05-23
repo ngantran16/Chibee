@@ -150,7 +150,7 @@ export default function PlayStory() {
   const addComment = () => {
     const data = {
       token: token,
-      id_story: detail_story.id_story,
+      id_story: detail_story.id,
       content: cmt,
     };
     dispatch(CommentActions.addComment(data));

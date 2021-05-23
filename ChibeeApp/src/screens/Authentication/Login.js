@@ -1,10 +1,6 @@
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Formik } from 'formik';
 import {
   StyleSheet,
   Text,
@@ -12,7 +8,6 @@ import {
   TouchableOpacity,
   ScrollView,
   ActivityIndicator,
-  ImageBackground,
   Image,
   Dimensions,
 } from 'react-native';
@@ -29,75 +24,115 @@ const Login = () => {
   const [] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const dataLogin = {
-    email: email,
-    password: password,
-  };
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.login.loadingLogin);
   const isError = useSelector((state) => state.login.errorLogin);
+  const [errorEmail, setErrorEmail] = useState('');
+  const [errorPassword, setErrorPassword] = useState('');
+
+  const validateEmail = (text) => {
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    if (reg.test(text) === false) {
+      return false;
+    }
+    return true;
+  };
+
   const onSignUpHandel = () => {
     NavigationUtils.push({ screen: 'SignUp', isTopBarEnable: false });
   };
-  const onClose = () => {
-    NavigationUtils.pop();
-  };
   const onLogin = () => {
-    dispatch(LoginTypes.userLogin(dataLogin));
+    setErrorEmail('');
+    setErrorPassword('');
+    if (email === '' || password === '' || validateEmail(email) === false) {
+      if (email === '') {
+        setErrorEmail('Email is required');
+      } else if (validateEmail(email) === false) {
+        setErrorEmail('Please input a valid email');
+      }
+      if (password === '') {
+        setErrorPassword('Password is required');
+      }
+    } else {
+      const dataLogin = {
+        email: email,
+        password: password,
+      };
+      console.log(dataLogin);
+      dispatch(LoginTypes.userLogin(dataLogin));
+    }
   };
+
   const onForgotPassword = () => {
     NavigationUtils.push({ screen: 'ForgotPassword1', isTopBarEnable: false });
   };
   return (
-    <ImageBackground source={Images.loginBg} style={styles.image}>
-      <View style={styles.imgContain}>
-        <Image source={Images.intro2} style={styles.iconApp} />
+    <ScrollView style={styles.sessionContain} showsVerticalScrollIndicator={false}>
+      <View style={styles.loginForm}>
+        <View style={styles.imgContain}>
+          <Image source={Images.intro2} style={styles.iconApp} />
+        </View>
+        <View style={styles.container}>
+          <View style={styles.layoutTitle}>
+            <Text style={styles.title}> Đăng nhập </Text>
+            {isError ? (
+              <Text style={styles.error}>
+                <Icon color="#FF0000" name="error" size={20} /> Username or password incorrect
+              </Text>
+            ) : (
+              <></>
+            )}
+          </View>
+          <View style={styles.inputSession}>
+            <TextInputItem title="Email" ChangeText={(val) => setEmail(val)} />
+            {errorEmail ? <Text style={styles.error}>{errorEmail}</Text> : <></>}
+          </View>
+          <View style={styles.inputSession}>
+            <PasswordItem
+              title="Mật khẩu"
+              imageClose={Images.visibility2}
+              imageOpen={Images.visibility}
+              onChangePass={(val) => setPassword(val)}
+            />
+            {errorPassword ? <Text style={styles.error}>{errorPassword}</Text> : <></>}
+          </View>
+          <View style={styles.layoutButton}>
+            <TouchableOpacity style={styles.loginButton} onPress={onLogin}>
+              {isLoading && <ActivityIndicator size="large" color="#FF6600" />}
+              <Text style={styles.textSignUp}>Đăng nhập</Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity onPress={() => onForgotPassword()}>
+            <Text style={styles.policy}> Quên mật khẩu? </Text>
+            <TouchableOpacity onPress={onSignUpHandel}>
+              <Text style={styles.signUp}>Đăng ký</Text>
+            </TouchableOpacity>
+          </TouchableOpacity>
+        </View>
       </View>
-
-      <ScrollView style={styles.container}>
-        <View style={styles.layoutTitle}>
-          <Text style={styles.title}> Đăng nhập </Text>
-        </View>
-        <TextInputItem title="Email" ChangeText={(val) => setEmail(val)} />
-        <PasswordItem
-          title="Mật khẩu"
-          imageClose={Images.visibility2}
-          imageOpen={Images.visibility}
-          onChangePass={(val) => setPassword(val)}
-        />
-        {isLoading && <ActivityIndicator size="large" color="#FF6600" />}
-        {isError && <Text style={{ color: 'red' }}> {isError} </Text>}
-        <View style={styles.layoutButton}>
-          <TouchableOpacity style={styles.loginButton} onPress={onLogin}>
-            <Text style={styles.textSignUp}> Đăng nhập </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.signupButton} onPress={onSignUpHandel}>
-            <Text> Đăng ký </Text>
-          </TouchableOpacity>
-        </View>
-        <TouchableOpacity onPress={() => onForgotPassword()}>
-          <Text style={styles.policy}> Quên mật khẩu? </Text>
-        </TouchableOpacity>
-      </ScrollView>
-    </ImageBackground>
+    </ScrollView>
   );
 };
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: 'white',
-    marginTop: 15,
+    height: screenHeight * 0.44,
   },
-  image: {
-    flex: 1,
-    height: screenHeight * 0.4,
+  sessionContain: {
+    backgroundColor: '#ADDFFF',
+  },
+  loginForm: {
+    width: screenWidth * 0.9,
+    height: screenHeight * 0.58,
+    backgroundColor: 'white',
     justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: screenHeight * 0.15,
+    marginLeft: screenWidth * 0.05,
+    borderRadius: 10,
   },
   layoutTitle: {
-    flex: 0.7,
-    flexDirection: 'row',
-    marginBottom: 20,
+    marginBottom: 30,
+    height: 35,
   },
   closeImage: {
     height: 20,
@@ -107,23 +142,26 @@ const styles = StyleSheet.create({
   title: {
     color: '#505050',
     fontSize: 26,
-    marginLeft: '32%',
+    width: screenWidth * 0.8,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   layoutButton: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 30,
+    justifyContent: 'center',
+    marginTop: 20,
     paddingHorizontal: 10,
   },
   loginButton: {
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.secondary,
     borderColor: Colors.secondary,
     borderWidth: 2,
-    width: screenWidth * 0.4,
+    width: screenWidth * 0.3,
     height: screenHeight * 0.05,
+    borderRadius: 5,
   },
   signupButton: {
     justifyContent: 'center',
@@ -135,25 +173,36 @@ const styles = StyleSheet.create({
   },
   textSignUp: {
     color: 'white',
+    fontWeight: 'bold',
   },
   policy: {
-    marginTop: 20,
+    marginTop: 10,
     paddingHorizontal: 10,
     color: 'gray',
     textAlign: 'center',
     fontSize: 16,
   },
+  signUp: {
+    color: Colors.secondary,
+    paddingHorizontal: 10,
+    textAlign: 'center',
+    fontSize: 18,
+  },
   iconApp: {
-    width: screenWidth * 0.45,
-    height: screenWidth * 0.45,
+    width: screenWidth * 0.3,
+    height: screenWidth * 0.3,
   },
   imgContain: {
-    marginTop: screenWidth * 0.35,
-    backgroundColor: '#FFFFFF',
-    width: screenWidth * 0.45,
-    height: screenWidth * 0.45,
-    borderRadius: (screenWidth * 0.45) / 2,
-    marginLeft: screenWidth * 0.3,
+    width: screenWidth * 0.3,
+    height: screenWidth * 0.3,
+    borderRadius: (screenWidth * 0.3) / 2,
+  },
+  error: {
+    color: '#FF0000',
+  },
+  inputSession: {
+    height: 85,
+    marginTop: 8,
   },
 });
 export default Login;

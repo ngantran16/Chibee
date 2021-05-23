@@ -27,26 +27,21 @@ const PasswordItem = (props) => {
   );
 };
 const styles = StyleSheet.create({
-  layoutInput: {
-    flex: 1,
-    marginBottom: 5,
-  },
   titleInput: {
     color: 'gray',
     fontSize: 15,
-    marginTop: 15,
-    marginBottom: 5,
   },
   textInput: {
+    marginTop: 5,
     height: 45,
     borderColor: '#ACA9A9',
     borderWidth: 1,
-    paddingBottom: 15,
+    borderRadius: 5,
   },
   showPassword: {
     position: 'absolute',
     right: 10,
-    top: 55,
+    top: 40,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',

@@ -6,3 +6,7 @@ export async function wishlistApi(token) {
 export async function addToWishlist(data) {
   return http.post('/api/wishlist', data);
 }
+
+export async function deleteStoryWishlist(data) {
+  return http.post('/api/delete_wishlist', data);
+}

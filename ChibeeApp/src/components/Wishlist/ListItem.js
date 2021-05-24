@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { NavigationUtils } from '../../navigation';
 import DetailActions from '../../redux/DetailRedux/actions';
 import { useDispatch } from 'react-redux';
+import WishlistActions from '../../redux/WishlistRedux/actions';
 
 const screenWidth = Dimensions.get('screen').width;
 
@@ -28,6 +29,14 @@ const ListItem = (props) => {
   const onListenStory = () => {
     dispatch(DetailActions.getStoryDetails(props.item.id, onSuccess, onFail));
   };
+
+  const onDeleteStory = () => {
+    const data = {
+      token: props.item.token,
+      id_story: props.item.id_story,
+    };
+    dispatch(WishlistActions.deleteStoryWishlist(data, props.onDeleteSuccess, props.onDeleteFail));
+  };
   return (
     <TouchableOpacity style={styles.storyContain} onPress={onListenStory}>
       <View style={styles.imgTitle}>
@@ -40,6 +49,9 @@ const ListItem = (props) => {
       <View>
         <Icon color="#000000" name="headphones" size={35} />
       </View>
+      <TouchableOpacity style={styles.iconDelete} onPress={onDeleteStory}>
+        <Icon color="red" name="window-close" size={20} />
+      </TouchableOpacity>
     </TouchableOpacity>
   );
 };
@@ -49,6 +61,10 @@ export default ListItem;
 const styles = StyleSheet.create({
   imgTitle: {
     flexDirection: 'row',
+  },
+  iconDelete: {
+    marginTop: '-25%',
+    marginLeft: '2%',
   },
   storyContain: {
     flexDirection: 'row',

@@ -40,11 +40,12 @@ const TRACK_PLAYER_CONTROLS_OPTS = {
 };
 
 export default function PlayStory() {
+  const dispatch = useDispatch();
+
   const scrollX = useRef(new Animated.Value(0)).current;
   const isLoading = useSelector((state) => state.comment.loadingComment);
   const addCmtLoading = useSelector((state) => state.comment.loadingAddComment);
   const dataComment = useSelector((state) => state.comment.dataComment);
-  const dispatch = useDispatch();
   const token = useSelector((state) => state.login.token);
   const detail_story = useSelector((state) => state.storyDetails.getStoryDetailsResponse);
   const wishlistList = useSelector((state) => state.wishlist.dataWishlist);
@@ -93,7 +94,7 @@ export default function PlayStory() {
       scrollX.removeAllListeners();
       TrackPlayer.destroy();
     };
-  }, [scrollX, story]);
+  }, [detail_story.id, dispatch, scrollX, story]);
 
   async function jumpForward() {
     const offset = 10;
@@ -102,7 +103,6 @@ export default function PlayStory() {
       const duration = await TrackPlayer.getDuration();
 
       if (duration - position > offset) {
-        console.log('jumping in fact');
         await TrackPlayer.seekTo(position + offset);
       }
     } catch (err) {
@@ -126,9 +126,11 @@ export default function PlayStory() {
 
   useEffect(() => {
     dispatch(CommentActions.getComment(detail_story.id));
-    for (let i = 0; i < wishlistList.length; i++) {
-      if (wishlistList[i].id_story === detail_story.id) {
-        setIsWishlist(true);
+    if (wishlistList && wishlistList.length > 0) {
+      for (let i = 0; i < wishlistList.length; i++) {
+        if (wishlistList[i].id_story === detail_story.id) {
+          setIsWishlist(true);
+        }
       }
     }
   }, [dispatch, detail_story.id, wishlistList]);
@@ -162,10 +164,19 @@ export default function PlayStory() {
       id_story: detail_story.id,
     };
 
-    dispatch(WishlistActions.addToWishlist(dataWishlist));
+    dispatch(WishlistActions.addToWishlist(dataWishlist, onSuccess, onFail));
     setIsWishlist(true);
     setShow(true);
   };
+
+  const onSuccess = () => {
+    dispatch(WishlistActions.getWishlist(token));
+  };
+
+  const onFail = () => {
+    console.log('Something went wrong');
+  };
+
   const renderItem = ({ index, item }) => {
     return (
       <View>

@@ -110,7 +110,7 @@ const WatchVideo = () => {
               color={isWishlist ? '#CC0000' : '#000'}
               style={styles.iconHeart}
             />
-            <Text style={styles.nameIcon}>Yêu thích</Text>
+            <Text style={styles.nameIcon}>{isWishlist ? 'Đã thích' : 'Yêu thích'}</Text>
           </TouchableOpacity>
 
           <Pressable

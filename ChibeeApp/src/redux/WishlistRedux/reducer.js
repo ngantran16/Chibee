@@ -7,6 +7,7 @@ export const INITIAL_STATE = Immutable({
   loadingWishlist: false,
   errorAddToWishlist: null,
   loadingAddToWishlist: false,
+  errorDeleteWishlist: null,
 });
 export const getWishlist = (state, { response }) =>
   state.merge({
@@ -42,12 +43,30 @@ export const addToWishlistFailure = (state, { error }) =>
     loadingAddToWishlist: false,
   });
 
+export const deleteStoryWishlist = (state, { response }) =>
+  state.merge({
+    errorDeleteWishlist: null,
+  });
+export const deleteStoryWishlistSuccess = (state, { response }) =>
+  state.merge({
+    errorDeleteWishlist: null,
+  });
+export const deleteStoryWishlistFailure = (state, { error }) =>
+  state.merge({
+    errorDeleteWishlist: error,
+  });
+
 const reducer = makeReducerCreator(INITIAL_STATE, {
   [WishlistTypes.GET_WISHLIST]: getWishlist,
   [WishlistTypes.GET_WISHLIST_SUCCESS]: getWishlistSuccess,
   [WishlistTypes.GET_WISHLIST_FAILURE]: getWishlistFailure,
+
   [WishlistTypes.ADD_TO_WISHLIST]: addToWishlist,
   [WishlistTypes.ADD_TO_WISHLIST_SUCCESS]: addToWishlistSuccess,
   [WishlistTypes.ADD_TO_WISHLIST_FAILURE]: addToWishlistFailure,
+
+  [WishlistTypes.DELETE_STORY_WISHLIST]: deleteStoryWishlist,
+  [WishlistTypes.DELETE_STORY_WISHLIST_SUCCESS]: deleteStoryWishlistSuccess,
+  [WishlistTypes.DELETE_STORY_WISHLIST_FAILURE]: deleteStoryWishlistFailure,
 });
 export default reducer;

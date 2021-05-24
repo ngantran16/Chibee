@@ -50,6 +50,7 @@ import bluetooth from '../assets/Images/bluetooth.png';
 import gmail from '../assets/Images/gmail.png';
 import copy from '../assets/Images/copy.png';
 import down from '../assets/Images/down.png';
+import backgroundLogin from '../assets/Images/backgroundLogin.jpg';
 
 const Images = {
   intro1,
@@ -103,7 +104,8 @@ const Images = {
   bluetooth,
   copy,
   down,
-  heartstory
+  heartstory,
+  backgroundLogin,
 };
 
 export default Images;

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Formik } from 'formik';
 import {
   StyleSheet,
   Text,
@@ -10,6 +9,7 @@ import {
   ActivityIndicator,
   Image,
   Dimensions,
+  ImageBackground,
 } from 'react-native';
 import TextInputItem from '../../components/Login/TextInputItem';
 import PasswordItem from '../../components/Login/PasswordItem';
@@ -46,12 +46,12 @@ const Login = () => {
     setErrorPassword('');
     if (email === '' || password === '' || validateEmail(email) === false) {
       if (email === '') {
-        setErrorEmail('Email is required');
+        setErrorEmail('Vui lòng nhập email');
       } else if (validateEmail(email) === false) {
-        setErrorEmail('Please input a valid email');
+        setErrorEmail('Email không hợp lệ');
       }
       if (password === '') {
-        setErrorPassword('Password is required');
+        setErrorPassword('Vui lòng nhập mật khẩu');
       }
     } else {
       const dataLogin = {
@@ -67,67 +67,59 @@ const Login = () => {
     NavigationUtils.push({ screen: 'ForgotPassword1', isTopBarEnable: false });
   };
   return (
-    <ScrollView style={styles.sessionContain} showsVerticalScrollIndicator={false}>
-      <View style={styles.loginForm}>
-        <View style={styles.imgContain}>
-          <Image source={Images.intro2} style={styles.iconApp} />
-        </View>
-        <View style={styles.container}>
-          <View style={styles.layoutTitle}>
-            <Text style={styles.title}> Đăng nhập </Text>
-            {isError ? (
-              <Text style={styles.error}>
-                <Icon color="#FF0000" name="error" size={20} /> Username or password incorrect
-              </Text>
-            ) : (
-              <></>
-            )}
+    <ImageBackground source={Images.backgroundLogin} style={styles.imageBackground}>
+      <ScrollView style={styles.sessionContain} showsVerticalScrollIndicator={false}>
+        <View style={styles.loginForm}>
+          <View style={styles.imgContain}>
+            <Image source={Images.intro2} style={styles.iconApp} />
           </View>
-          <View style={styles.inputSession}>
-            <TextInputItem title="Email" ChangeText={(val) => setEmail(val)} />
-            {errorEmail ? <Text style={styles.error}>{errorEmail}</Text> : <></>}
-          </View>
-          <View style={styles.inputSession}>
-            <PasswordItem
-              title="Mật khẩu"
-              imageClose={Images.visibility2}
-              imageOpen={Images.visibility}
-              onChangePass={(val) => setPassword(val)}
-            />
-            {errorPassword ? <Text style={styles.error}>{errorPassword}</Text> : <></>}
-          </View>
-          <View style={styles.layoutButton}>
-            <TouchableOpacity style={styles.loginButton} onPress={onLogin}>
-              {isLoading && <ActivityIndicator size="large" color="#FF6600" />}
-              <Text style={styles.textSignUp}>Đăng nhập</Text>
+          <View style={styles.container}>
+            <View style={styles.layoutTitle}>
+              <Text style={styles.title}> Đăng nhập </Text>
+              {isError ? (
+                <Text style={styles.error}>
+                  <Icon color="#FF0000" name="error" size={20} /> Username or password incorrect
+                </Text>
+              ) : (
+                <></>
+              )}
+            </View>
+            <View style={styles.inputSession}>
+              <TextInputItem title="Email" ChangeText={(val) => setEmail(val)} />
+              {errorEmail ? <Text style={styles.error}>{errorEmail}</Text> : <></>}
+            </View>
+            <View style={styles.inputSession}>
+              <PasswordItem
+                title="Mật khẩu"
+                imageClose={Images.visibility2}
+                imageOpen={Images.visibility}
+                onChangePass={(val) => setPassword(val)}
+              />
+              {errorPassword ? <Text style={styles.error}>{errorPassword}</Text> : <></>}
+            </View>
+            <View style={styles.layoutButton}>
+              <TouchableOpacity style={styles.loginButton} onPress={onLogin}>
+                {isLoading && <ActivityIndicator size="large" color="#FF6600" />}
+                <Text style={styles.textSignUp}>Đăng nhập</Text>
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity onPress={() => onForgotPassword()}>
+              <Text style={styles.policy}> Quên mật khẩu? </Text>
+              <TouchableOpacity onPress={onSignUpHandel}>
+                <Text style={styles.signUp}>Đăng ký</Text>
+              </TouchableOpacity>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={() => onForgotPassword()}>
-            <Text style={styles.policy}> Quên mật khẩu? </Text>
-            <TouchableOpacity onPress={onSignUpHandel}>
-              <Text style={styles.signUp}>Đăng ký</Text>
-            </TouchableOpacity>
-          </TouchableOpacity>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </ImageBackground>
   );
 };
 const styles = StyleSheet.create({
-  container: {
-    height: screenHeight * 0.44,
-  },
-  sessionContain: {
-    backgroundColor: '#ADDFFF',
-  },
   loginForm: {
-    width: screenWidth * 0.9,
-    height: screenHeight * 0.58,
-    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: screenHeight * 0.15,
-    marginLeft: screenWidth * 0.05,
+    marginTop: screenHeight * 0.07,
     borderRadius: 10,
   },
   layoutTitle: {
@@ -201,8 +193,15 @@ const styles = StyleSheet.create({
     color: '#FF0000',
   },
   inputSession: {
-    height: 85,
+    height: screenHeight * 0.1,
     marginTop: 8,
+  },
+  imageBackground: {
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode: 'contain',
+    justifyContent: 'center',
   },
 });
 export default Login;

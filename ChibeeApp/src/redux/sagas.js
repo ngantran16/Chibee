@@ -7,6 +7,7 @@ import storyDetailSagas from './DetailRedux/sagas';
 import userSaga from './UserRedux/sagas';
 import wishlistSagas from './WishlistRedux/sagas';
 import commentSagas from './CommentRedux/sagas';
+import notificationSagas from './NotificationRedux/sagas';
 
 export default function* root() {
   yield all([
@@ -18,5 +19,6 @@ export default function* root() {
     ...userSaga,
     ...wishlistSagas,
     ...commentSagas,
+    ...notificationSagas,
   ]);
 }

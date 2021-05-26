@@ -7,9 +7,7 @@ export function* getMe({ id }) {
     const data = response?.data;
     yield put(ProfileAction.userProfileSuccess(data));
   } catch (error) {
-    console.log('====================================');
     console.log(error);
-    console.log('====================================');
   }
 }
 const GetMeSagas = () => [takeLatest(ProfileTypes.USER_PROFILE, getMe)];

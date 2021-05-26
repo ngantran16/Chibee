@@ -6,3 +6,15 @@ export async function getComments(id) {
 export async function addComment(data) {
   return http.post('/api/comment', data);
 }
+
+export async function replyComment(data) {
+  return http.post('/api/reply', data);
+}
+
+export async function getReplyComment(id) {
+  return http.get('/api/reply-comment/' + id);
+}
+
+export async function deleteComment(id) {
+  return http.delete('/api/comment/' + id);
+}

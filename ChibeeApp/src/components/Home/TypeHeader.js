@@ -3,17 +3,17 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Colors from '../../themes/Colors';
 import Fonts from '../../themes/Fonts';
 import { NavigationUtils } from '../../navigation';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import HomeActions from '../../redux/HomeRedux/actions';
 
 const TypeHeader = (props) => {
   const dispatch = useDispatch();
-  console.log(props.id_type);
   const id_type = props.id_type;
+  const title = props.title;
 
   const onSuccess = () => {
-    NavigationUtils.push({ screen: 'ViewAll', title: props.title, isTopBarEnable: false });
+    NavigationUtils.push({ screen: 'ViewAll', data: title, isTopBarEnable: false });
   };
 
   const onFail = () => {
@@ -21,16 +21,13 @@ const TypeHeader = (props) => {
   };
 
   const onViewByType = () => {
-    console.log(id_type);
     dispatch(HomeActions.getStoryByType(id_type, onSuccess, onFail));
   };
 
-  const stories = useSelector((state) => state.home.dataStoryByType);
-  console.log(stories);
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.txtTitle}>{props.title}</Text>
+        <Text style={styles.txtTitle}>{title}</Text>
       </View>
       <TouchableOpacity onPress={() => onViewByType()}>
         <Text style={styles.txtViewAll}>Xem hết{'>>'}</Text>

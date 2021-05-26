@@ -9,7 +9,6 @@ const Type = (props) => {
   const storyByType = listStory?.filter((item) => {
     return item.id_type === props.item.id;
   });
-  console.log(storyByType);
   return (
     <View style={styles.container}>
       <TypeHeader title={props.item.name} id_type={props.item.id} />

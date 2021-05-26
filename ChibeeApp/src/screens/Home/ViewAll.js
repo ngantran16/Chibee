@@ -17,13 +17,13 @@ const ViewAll = () => {
         </TouchableOpacity>
 
         <View style={styles.titleContain}>
-          <Text style={styles.txtTitle}>Xem truyện cổ tích</Text>
+          <Text style={styles.txtTitle}>{listStory.title}</Text>
         </View>
       </View>
       <ScrollView style={styles.mainContain} showsVerticalScrollIndicator={false}>
         <FlatGrid
           itemDimension={screenWidth * 0.4}
-          data={listStory}
+          data={listStory.data}
           style={styles.gridView}
           spacing={10}
           renderItem={({ item }) => <HomeStoryItem item={item} key={item.id} />}

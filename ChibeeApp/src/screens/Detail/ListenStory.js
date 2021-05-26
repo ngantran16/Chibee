@@ -259,7 +259,8 @@ export default function PlayStory() {
                 return (
                   <EvaluateItem
                     author={item.full_name}
-                    isFirst={item.isFirst}
+                    token={item.token}
+                    id_comment={item.id}
                     content={item.content}
                     avatar={item.avatar}
                     dateComment={item.created_at}

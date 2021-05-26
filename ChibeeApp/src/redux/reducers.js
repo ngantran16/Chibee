@@ -7,6 +7,7 @@ import storyDetails from './DetailRedux/reducer';
 import user from './UserRedux/reducer';
 import wishlist from './WishlistRedux/reducer';
 import comment from './CommentRedux/reducer';
+import notification from './NotificationRedux/reducer';
 
 const rootReducer = combineReducers({
   app,
@@ -17,5 +18,6 @@ const rootReducer = combineReducers({
   user,
   wishlist,
   comment,
+  notification,
 });
 export default rootReducer;

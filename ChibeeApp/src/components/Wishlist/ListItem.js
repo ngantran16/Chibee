@@ -44,14 +44,14 @@ const ListItem = (props) => {
         <View style={styles.content}>
           <Text style={styles.nameStory}>{props.item.story_name}</Text>
           <Text style={styles.dateStory}>{Moment(props.item.updated_at).format('DD/MM/YYYY')}</Text>
+          <TouchableOpacity onPress={onDeleteStory}>
+            <Text style={styles.delete}>Xóa</Text>
+          </TouchableOpacity>
         </View>
       </View>
       <View>
         <Icon color="#000000" name="headphones" size={35} />
       </View>
-      <TouchableOpacity style={styles.iconDelete} onPress={onDeleteStory}>
-        <Icon color="red" name="window-close" size={20} />
-      </TouchableOpacity>
     </TouchableOpacity>
   );
 };
@@ -61,10 +61,6 @@ export default ListItem;
 const styles = StyleSheet.create({
   imgTitle: {
     flexDirection: 'row',
-  },
-  iconDelete: {
-    marginTop: '-25%',
-    marginLeft: '2%',
   },
   storyContain: {
     flexDirection: 'row',
@@ -98,5 +94,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'gray',
     textAlign: 'left',
+  },
+  delete: {
+    color: 'red',
   },
 });

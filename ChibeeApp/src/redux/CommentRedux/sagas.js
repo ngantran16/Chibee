@@ -1,6 +1,12 @@
 import { put, call, takeLatest, select, take } from 'redux-saga/effects';
 import CommentActions, { CommentTypes } from './actions';
-import { getComments, addComment } from '../../api/comment';
+import {
+  getComments,
+  addComment,
+  replyComment,
+  getReplyComment,
+  deleteComment,
+} from '../../api/comment';
 
 function* waitFor(selector) {
   if (yield select(selector)) {
@@ -35,9 +41,42 @@ export function* addCommentSaga({ data }) {
     yield put(CommentActions.addCommentFailure(error));
   }
 }
+
+export function* replyCommentSaga({ data }) {
+  try {
+    const response = yield call(replyComment, data);
+    yield put(CommentActions.replyCommentSuccess(response));
+    // const comments = yield call(getComments, data.id_story);
+    // yield put(CommentActions.getCommentSuccess(comments));
+  } catch (error) {
+    yield put(CommentActions.replyCommentFailure(error));
+  }
+}
+
+export function* getReplyCommentSaga({ id }) {
+  try {
+    const response = yield call(getReplyComment, id);
+    yield put(CommentActions.getReplyCommentSuccess(response));
+  } catch (error) {
+    yield put(CommentActions.getReplyCommentFailure(error));
+  }
+}
+
+export function* deleteCommentSaga({ id }) {
+  try {
+    const response = yield call(deleteComment, id);
+    yield put(CommentActions.deleteCommentSuccess(response));
+  } catch (error) {
+    yield put(CommentActions.deleteCommentFailure(error));
+  }
+}
+
 const commentSagas = () => [
   takeLatest(CommentTypes.GET_COMMENT, getCommentSaga),
   takeLatest(CommentTypes.ADD_COMMENT, addCommentSaga),
+  takeLatest(CommentTypes.REPLY_COMMENT, replyCommentSaga),
+  takeLatest(CommentTypes.GET_REPLY_COMMENT, getReplyCommentSaga),
+  takeLatest(CommentTypes.DELETE_COMMENT, deleteCommentSaga),
 ];
 
 export default commentSagas();

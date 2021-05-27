@@ -1,6 +1,13 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import { Dimensions } from 'react-native';
 import Colors from '../../themes/Colors';
 import ProfileItem from '../../components/Profile/ProfileItem';
@@ -12,24 +19,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import ProfileAction from '../../redux/UserRedux/actions';
 import WishlistActions from '../../redux/WishlistRedux/actions';
 
-const index = () => {
-
+const Profile = () => {
+  const dispatch = useDispatch();
   const onSettingIcon = () => {
     NavigationUtils.push({ screen: 'Setting', isTopBarEnable: false });
   };
   const [selected, setSelected] = useState('Đã nghe');
-  const id = useSelector((state) => state.login.loginResponse.data.id);
-  const dispatch = useDispatch();
   const token = useSelector((state) => state.login.token);
-
-  useEffect(() => {
-    dispatch(ProfileAction.userProfile({ id_user: id }));
-    dispatch(WishlistActions.getWishlist(token));
-  }, [dispatch, id, token]);
-  
   const user = useSelector((state) => state.user.user);
   const data = useSelector((state) => state.wishlist.dataWishlist);
   const isLoading = useSelector((state) => state.wishlist.loadingWishlist);
+
+  useEffect(() => {
+    dispatch(ProfileAction.userProfile(token));
+    dispatch(WishlistActions.getWishlist(token));
+  }, [dispatch, token]);
   return (
     <View style={styles.container}>
       <View style={styles.con}>
@@ -69,26 +73,28 @@ const index = () => {
         </View>
         {isLoading && <ActivityIndicator size="large" color="#FF6600" />}
       </View>
-      {
-          data && data.length > 0 ? (
-            <ScrollView showsVerticalScrollIndicator={false} style={styles.storyContain}>
-              {selected === 'Đã nghe' ? (
-                data.map((item, key) => {
-                  return <ProfileItem item={item} key={key} />;
-                })
-              ) : selected === 'Yêu thích' ? (
-                <WishlistItem data = {data} />
-              ) : (
-                <Notifications />
-              )}
-            </ScrollView>
-          ) : isLoading ? (<Text style={styles.message}>Loading</Text>) : <Text style={styles.message}>There doesn't have any story in your wishlist</Text>
-        }
+      {data && data.length > 0 ? (
+        <ScrollView showsVerticalScrollIndicator={false} style={styles.storyContain}>
+          {selected === 'Đã nghe' ? (
+            data.map((item, key) => {
+              return <ProfileItem item={item} key={key} />;
+            })
+          ) : selected === 'Yêu thích' ? (
+            <WishlistItem data={data} />
+          ) : (
+            <Notifications />
+          )}
+        </ScrollView>
+      ) : isLoading ? (
+        <Text style={styles.message}>Loading</Text>
+      ) : (
+        <Text style={styles.message}>There doesn't have any story in your wishlist</Text>
+      )}
     </View>
   );
 };
 
-export default index;
+export default Profile;
 
 const styles = StyleSheet.create({
   container: {
@@ -161,5 +167,5 @@ const styles = StyleSheet.create({
   storyContain: {
     paddingHorizontal: 18,
     marginBottom: 200,
-  }
+  },
 });

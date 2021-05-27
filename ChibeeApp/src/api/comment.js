@@ -8,7 +8,7 @@ export async function addComment(data) {
 }
 
 export async function replyComment(data) {
-  return http.post('/api/reply', data);
+  return http.post('/api/addReply', data);
 }
 
 export async function getReplyComment(id) {

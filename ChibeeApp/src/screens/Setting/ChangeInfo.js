@@ -5,11 +5,13 @@ import { Dimensions } from 'react-native';
 import Colors from '../../themes/Colors';
 import { NavigationUtils } from '../../navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useSelector } from 'react-redux';
 
 const ChangeInfo = () => {
-  const [name, setName] = useState('Nguyễn Minh Anh');
-  const [email, setEmail] = useState('anhlinh@gmail.com');
-  const [phone, setPhone] = useState('0254326458');
+  const userInfo = useSelector((state) => state.user.user);
+  const [name, setName] = useState(userInfo.full_name);
+  const [email, setEmail] = useState(userInfo.email);
+  const [phone, setPhone] = useState(userInfo.phone_number);
 
   return (
     <View>
@@ -22,8 +24,8 @@ const ChangeInfo = () => {
       </View>
       <View style={styles.contentContain}>
         <View style={styles.nameContain}>
-          <Image source={Images.avatar} style={styles.avatar} />
-          <Text style={styles.name}>Nguyễn Minh Anh</Text>
+          <Image source={{ uri: userInfo.avatar }} style={styles.avatar} />
+          <Text style={styles.name}>{userInfo.full_name}</Text>
         </View>
         <View style={styles.infoContain}>
           <View style={styles.infoItem}>

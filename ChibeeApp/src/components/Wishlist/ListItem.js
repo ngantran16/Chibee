@@ -38,7 +38,7 @@ const ListItem = (props) => {
     dispatch(WishlistActions.deleteStoryWishlist(data, props.onDeleteSuccess, props.onDeleteFail));
   };
   return (
-    <TouchableOpacity style={styles.storyContain} onPress={onListenStory}>
+    <TouchableOpacity style={styles.storyContain} onPress={() => onListenStory()}>
       <View style={styles.imgTitle}>
         <Image source={{ uri: props.item.image }} style={styles.imgStory} />
         <View style={styles.content}>

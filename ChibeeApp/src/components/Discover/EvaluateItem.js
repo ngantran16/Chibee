@@ -19,6 +19,7 @@ const EvaluateItem = (props) => {
   const dispatch = useDispatch();
   const [isLiked, setIsLiked] = useState(false);
   const [isReply, setIsReply] = useState(false);
+  const [viewReply, setViewReply] = useState(false);
   const [reply, setReply] = useState('');
   const current_token = useSelector((state) => state.login.token);
 
@@ -28,30 +29,23 @@ const EvaluateItem = (props) => {
       id_comment: props.id_comment,
       content: reply,
     };
-    dispatch(CommentActions.replyComment(replyData));
+    dispatch(CommentActions.replyComment(replyData, onSuccess, onFail));
   };
 
-  useEffect(() => {
-    dispatch(CommentActions.getReplyComment(props.id_comment));
-  }, [dispatch, props.id_comment]);
+  const onSuccess = () => {
+    dispatch(CommentActions.getComment(props.id_story));
+  };
 
-  const replyList = useSelector((state) => state.comment.responseReplyComment);
-  const fakeData = [
-    {
-      id: 1,
-      name: 'Nguyen Nguyen',
-      content: 'Hay qua',
-      date: '20/06/2021',
-      image: 'https://docs.google.com/uc?export=download&id=1DpdiYsYZc2mH4yis6ZG-HNcInKsB71Lg',
-    },
-    {
-      id: 1,
-      name: 'Nguyen Nguyen',
-      content: 'Hay qua',
-      date: '20/06/2021',
-      image: 'https://docs.google.com/uc?export=download&id=1DpdiYsYZc2mH4yis6ZG-HNcInKsB71Lg',
-    },
-  ];
+  const onFail = () => {
+    console.log('Add reply comment fail');
+  };
+
+  const onCommentDelete = () => {
+    dispatch(
+      CommentActions.deleteComment(props.id_comment, props.onDeleteSuccess, props.onDeleteFail),
+    );
+  };
+
   return (
     <View style={styles.evaluateContainer}>
       <View style={styles.commentContent}>
@@ -79,7 +73,7 @@ const EvaluateItem = (props) => {
                   <Text style={styles.txtReply}>Trả lời</Text>
                 </TouchableOpacity>
                 {props.token === current_token ? (
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={onCommentDelete}>
                     <Text style={styles.txtDeleteReply}>Xóa</Text>
                   </TouchableOpacity>
                 ) : (
@@ -101,24 +95,39 @@ const EvaluateItem = (props) => {
                 <></>
               )}
             </View>
-            <TouchableOpacity style={styles.listReply}>
-              <Text style={styles.txtNumberReply}>Xem 8 phản hồi trước...</Text>
+
+            {props.replies && props.replies.length > 0 ? (
               <View>
-                {fakeData.map((item, key) => {
-                  return (
-                    <View key={key} style={styles.replyDisplay}>
-                      <Image source={{ uri: item.image }} style={styles.imgUserComment} />
-                      <View>
-                        <Text style={styles.txtAuthor}>{item.name}</Text>
-                        <View style={styles.star}>
-                          <Text style={styles.textPara}>{item.content}</Text>
+                <TouchableOpacity onPress={() => setViewReply(!viewReply)} style={styles.listReply}>
+                  <Text style={styles.txtNumberReply}>
+                    {viewReply
+                      ? 'Ẩn các phản hồi'
+                      : 'Xem ' + props.replies.length + ' phản hồi trước...'}
+                  </Text>
+                </TouchableOpacity>
+                {viewReply ? (
+                  <View style={styles.listReply}>
+                    {props.replies.map((item, key) => {
+                      return (
+                        <View key={key} style={styles.replyDisplay}>
+                          <Image source={{ uri: item.avatar }} style={styles.imgUserComment} />
+                          <View>
+                            <Text style={styles.txtAuthor}>{item.full_name}</Text>
+                            <View style={styles.star}>
+                              <Text style={styles.textPara}>{item.content}</Text>
+                            </View>
+                          </View>
                         </View>
-                      </View>
-                    </View>
-                  );
-                })}
+                      );
+                    })}
+                  </View>
+                ) : (
+                  <></>
+                )}
               </View>
-            </TouchableOpacity>
+            ) : (
+              <></>
+            )}
           </View>
         </View>
       </View>
@@ -191,6 +200,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: '#EEEEEE',
     color: 'gray',
+    paddingRight: 40,
+    paddingLeft: 10,
   },
   replyContain: {
     flexDirection: 'row',
@@ -211,6 +222,7 @@ const styles = StyleSheet.create({
   authorAndDate: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    width: screenWidth * 0.8,
   },
   txtDeleteReply: {
     fontSize: 11,

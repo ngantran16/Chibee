@@ -8,6 +8,7 @@ import user from './UserRedux/reducer';
 import wishlist from './WishlistRedux/reducer';
 import comment from './CommentRedux/reducer';
 import notification from './NotificationRedux/reducer';
+import discovery from './Discovery/reducer';
 
 const rootReducer = combineReducers({
   app,
@@ -19,5 +20,6 @@ const rootReducer = combineReducers({
   wishlist,
   comment,
   notification,
+  discovery,
 });
 export default rootReducer;

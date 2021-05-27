@@ -31,7 +31,8 @@ const addCommentSuccess = (response) =>
   makeActionCreator(CommentTypes.ADD_COMMENT_SUCCESS, { response });
 const addCommentFailure = (error) => makeActionCreator(CommentTypes.ADD_COMMENT_FAILURE, { error });
 
-const replyComment = (data) => makeActionCreator(CommentTypes.REPLY_COMMENT, { data });
+const replyComment = (data, onSuccess, onFail) =>
+  makeActionCreator(CommentTypes.REPLY_COMMENT, { data, onSuccess, onFail });
 const replyCommentSuccess = (response) =>
   makeActionCreator(CommentTypes.REPLY_COMMENT_SUCCESS, { response });
 const replyCommentFailure = (error) =>
@@ -43,7 +44,8 @@ const getReplyCommentSuccess = (response) =>
 const getReplyCommentFailure = (error) =>
   makeActionCreator(CommentTypes.GET_REPLY_COMMENT_FAILURE, { error });
 
-const deleteComment = (id) => makeActionCreator(CommentTypes.DELETE_COMMENT, { id });
+const deleteComment = (id, onSuccess, onFail) =>
+  makeActionCreator(CommentTypes.DELETE_COMMENT, { id, onSuccess, onFail });
 const deleteCommentSuccess = (response) =>
   makeActionCreator(CommentTypes.DELETE_COMMENT_SUCCESS, { response });
 const deleteCommentFailure = (error) =>

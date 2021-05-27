@@ -28,9 +28,6 @@ const Profile = () => {
 export default Profile;
 
 const styles = StyleSheet.create({
-  container: {
-    // paddingHorizontal: 18,
-  },
   header: {
     marginTop: 20,
     flexDirection: 'row',

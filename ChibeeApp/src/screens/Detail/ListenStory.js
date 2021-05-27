@@ -62,6 +62,14 @@ export default function PlayStory() {
     },
   ];
 
+  const onDeleteSuccess = () => {
+    dispatch(CommentActions.getComment(detail_story.id));
+  };
+
+  const onDeleteFail = () => {
+    console.log('Delete fail');
+  };
+
   const slider = useRef(null);
   const isPlayerReady = useRef(false);
 
@@ -265,6 +273,10 @@ export default function PlayStory() {
                     avatar={item.avatar}
                     dateComment={item.created_at}
                     key={key}
+                    replies={item.reply}
+                    id_story={detail_story.id}
+                    onDeleteSuccess={onDeleteSuccess}
+                    onDeleteFail={onDeleteFail}
                   />
                 );
               })}
@@ -358,6 +370,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#EEEEEE',
     color: 'gray',
     marginLeft: -45,
+    paddingRight: 40,
+    paddingLeft: 10,
   },
   sendContain: {
     marginLeft: -38,

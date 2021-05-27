@@ -5,6 +5,6 @@ export async function userLoginApi(data) {
 export async function userSignUpApi(data) {
   return http.post('/api/signUp', data);
 }
-export async function getMeApi(id) {
-  return http.get('/api/user/' + id.id_user);
+export async function getMeApi(token) {
+  return http.get('/api/user/' + token);
 }

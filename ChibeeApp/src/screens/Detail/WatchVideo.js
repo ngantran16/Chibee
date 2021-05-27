@@ -61,9 +61,11 @@ const WatchVideo = () => {
   const [modalVisible, setModalVisible] = useState(false);
   useEffect(() => {
     if (wishlistList) {
-      for (let i = 0; i < wishlistList.length; i++) {
-        if (wishlistList[i].id_story === story_detail.id) {
-          setIsWishlist(true);
+      if (wishlistList) {
+        for (let i = 0; i < wishlistList.length; i++) {
+          if (wishlistList[i].id_story === story_detail.id) {
+            setIsWishlist(true);
+          }
         }
       }
     }
@@ -78,6 +80,14 @@ const WatchVideo = () => {
     dispatch(WishlistActions.addToWishlist(dataWishlist));
     setIsWishlist(true);
     setShow(true);
+  };
+
+  const onDeleteSuccess = () => {
+    dispatch(CommentActions.getComment(story_detail.id));
+  };
+
+  const onDeleteFail = () => {
+    console.log('Delete fail');
   };
 
   const [cmt, setCmt] = useState('');
@@ -130,7 +140,9 @@ const WatchVideo = () => {
       </View>
 
       <View>
-        <Text style={styles.txtComment}>Bình luận ({dataComment.length}) </Text>
+        <Text style={styles.txtComment}>
+          Bình luận ({dataComment && dataComment.length > 0 ? dataComment.length : 0}){' '}
+        </Text>
         <View style={styles.btnContainer}>
           <TextInput
             style={styles.inputComment}
@@ -148,11 +160,16 @@ const WatchVideo = () => {
               return (
                 <EvaluateItem
                   author={item.full_name}
-                  isFirst={item.isFirst}
+                  token={item.token}
+                  id_comment={item.id}
                   content={item.content}
                   avatar={item.avatar}
                   dateComment={item.created_at}
                   key={key}
+                  replies={item.reply}
+                  id_story={story_detail.id}
+                  onDeleteSuccess={onDeleteSuccess}
+                  onDeleteFail={onDeleteFail}
                 />
               );
             })}
@@ -257,6 +274,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#EEEEEE',
     color: 'gray',
     marginLeft: -15,
+    paddingRight: 40,
+    paddingLeft: 10,
   },
   sendContain: {
     marginLeft: -38,

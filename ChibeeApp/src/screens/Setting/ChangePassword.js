@@ -116,6 +116,6 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
   infoItem: {
-    marginBottom: 90,
+    marginBottom: 20,
   },
 });

@@ -1,9 +1,8 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { NavigationUtils } from '../../navigation';
 import LoginTypes from '../../redux/LoginRedux/actions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const SettingProfileItem = (props) => {

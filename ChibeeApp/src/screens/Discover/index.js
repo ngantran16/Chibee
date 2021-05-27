@@ -1,51 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   StyleSheet,
   Text,
   View,
   ScrollView,
   Image,
-  SafeAreaView,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
-import Images from '../../themes/Images';
 import { NavigationUtils } from '../../navigation';
+import { useDispatch, useSelector } from 'react-redux';
+import DiscoveryActions from '../../redux/Discovery/actions';
 
-const index = () => {
-  const data = [
-    {
-      id: 1,
-      image: Images.discover1,
-      title: 'Khám phá thế giới của bé',
-      content:
-        'Những ký sự đó đã khắc họa chân dung của người lính mà thời ấy gọi là bộ đội Cụ Hồ trong đó ca ngợi những phẩm chất của họ như lòng yêu nước, thương nhà, tình đồng đội, tinh thần dũng cảm trong chiến đấu',
-    },
-    {
-      id: 2,
-      image: Images.discover2,
-      title: 'Khám phá thế giới của bé',
-      content:
-        'Những ký sự đó đã khắc họa chân dung của người lính mà thời ấy gọi là bộ đội Cụ Hồ trong đó ca ngợi những phẩm chất của họ như lòng yêu nước, thương nhà, tình đồng đội, tinh thần dũng cảm trong chiến đấu',
-    },
-    {
-      id: 3,
-      image: Images.discover3,
-      title: 'Khám phá thế giới của bé',
-      content:
-        'Những ký sự đó đã khắc họa chân dung của người lính mà thời ấy gọi là bộ đội Cụ Hồ trong đó ca ngợi những phẩm chất của họ như lòng yêu nước, thương nhà, tình đồng đội, tinh thần dũng cảm trong chiến đấu',
-    },
-    {
-      id: 4,
-      image: Images.discover4,
-      title: 'Khám phá thế giới của bé',
-      content:
-        'Những ký sự đó đã khắc họa chân dung của người lính mà thời ấy gọi là bộ đội Cụ Hồ trong đó ca ngợi những phẩm chất của họ như lòng yêu nước, thương nhà, tình đồng đội, tinh thần dũng cảm trong chiến đấu',
-    },
-  ];
+const Discovery = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(DiscoveryActions.getDiscovery());
+  }, [dispatch]);
 
-  const onImagePress = () => {
+  const discovery = useSelector((state) => state.discovery.dataDiscovery);
+  const discoveryLoading = useSelector((state) => state.discovery.loadingDiscovery);
+
+  const onImagePress = (id) => {
+    dispatch(DiscoveryActions.getDetailDiscovery(id, onSuccess, onFail));
+  };
+
+  const onSuccess = () => {
     NavigationUtils.push({ screen: 'DiscoverDetail', isTopBarEnable: false });
   };
+
+  const onFail = () => {
+    console.log('Get detail discovery fail');
+  };
+
   return (
     <View style={styles.container}>
       <View>
@@ -53,20 +40,26 @@ const index = () => {
       </View>
       <ScrollView>
         <View style={styles.discoverContain} showsVerticalScrollIndicator={false}>
-          {data.map((item, key) => {
-            return (
-              <TouchableOpacity onPress={onImagePress} key={key}>
-                <Image source={item.image} style={styles.imgDiscover} />
-              </TouchableOpacity>
-            );
-          })}
+          {discovery && discovery.length > 0 ? (
+            discovery.map((item, key) => {
+              return (
+                <TouchableOpacity onPress={() => onImagePress(item.id)} key={key}>
+                  <Image source={{ uri: item.image }} style={styles.imgDiscover} />
+                </TouchableOpacity>
+              );
+            })
+          ) : discoveryLoading ? (
+            <ActivityIndicator size="large" color="#FF6600" />
+          ) : (
+            <Text>Không có mục nào trong Khám phá</Text>
+          )}
         </View>
       </ScrollView>
     </View>
   );
 };
 
-export default index;
+export default Discovery;
 
 const styles = StyleSheet.create({
   container: {

@@ -42,14 +42,14 @@ export function* addCommentSaga({ data }) {
   }
 }
 
-export function* replyCommentSaga({ data }) {
+export function* replyCommentSaga({ data, onSuccess, onFail }) {
   try {
     const response = yield call(replyComment, data);
     yield put(CommentActions.replyCommentSuccess(response));
-    // const comments = yield call(getComments, data.id_story);
-    // yield put(CommentActions.getCommentSuccess(comments));
+    onSuccess && onSuccess();
   } catch (error) {
     yield put(CommentActions.replyCommentFailure(error));
+    onFail && onFail();
   }
 }
 
@@ -62,12 +62,14 @@ export function* getReplyCommentSaga({ id }) {
   }
 }
 
-export function* deleteCommentSaga({ id }) {
+export function* deleteCommentSaga({ id, onSuccess, onFail }) {
   try {
     const response = yield call(deleteComment, id);
     yield put(CommentActions.deleteCommentSuccess(response));
+    onSuccess && onSuccess();
   } catch (error) {
     yield put(CommentActions.deleteCommentFailure(error));
+    onFail && onFail();
   }
 }
 

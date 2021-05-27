@@ -7,8 +7,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const Search = () => {
   const listTypes = useSelector((state) => state.home.dataTypes);
   const [searchText, setSearchText] = useState('');
-  const onSearch = (searchText) => {
-    setSearchText(searchText);
+  const onSearch = (text) => {
+    setSearchText(text);
   };
   return (
     <View style={styles.container}>

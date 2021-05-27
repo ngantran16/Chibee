@@ -6,11 +6,13 @@ import Colors from '../../themes/Colors';
 import PersonalInfoItem from '../../components/Setting/PersonalInfoItem';
 import { NavigationUtils } from '../../navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useSelector } from 'react-redux';
 
 const PersonalInfo = () => {
   const onChangeClicked = () => {
     NavigationUtils.push({ screen: 'ChangeInfo', isTopBarEnable: false });
   };
+  const userInfo = useSelector((state) => state.user.user);
   return (
     <View>
       <View style={styles.header}>
@@ -22,13 +24,13 @@ const PersonalInfo = () => {
       </View>
       <View style={styles.contentContain}>
         <View style={styles.nameContain}>
-          <Image source={Images.avatar} style={styles.avatar} />
-          <Text style={styles.name}>Nguyễn Minh Anh</Text>
+          <Image source={{ uri: userInfo.avatar }} style={styles.avatar} />
+          <Text style={styles.name}>{userInfo.full_name}</Text>
         </View>
         <View style={styles.infoContain}>
-          <PersonalInfoItem titleName="Họ và tên" information="Nguyễn Minh Anh" />
-          <PersonalInfoItem titleName="Email" information="anhlinh@gmail.com" />
-          <PersonalInfoItem titleName="Số điện thoại" information="0568245125" />
+          <PersonalInfoItem titleName="Họ và tên" information={userInfo.full_name} />
+          <PersonalInfoItem titleName="Email" information={userInfo.email} />
+          <PersonalInfoItem titleName="Số điện thoại" information={userInfo.phone_number} />
         </View>
         <View>
           <TouchableOpacity style={styles.btnChangeInfo} onPress={() => onChangeClicked()}>

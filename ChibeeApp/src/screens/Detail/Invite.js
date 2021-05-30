@@ -1,11 +1,21 @@
-import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React, { useEffect } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ActivityIndicator,
+  ScrollView,
+} from 'react-native';
 import { NavigationUtils } from '../../navigation';
 import Images from '../../themes/Images';
 import InviteItem from '../../components/Detail/InviteItem';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import NotificationActions from '../../redux/NotificationRedux/actions';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Invite = () => {
+  const dispatch = useDispatch();
   const data = [
     {
       id: 1,
@@ -44,6 +54,14 @@ const Invite = () => {
       isClicked: false,
     },
   ];
+
+  useEffect(() => {
+    dispatch(NotificationActions.getUsers());
+  }, [dispatch]);
+
+  const users = useSelector((state) => state.notification.dataUsers);
+  const isLoading = useSelector((state) => state.notification.loadingUsers);
+  console.log(users);
   return (
     <View>
       <View style={styles.header}>
@@ -53,9 +71,17 @@ const Invite = () => {
         <Text style={styles.titleHeader}>Cùng nghe</Text>
         <Text />
       </View>
-      {data.map((item, key) => {
-        return <InviteItem item={item} key={key} />;
-      })}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {(users && users.length) > 0 ? (
+          users.map((item, key) => {
+            return <InviteItem item={item} key={key} />;
+          })
+        ) : isLoading ? (
+          <ActivityIndicator size="large" color="#FF6600" />
+        ) : (
+          <Text>Hiện tại không có bạn nào trong danh sách để mời</Text>
+        )}
+      </ScrollView>
     </View>
   );
 };

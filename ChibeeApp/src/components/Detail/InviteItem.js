@@ -11,8 +11,8 @@ const InviteItem = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.avatar}>
-        <Image source={props.item.image} style={styles.imgAvatar} />
-        <Text style={styles.txtName}>{props.item.name}</Text>
+        <Image source={{ uri: props.item.avatar }} style={styles.imgAvatar} />
+        <Text style={styles.txtName}>{props.item.full_name}</Text>
       </View>
       <View>
         {isClicked ? (

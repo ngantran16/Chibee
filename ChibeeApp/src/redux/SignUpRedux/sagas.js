@@ -2,20 +2,19 @@ import { put, call, takeLatest } from 'redux-saga/effects';
 import SignUpActions, { SignUpTypes } from './actions';
 import { userSignUpApi } from '../../api/auth';
 import { NavigationUtils } from '../../navigation';
-export function* userSignUpSaga({ data }) {
+export function* userSignUpSaga({ data, onSuccess, onFail }) {
   try {
     const response = yield call(userSignUpApi, data);
-    console.log(response);
     const newResponse = {
       data: response.data,
       token: response.data.token,
     };
-    console.log('Regis', newResponse);
     yield put(SignUpActions.userSignUpSuccess(newResponse));
+    onSuccess && onSuccess();
     NavigationUtils.startLoginContent();
   } catch (error) {
-    console.log(error);
-    yield put(SignUpActions.userSignUpFailure(error.data.message));
+    yield put(SignUpActions.userSignUpFailure(error.data.Error));
+    onFail && onFail(error.data.Error);
   }
 }
 

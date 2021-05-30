@@ -8,3 +8,11 @@ export async function userSignUpApi(data) {
 export async function getMeApi(token) {
   return http.get('/api/user/' + token);
 }
+
+export async function updateProfile(data) {
+  return http.put('/api/user', data);
+}
+
+export async function changePassword(data) {
+  return http.post('/api/set-password', data);
+}

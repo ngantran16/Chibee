@@ -29,6 +29,7 @@ import Support from '../screens/Setting/Support';
 import Wishlist from '../screens/Wishlist/Wishlist';
 import SliderStory from '../screens/Detail/SliderStory';
 import PlayerControl from '../screens/Detail/PlayerControl';
+import ForgotPassword3 from '../screens/Authentication/ForgotPassword3';
 
 function ReduxProvider(Component) {
   return (props) => (
@@ -173,5 +174,10 @@ export function registerScreens() {
     'PlayerControl',
     () => ReduxProvider(PlayerControl),
     () => PlayerControl,
+  );
+  Navigation.registerComponent(
+    'ForgotPassword3',
+    () => ReduxProvider(ForgotPassword3),
+    () => ForgotPassword3,
   );
 }

@@ -7,8 +7,8 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
+  Dimensions,
 } from 'react-native';
-import { Dimensions } from 'react-native';
 import Colors from '../../themes/Colors';
 import ProfileItem from '../../components/Profile/ProfileItem';
 import { NavigationUtils } from '../../navigation';
@@ -18,6 +18,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileAction from '../../redux/UserRedux/actions';
 import WishlistActions from '../../redux/WishlistRedux/actions';
+const screenHeight = Dimensions.get('screen').height;
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const Profile = () => {
   const token = useSelector((state) => state.login.token);
   const user = useSelector((state) => state.user.user);
   const data = useSelector((state) => state.wishlist.dataWishlist);
-  const isLoading = useSelector((state) => state.wishlist.loadingWishlist);
+  // const isLoading = useSelector((state) => state.wishlist.loadingWishlist);
 
   useEffect(() => {
     dispatch(ProfileAction.userProfile(token));
@@ -71,25 +72,26 @@ const Profile = () => {
             )}
           </TouchableOpacity>
         </View>
-        {isLoading && <ActivityIndicator size="large" color="#FF6600" />}
+        {/* {isLoading && <ActivityIndicator size="large" color="#FF6600" />} */}
       </View>
-      {data && data.length > 0 ? (
-        <ScrollView showsVerticalScrollIndicator={false} style={styles.storyContain}>
-          {selected === 'Đã nghe' ? (
-            data.map((item, key) => {
-              return <ProfileItem item={item} key={key} />;
-            })
-          ) : selected === 'Yêu thích' ? (
-            <WishlistItem data={data} />
-          ) : (
-            <Notifications />
-          )}
-        </ScrollView>
-      ) : isLoading ? (
-        <Text style={styles.message}>Loading</Text>
-      ) : (
-        <Text style={styles.message}>There doesn't have any story in your wishlist</Text>
-      )}
+
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.storyContain}>
+        {selected === 'Đã nghe' && data ? (
+          <View>
+            {data && data.length > 0 ? (
+              data.map((item, key) => {
+                return <ProfileItem item={item} key={key} />;
+              })
+            ) : (
+              <Text>Danh sách trống</Text>
+            )}
+          </View>
+        ) : selected === 'Yêu thích' && data ? (
+          <WishlistItem data={data} />
+        ) : (
+          <Notifications />
+        )}
+      </ScrollView>
     </View>
   );
 };

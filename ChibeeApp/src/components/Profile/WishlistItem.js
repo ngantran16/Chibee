@@ -8,6 +8,7 @@ import {
   Image,
   ScrollView,
   ActivityIndicator,
+  Dimensions,
 } from 'react-native';
 import DetailActions from '../../redux/DetailRedux/actions';
 import CommentActions from '../../redux/CommentRedux/actions';
@@ -16,6 +17,8 @@ import { NavigationUtils } from '../../navigation';
 import Colors from '../../themes/Colors';
 import WishlistActions from '../../redux/WishlistRedux/actions';
 import AwesomeAlert from 'react-native-awesome-alerts';
+import ProfileAction from '../../redux/UserRedux/actions';
+const screenHeight = Dimensions.get('screen').height;
 
 const WishlistItem = (props) => {
   const data = props.data;
@@ -49,7 +52,6 @@ const WishlistItem = (props) => {
       token: token,
       id_story: id,
     };
-    console.log(story);
     dispatch(WishlistActions.deleteStoryWishlist(story, onDeleteSuccess, onDeleteFail));
   };
 
@@ -66,24 +68,28 @@ const WishlistItem = (props) => {
 
   const wishlistLoading = useSelector((state) => state.wishlist.loadingWishlist);
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       {data && data.length > 0 ? (
         data.map((item, key) => {
           return (
-            <TouchableOpacity
-              style={styles.storyContain}
-              key={key}
-              onPress={() => onVideoClick(item.id)}
-            >
-              <Image source={{ uri: item.image }} style={styles.imgStory} />
-              <View style={styles.content}>
-                <Text style={styles.nameStory}>{item.story_name}</Text>
-                <Text style={styles.dateStory}>{Moment(item.updated_at).format('DD/MM/YYYY')}</Text>
-                <TouchableOpacity onPress={() => onDeleteStory(item.token, item.id_story)}>
-                  <Text style={styles.delete}>Xóa</Text>
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
+            <View>
+              <TouchableOpacity
+                style={styles.storyContain}
+                key={key}
+                onPress={() => onVideoClick(item.id)}
+              >
+                <Image source={{ uri: item.image }} style={styles.imgStory} />
+                <View style={styles.content}>
+                  <Text style={styles.nameStory}>{item.story_name}</Text>
+                  <Text style={styles.dateStory}>
+                    {Moment(item.updated_at).format('DD/MM/YYYY')}
+                  </Text>
+                  <TouchableOpacity onPress={() => onDeleteStory(item.token, item.id_story)}>
+                    <Text style={styles.delete}>Xóa</Text>
+                  </TouchableOpacity>
+                </View>
+              </TouchableOpacity>
+            </View>
           );
         })
       ) : wishlistLoading ? (
@@ -120,10 +126,11 @@ const styles = StyleSheet.create({
     borderLeftColor: '#F5F5F5',
     borderTopColor: '#F5F5F5',
     borderWidth: 2,
+    height: 250,
   },
   imgStory: {
     width: '100%',
-    height: 200,
+    height: '65%',
     borderRadius: 5,
   },
   content: {
@@ -142,4 +149,8 @@ const styles = StyleSheet.create({
   delete: {
     color: 'red',
   },
+  // container: {
+  //   marginBottom: 20,
+  //   backgroundColor: 'pink',
+  // },
 });

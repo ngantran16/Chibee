@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
   StyleSheet,
   Text,
@@ -10,57 +9,31 @@ import {
   Image,
   Dimensions,
   ImageBackground,
+  TextInput,
 } from 'react-native';
-import TextInputItem from '../../components/Login/TextInputItem';
-import PasswordItem from '../../components/Login/PasswordItem';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { NavigationUtils } from '../../navigation';
 import Images from '../../themes/Images';
 import Colors from '../../themes/Colors';
 import { useDispatch, useSelector } from 'react-redux';
 import LoginTypes from '../../redux/LoginRedux/actions';
+import * as yup from 'yup';
+import { Formik } from 'formik';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 const Login = () => {
   const [] = useState(true);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.login.loadingLogin);
   const isError = useSelector((state) => state.login.errorLogin);
-  const [errorEmail, setErrorEmail] = useState('');
-  const [errorPassword, setErrorPassword] = useState('');
 
-  const validateEmail = (text) => {
-    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-    if (reg.test(text) === false) {
-      return false;
-    }
-    return true;
-  };
+  const [isShowPassword, setIsShowPassword] = useState(false);
 
   const onSignUpHandel = () => {
     NavigationUtils.push({ screen: 'SignUp', isTopBarEnable: false });
   };
-  const onLogin = () => {
-    setErrorEmail('');
-    setErrorPassword('');
-    if (email === '' || password === '' || validateEmail(email) === false) {
-      if (email === '') {
-        setErrorEmail('Vui lòng nhập email');
-      } else if (validateEmail(email) === false) {
-        setErrorEmail('Email không hợp lệ');
-      }
-      if (password === '') {
-        setErrorPassword('Vui lòng nhập mật khẩu');
-      }
-    } else {
-      const dataLogin = {
-        email: email,
-        password: password,
-      };
-      console.log(dataLogin);
-      dispatch(LoginTypes.userLogin(dataLogin));
-    }
+  const onLogin = (values) => {
+    dispatch(LoginTypes.userLogin(values));
   };
 
   const onForgotPassword = () => {
@@ -73,43 +46,115 @@ const Login = () => {
           <View style={styles.imgContain}>
             <Image source={Images.intro2} style={styles.iconApp} />
           </View>
-          <View style={styles.container}>
-            <View style={styles.layoutTitle}>
-              <Text style={styles.title}> Đăng nhập </Text>
-              {isError ? (
-                <Text style={styles.error}>
-                  <Icon color="#FF0000" name="error" size={20} /> Username or password incorrect
-                </Text>
-              ) : (
-                <></>
-              )}
-            </View>
-            <View style={styles.inputSession}>
-              <TextInputItem title="Email" ChangeText={(val) => setEmail(val)} />
-              {errorEmail ? <Text style={styles.error}>{errorEmail}</Text> : <></>}
-            </View>
-            <View style={styles.inputSession}>
-              <PasswordItem
-                title="Mật khẩu"
-                imageClose={Images.visibility2}
-                imageOpen={Images.visibility}
-                onChangePass={(val) => setPassword(val)}
-              />
-              {errorPassword ? <Text style={styles.error}>{errorPassword}</Text> : <></>}
-            </View>
-            <View style={styles.layoutButton}>
-              <TouchableOpacity style={styles.loginButton} onPress={onLogin}>
-                {isLoading && <ActivityIndicator size="large" color="#FF6600" />}
-                <Text style={styles.textSignUp}>Đăng nhập</Text>
-              </TouchableOpacity>
-            </View>
-            <TouchableOpacity onPress={() => onForgotPassword()}>
-              <Text style={styles.policy}> Quên mật khẩu? </Text>
-              <TouchableOpacity onPress={onSignUpHandel}>
-                <Text style={styles.signUp}>Đăng ký</Text>
-              </TouchableOpacity>
-            </TouchableOpacity>
-          </View>
+          <Formik
+            initialValues={{
+              name: '',
+              email: '',
+              password: '',
+            }}
+            onSubmit={onLogin}
+            validationSchema={yup.object().shape({
+              email: yup
+                .string()
+                .email('Vui lòng nhập email hợp lệ')
+                .required('Vui lòng nhập email'),
+              password: yup
+                .string()
+                .min(6, 'Vui lòng nhập mật khẩu it nhất 6 kí tự')
+                .max(15, 'Vui lòng nhập mật khẩu ít hơn 15 kí tự')
+                .required('Vui lòng nhập mật khẩu'),
+            })}
+          >
+            {({
+              values,
+              handleChange,
+              errors,
+              setFieldTouched,
+              touched,
+              isValid,
+              handleSubmit,
+            }) => (
+              <View style={styles.container}>
+                <View style={styles.layoutTitle}>
+                  <Text style={styles.title}> Đăng nhập </Text>
+                  {isError ? (
+                    <View style={styles.errorHeader}>
+                      <Icon color="#FF0000" name="exclamation-circle" size={18} />
+                      <Text style={styles.error}>Email hoặc mật khẩu không đúng</Text>
+                    </View>
+                  ) : (
+                    <></>
+                  )}
+                </View>
+                <View style={styles.inputSession}>
+                  <Text style={styles.titleInput}>
+                    Email
+                    <Text style={{ color: 'red' }}> *</Text>
+                  </Text>
+                  <TextInput
+                    value={values.email}
+                    style={styles.textInput}
+                    onChangeText={handleChange('email')}
+                    onBlur={() => setFieldTouched('email')}
+                    placeholder="Ví dụ: ngan@gmail.com"
+                  />
+                  {touched.email && errors.email && (
+                    <View style={styles.errorContain}>
+                      <Icon color="#FF0000" name="exclamation-circle" size={15} />
+                      <Text style={styles.error}>{errors.email}</Text>
+                    </View>
+                  )}
+                </View>
+                <View style={styles.inputSession}>
+                  <Text style={styles.titleInput}>
+                    Mật khẩu
+                    <Text style={{ color: 'red' }}> *</Text>
+                  </Text>
+                  <TextInput
+                    secureTextEntry={!isShowPassword}
+                    value={values.password}
+                    style={styles.textInput}
+                    onChangeText={handleChange('password')}
+                    onBlur={() => setFieldTouched('password')}
+                  />
+                  <TouchableOpacity
+                    style={styles.showPassword}
+                    onPress={() => {
+                      setIsShowPassword(!isShowPassword);
+                    }}
+                  >
+                    {isShowPassword ? (
+                      <Image source={Images.visibility} />
+                    ) : (
+                      <Image source={Images.visibility2} />
+                    )}
+                  </TouchableOpacity>
+                  {touched.password && errors.password && (
+                    <View style={styles.errorContain}>
+                      <Icon color="#FF0000" name="exclamation-circle" size={15} />
+                      <Text style={styles.error}>{errors.password}</Text>
+                    </View>
+                  )}
+                </View>
+                <View style={styles.layoutButton}>
+                  <TouchableOpacity
+                    style={styles.loginButton}
+                    onPress={handleSubmit}
+                    disabled={!isValid}
+                  >
+                    {isLoading && <ActivityIndicator size="large" color="#FF6600" />}
+                    <Text style={styles.textSignUp}>Đăng nhập</Text>
+                  </TouchableOpacity>
+                </View>
+                <TouchableOpacity onPress={() => onForgotPassword()}>
+                  <Text style={styles.policy}> Quên mật khẩu? </Text>
+                  <TouchableOpacity onPress={onSignUpHandel}>
+                    <Text style={styles.signUp}>Đăng ký</Text>
+                  </TouchableOpacity>
+                </TouchableOpacity>
+              </View>
+            )}
+          </Formik>
         </View>
       </ScrollView>
     </ImageBackground>
@@ -191,6 +236,7 @@ const styles = StyleSheet.create({
   },
   error: {
     color: '#FF0000',
+    marginLeft: 5,
   },
   inputSession: {
     height: screenHeight * 0.1,
@@ -202,6 +248,29 @@ const styles = StyleSheet.create({
     height: null,
     resizeMode: 'contain',
     justifyContent: 'center',
+  },
+  textInput: {
+    height: 45,
+    borderColor: '#ACA9A9',
+    borderWidth: 1,
+    marginBottom: 2,
+    borderRadius: 5,
+  },
+  titleInput: {
+    marginBottom: 5,
+    color: 'black',
+  },
+  showPassword: {
+    position: 'absolute',
+    right: 10,
+    top: 38,
+  },
+  errorContain: {
+    flexDirection: 'row',
+  },
+  errorHeader: {
+    flexDirection: 'row',
+    marginTop: 10,
   },
 });
 export default Login;

@@ -16,3 +16,15 @@ export async function updateProfile(data) {
 export async function changePassword(data) {
   return http.post('/api/set-password', data);
 }
+
+export async function forgotPassword(data) {
+  return http.post('/api/check_mail', data);
+}
+
+export async function checkOTP(data) {
+  return http.post('/api/checkcode', data);
+}
+
+export async function setPassword(data) {
+  return http.post('/api/set-password', data);
+}

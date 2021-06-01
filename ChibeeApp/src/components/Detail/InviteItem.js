@@ -3,10 +3,11 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import Colors from '../../themes/Colors';
 
 const InviteItem = (props) => {
-  const [isClicked, setIsClicked] = useState(props.item.isClicked);
+  const [isClicked, setIsClicked] = useState();
 
   const onBtnClicked = () => {
-    setIsClicked(!isClicked);
+    // setIsClicked(!isClicked);
+    console.log(props.item.id);
   };
   return (
     <View style={styles.container}>
@@ -15,17 +16,14 @@ const InviteItem = (props) => {
         <Text style={styles.txtName}>{props.item.full_name}</Text>
       </View>
       <View>
-        {isClicked ? (
-          <TouchableOpacity
-            style={[{}, styles.btnInvite, { backgroundColor: Colors.primary }]}
-            onPress={onBtnClicked}
-          >
-            <Text style={styles.txtBtn}>Mời</Text>
+        {props.item.invited ? (
+          <TouchableOpacity style={[{}, styles.btnInvite, { backgroundColor: Colors.primary }]}>
+            <Text style={styles.txtBtn}>Đã mời</Text>
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             style={[{}, styles.btnInvite, { backgroundColor: Colors.secondary }]}
-            onPress={onBtnClicked}
+            onPress={() => props.onInvite(props.item.id)}
           >
             <Text style={styles.txtBtn}>Mời</Text>
           </TouchableOpacity>
@@ -43,7 +41,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 10,
+    marginBottom: 5,
   },
   txtName: {
     fontSize: 16,

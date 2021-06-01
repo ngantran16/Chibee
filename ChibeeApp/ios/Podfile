@@ -12,6 +12,8 @@ target 'ChibeeApp' do
 
   pod 'RNSoundPlayer', :path => '../node_modules/react-native-sound-player'
 
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
   target 'ChibeeAppTests' do
     inherit! :complete
     # Pods for testing

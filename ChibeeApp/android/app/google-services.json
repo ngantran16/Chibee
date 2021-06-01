@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "42633245063",
+    "project_id": "reactnativefirebase-55abb",
+    "storage_bucket": "reactnativefirebase-55abb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42633245063:android:0aa0e08f3ec4f135ba2322",
+        "android_client_info": {
+          "package_name": "com.chibeeapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "42633245063-s3jskvc9lvag89fi50ppnkulr9ghvnl9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtBaSpo6T4kGoBN5VbqtYPxSKx2KR6rs8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "42633245063-s3jskvc9lvag89fi50ppnkulr9ghvnl9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

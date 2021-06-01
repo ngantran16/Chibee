@@ -77,11 +77,12 @@ const ChangePassword = () => {
 
   const changeScreen = () => {
     setShow(false);
-    NavigationUtils.push({ screen: 'HomePage', isTopBarEnable: false });
+    NavigationUtils.startMainContent();
   };
 
   const onFail = () => {
     setError('Mật khẩu cũ không đúng');
+    setShow(true);
   };
   return (
     <ScrollView>

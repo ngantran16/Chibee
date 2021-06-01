@@ -1,47 +1,47 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
+import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  ActivityIndicator,
+} from 'react-native';
 import { NavigationUtils } from '../../navigation';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useSelector } from 'react-redux';
 const DiscoverDetail = () => {
   const discoveryDetail = useSelector((state) => state.discovery.detailDiscovery);
-  const [checkViewAll, setCheckViewAll] = useState(false);
-  const onViewAll = () => {
-    setCheckViewAll(!checkViewAll);
-  };
+  const isLoading = useSelector((state) => state.discovery.loadingDetailDiscovery);
+  console.log(discoveryDetail);
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => NavigationUtils.pop()}>
-          <Icon name="angle-left" size={25} style={styles.setting} />
-        </TouchableOpacity>
+      {discoveryDetail ? (
         <View>
-          <Text style={styles.title}>{discoveryDetail.title}</Text>
+          <View style={styles.header}>
+            <TouchableOpacity onPress={() => NavigationUtils.pop()}>
+              <Icon name="angle-left" size={25} style={styles.setting} />
+            </TouchableOpacity>
+            <View>
+              <Text style={styles.title}>{discoveryDetail.title}</Text>
+            </View>
+          </View>
+          <View style={styles.imgContain}>
+            <Image source={{ uri: discoveryDetail.image }} style={styles.imgDetail} />
+          </View>
+          <View>
+            <View>
+              <Text style={styles.content}>{discoveryDetail.content}</Text>
+            </View>
+          </View>
         </View>
-      </View>
-      <View style={styles.imgContain}>
-        <Image source={{ uri: discoveryDetail.image }} style={styles.imgDetail} />
-      </View>
-      <View>
-        {checkViewAll ? (
-          <View>
-            <Text style={styles.content}>{discoveryDetail.content}</Text>
-            <TouchableOpacity onPress={onViewAll}>
-              <Text style={styles.viewAll}>Ẩn bớt</Text>
-            </TouchableOpacity>
-          </View>
-        ) : (
-          <View>
-            <Text style={styles.content} numberOfLines={5}>
-              {discoveryDetail.content}
-            </Text>
-            <TouchableOpacity onPress={onViewAll}>
-              <Text style={styles.viewAll}>Xem thêm</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      </View>
+      ) : isLoading ? (
+        <ActivityIndicator size="large" color="#FF6600" />
+      ) : (
+        <Text>Vui lòng thử lại lần nữa</Text>
+      )}
     </ScrollView>
   );
 };
@@ -72,7 +72,9 @@ const styles = StyleSheet.create({
   },
   content: {
     marginTop: 10,
-    fontSize: 16,
+    fontSize: 18,
+    textAlign: 'justify',
+    lineHeight: 30,
   },
   titleComment: {
     fontSize: 16,

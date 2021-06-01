@@ -27,8 +27,7 @@ const screenWidth = Dimensions.get('screen').width;
 const SignUp = (props) => {
   const [] = useState(true);
   const dispatch = useDispatch();
-  const errorSignUp = useSelector((state) => state.signUp.errorSignUp);
-  const [isShowPassword, setShowPass] = useState(false);
+  const [isShowPassword, setShowPassword] = useState(false);
   const [isShowConfirm, setIsShowConfirm] = useState(false);
 
   const [error, setError] = useState('');
@@ -173,7 +172,7 @@ const SignUp = (props) => {
                 <Text style={{ color: 'red' }}> *</Text>
               </Text>
               <TextInput
-                secureTextEntry={isShowPassword}
+                secureTextEntry={!isShowPassword}
                 value={values.password}
                 style={styles.textInput}
                 onChangeText={handleChange('password')}
@@ -182,13 +181,13 @@ const SignUp = (props) => {
               <TouchableOpacity
                 style={styles.showPassword}
                 onPress={() => {
-                  setShowPass(!isShowPassword);
+                  setShowPassword(!isShowPassword);
                 }}
               >
                 {isShowPassword ? (
-                  <Image source={Images.visibility2} />
-                ) : (
                   <Image source={Images.visibility} />
+                ) : (
+                  <Image source={Images.visibility2} />
                 )}
               </TouchableOpacity>
               {touched.password && errors.password && (
@@ -205,7 +204,7 @@ const SignUp = (props) => {
                 <Text style={{ color: 'red' }}> *</Text>
               </Text>
               <TextInput
-                secureTextEntry={isShowConfirm}
+                secureTextEntry={!isShowConfirm}
                 value={values.confirmPassword}
                 style={styles.textInput}
                 onChangeText={handleChange('confirmPassword')}
@@ -218,9 +217,9 @@ const SignUp = (props) => {
                 }}
               >
                 {isShowConfirm ? (
-                  <Image source={Images.visibility2} />
-                ) : (
                   <Image source={Images.visibility} />
+                ) : (
+                  <Image source={Images.visibility2} />
                 )}
               </TouchableOpacity>
               {touched.confirmPassword && errors.confirmPassword && (
@@ -342,7 +341,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   titleInput: {
-    color: 'gray',
+    color: 'black',
     fontSize: 15,
     marginBottom: 5,
   },

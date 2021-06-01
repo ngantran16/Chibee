@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,62 +6,58 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import { NavigationUtils } from '../../navigation';
-import Images from '../../themes/Images';
 import InviteItem from '../../components/Detail/InviteItem';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import NotificationActions from '../../redux/NotificationRedux/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import AwesomeAlert from 'react-native-awesome-alerts';
+import Colors from '../../themes/Colors';
+const screenHeight = Dimensions.get('screen').height;
 
 const Invite = () => {
   const dispatch = useDispatch();
-  const data = [
-    {
-      id: 1,
-      image: Images.avatar,
-      name: 'Lê Ngọc Mai',
-      isClicked: true,
-    },
-    {
-      id: 2,
-      image: Images.story1,
-      name: 'Nguyễn Khánh An',
-      isClicked: false,
-    },
-    {
-      id: 3,
-      image: Images.story2,
-      name: 'Bùi Minh Khang',
-      isClicked: false,
-    },
-    {
-      id: 4,
-      image: Images.story3,
-      name: 'Nguyễn Khánh An',
-      isClicked: false,
-    },
-    {
-      id: 5,
-      image: Images.story4,
-      name: 'Nguyễn Ngọc Hân',
-      isClicked: false,
-    },
-    {
-      id: 6,
-      image: Images.story1,
-      name: 'Bùi Minh Khang',
-      isClicked: false,
-    },
-  ];
+  const token = useSelector((state) => state.login.token);
+  const detail_story = useSelector((state) => state.storyDetails.getStoryDetailsResponse);
+  const [show, setShow] = useState(false);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
-    dispatch(NotificationActions.getUsers());
-  }, [dispatch]);
+    const data = {
+      token: token,
+      id_story: detail_story.id,
+    };
+    dispatch(NotificationActions.getUsers(data));
+  }, [detail_story.id, dispatch, token]);
 
   const users = useSelector((state) => state.notification.dataUsers);
   const isLoading = useSelector((state) => state.notification.loadingUsers);
-  console.log(users);
+
+  const onInvite = (id_take) => {
+    const data = {
+      token: token,
+      id_take: id_take,
+      id_story: detail_story.id,
+    };
+    dispatch(NotificationActions.inviteUser(data, onSuccess, onFail));
+  };
+
+  const onSuccess = () => {
+    setMessage('Bạn đã mời thành công');
+    const data = {
+      token: token,
+      id_story: detail_story.id,
+    };
+    dispatch(NotificationActions.getUsers(data));
+    setShow(true);
+  };
+
+  const onFail = () => {
+    setMessage('Bạn đã mời thất bại. Vui lòng thử lại lần nữa!');
+    setShow(true);
+  };
   return (
     <View>
       <View style={styles.header}>
@@ -71,10 +67,10 @@ const Invite = () => {
         <Text style={styles.titleHeader}>Cùng nghe</Text>
         <Text />
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
         {(users && users.length) > 0 ? (
           users.map((item, key) => {
-            return <InviteItem item={item} key={key} />;
+            return <InviteItem item={item} key={key} onInvite={onInvite} />;
           })
         ) : isLoading ? (
           <ActivityIndicator size="large" color="#FF6600" />
@@ -82,6 +78,18 @@ const Invite = () => {
           <Text>Hiện tại không có bạn nào trong danh sách để mời</Text>
         )}
       </ScrollView>
+      <AwesomeAlert
+        show={show}
+        showProgress={false}
+        message={message}
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={false}
+        showConfirmButton={true}
+        confirmText="OK"
+        confirmButtonColor={Colors.primary}
+        onCancelPressed={() => setShow(false)}
+        onConfirmPressed={() => setShow(false)}
+      />
     </View>
   );
 };
@@ -102,5 +110,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: 'gray',
+  },
+  container: {
+    height: screenHeight * 0.82,
   },
 });

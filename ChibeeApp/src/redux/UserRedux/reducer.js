@@ -12,8 +12,19 @@ export const INITIAL_STATE = Immutable({
 
   loadingChangePassword: false,
   errorChangePassword: null,
+
+  loadingForgotPassword: false,
+  dataForgotPassword: null,
+  errorForgotPassword: null,
+
+  loadingCheckOTP: false,
+  dataCheckOTP: null,
+  errorCheckOTP: null,
+
+  loadingSetPassword: false,
+  errorSetPassword: null,
 });
-//LOGIN
+
 export const userProfile = (state) =>
   state.merge({
     loading: true,
@@ -62,6 +73,58 @@ export const changePasswordFailure = (state, { error }) =>
     errorChangePassword: error,
   });
 
+export const forgotPassword = (state, { response }) =>
+  state.merge({
+    loadingForgotPassword: true,
+    dataForgotPassword: null,
+    errorForgotPassword: null,
+  });
+export const forgotPasswordSuccess = (state, { response }) =>
+  state.merge({
+    loadingForgotPassword: false,
+    dataForgotPassword: response.data,
+    errorForgotPassword: null,
+  });
+export const forgotPasswordFailure = (state, { error }) =>
+  state.merge({
+    loadingForgotPassword: false,
+    errorForgotPassword: error,
+  });
+
+export const checkOTP = (state, { response }) =>
+  state.merge({
+    loadingCheckOTP: true,
+    dataCheckOTP: null,
+    errorCheckOTP: null,
+  });
+export const checkOTPSuccess = (state, { response }) =>
+  state.merge({
+    loadingCheckOTP: false,
+    dataCheckOTP: response.data,
+    errorCheckOTP: null,
+  });
+export const checkOTPFailure = (state, { error }) =>
+  state.merge({
+    loadingCheckOTP: false,
+    errorCheckOTP: error,
+  });
+
+export const setPassword = (state, { response }) =>
+  state.merge({
+    loadingSetPassword: true,
+    errorSetPassword: null,
+  });
+export const setPasswordSuccess = (state, { response }) =>
+  state.merge({
+    loadingSetPassword: false,
+    errorSetPassword: null,
+  });
+export const setPasswordFailure = (state, { error }) =>
+  state.merge({
+    loadingSetPassword: false,
+    errorSetPassword: error,
+  });
+
 const reducer = makeReducerCreator(INITIAL_STATE, {
   [ProfileTypes.USER_PROFILE]: userProfile,
   [ProfileTypes.USER_PROFILE_SUCCESS]: userProfileSuccess,
@@ -73,6 +136,18 @@ const reducer = makeReducerCreator(INITIAL_STATE, {
   [ProfileTypes.CHANGE_PASSWORD]: changePassword,
   [ProfileTypes.CHANGE_PASSWORD_SUCCESS]: changePasswordSuccess,
   [ProfileTypes.CHANGE_PASSWORD_FAILURE]: changePasswordFailure,
+
+  [ProfileTypes.FORGOT_PASSWORD]: forgotPassword,
+  [ProfileTypes.FORGOT_PASSWORD_SUCCESS]: forgotPasswordSuccess,
+  [ProfileTypes.FORGOT_PASSWORD_FAILURE]: forgotPasswordFailure,
+
+  [ProfileTypes.CHECK_OTP]: checkOTP,
+  [ProfileTypes.CHECK_OTP_SUCCESS]: checkOTPSuccess,
+  [ProfileTypes.CHECK_OTP_FAILURE]: checkOTPFailure,
+
+  [ProfileTypes.SET_PASSWORD]: setPassword,
+  [ProfileTypes.SET_PASSWORD_SUCCESS]: setPasswordSuccess,
+  [ProfileTypes.SET_PASSWORD_FAILURE]: setPasswordFailure,
 });
 
 export default reducer;

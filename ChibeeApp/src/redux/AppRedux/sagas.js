@@ -4,6 +4,7 @@ import http from '../../api/http';
 import { NavigationUtils } from '../../navigation';
 import AsyncStorage from '@react-native-community/async-storage';
 import HomeActions from '../../redux/HomeRedux/actions';
+import LoginActions from '../LoginRedux/actions';
 function* waitFor(selector) {
   if (yield select(selector)) {
     return;
@@ -19,27 +20,37 @@ function* waitFor(selector) {
 
 export function* startupSaga() {
   try {
-    const token = yield AsyncStorage.getItem('token');
-    const isSkip = yield select((state) => state.app.isSkip);
-    http.setAuthorizationHeader(token);
-    if (!isSkip) {
-      NavigationUtils.startIntroContent();
+    const storeToken = yield AsyncStorage.getItem('token');
+    let token = null;
+    if (storeToken) {
+      token = storeToken;
     } else {
-      if (token) {
-        yield put(HomeActions.getStoryHome());
-        yield put(HomeActions.getTypes());
-        NavigationUtils.startMainContent();
-      } else {
-        NavigationUtils.startLoginContent();
-      }
+      token = yield select((state) => state.login.token);
+    }
+
+    http.setAuthorizationHeader(token);
+    if (token) {
+      yield put(HomeActions.getStoryHome());
+      yield put(HomeActions.getTypes());
+      yield put(LoginActions.userLoginSuccess(token));
+      NavigationUtils.startMainContent();
+    } else {
+      NavigationUtils.startLoginContent();
     }
   } catch (error) {
     NavigationUtils.startLoginContent();
   }
 }
+export function* makeSkipIntroSagas() {
+  yield AsyncStorage.setItem('skip', JSON.stringify(true));
+  yield startupSaga();
+}
 
 const appSagas = () => {
-  return [takeLatest(AppTypes.STARTUP, startupSaga)];
+  return [
+    takeLatest(AppTypes.STARTUP, startupSaga),
+    takeLatest(AppTypes.MARK_SKIP_INTRO, makeSkipIntroSagas),
+  ];
 };
 
 export default appSagas();

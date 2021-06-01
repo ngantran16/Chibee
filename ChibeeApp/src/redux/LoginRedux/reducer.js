@@ -21,8 +21,8 @@ export const userLogin = (state, { response }) =>
 export const userLoginSuccess = (state, { response }) =>
   state.merge({
     loadingLogin: false,
-    loginResponse: response,
-    token: response.token,
+    // loginResponse: response,
+    token: response,
     errorLogin: null,
   });
 export const userLoginFailure = (state, { error }) =>

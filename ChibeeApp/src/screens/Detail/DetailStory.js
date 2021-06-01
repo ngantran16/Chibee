@@ -29,6 +29,8 @@ const DetailStory = (props) => {
   const [checkViewAll, setCheckViewAll] = useState(false);
   const token = useSelector((state) => state.login.token);
 
+  console.log('****************************');
+  console.log(token);
   const onViewAll = () => {
     setCheckViewAll(!checkViewAll);
   };

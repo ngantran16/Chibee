@@ -11,8 +11,9 @@ export function* userLoginSaga({ data }) {
       token: response.data.access_token,
     };
     yield AsyncStorage.setItem('token', response.data.access_token);
+    yield put(LoginActions.userLoginSuccess(response.data.access_token));
     yield put(startup());
-    yield put(LoginActions.userLoginSuccess(newResponse));
+
   } catch (error) {
     console.log(error);
     yield put(LoginActions.userLoginFailure(error));

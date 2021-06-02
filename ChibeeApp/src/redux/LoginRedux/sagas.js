@@ -13,7 +13,6 @@ export function* userLoginSaga({ data }) {
     yield AsyncStorage.setItem('token', response.data.access_token);
     yield put(LoginActions.userLoginSuccess(response.data.access_token));
     yield put(startup());
-
   } catch (error) {
     console.log(error);
     yield put(LoginActions.userLoginFailure(error));

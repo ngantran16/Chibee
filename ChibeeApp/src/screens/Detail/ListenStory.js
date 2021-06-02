@@ -52,13 +52,27 @@ export default function PlayStory() {
   const [isWishlist, setIsWishlist] = useState(false);
   const [show, setShow] = useState(false);
 
+  // const story = [
+  //   {
+  //     url: detail_story?.audio[0].link_audio,
+  //     duration: detail_story?.audio[0].length,
+  //     title: detail_story.story_name,
+  //     artist: 'Truyện cổ tích',
+  //     artwork: detail_story.image,
+  //   },
+  // ];
+  const onBack = () => {
+    TrackPlayer.reset();
+    NavigationUtils.popShowBottomTab();
+  };
   const story = [
     {
-      url: detail_story?.audio[0].link_audio,
-      duration: detail_story?.audio[0].length,
-      title: detail_story.story_name,
-      artist: 'Truyện cổ tích',
+      title: 'Nàng Tiên Ốc',
+      artist: 'Powfu',
       artwork: detail_story.image,
+      url: 'https://doctruyencotich.vn/upload/file/20201225/conmoilamchunghuongduong3523592.mp3',
+      duration: 2 * 60 + 53,
+      id: 1,
     },
   ];
 
@@ -189,7 +203,7 @@ export default function PlayStory() {
     return (
       <View>
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => NavigationUtils.popShowBottomTab()}>
+          <TouchableOpacity onPress={() => onBack()}>
             <Icon name="angle-left" size={25} />
           </TouchableOpacity>
           <Text style={styles.titleHeader}>{detail_story.story_name}</Text>

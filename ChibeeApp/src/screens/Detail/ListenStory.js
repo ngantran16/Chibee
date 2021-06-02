@@ -14,7 +14,8 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import TrackPlayer, { TrackPlayerEvents } from 'react-native-track-player';
+import TrackPlayer, { usePlaybackState, TrackPlayerEvents } from 'react-native-track-player';
+import { PLAYBACK_TRACK_CHANGED } from 'react-native-track-player/lib/eventTypes';
 import ControlItem from './PlayerControl';
 import SliderStory from './SliderStory';
 import { NavigationUtils } from '../../navigation';
@@ -43,6 +44,10 @@ export default function PlayStory() {
   const dispatch = useDispatch();
 
   const scrollX = useRef(new Animated.Value(0)).current;
+  const slider = useRef(null);
+  const isPlayerReady = useRef(false);
+  const isItFromUser = useRef(true);
+  const index = useRef(0);
   const isLoading = useSelector((state) => state.comment.loadingComment);
   const addCmtLoading = useSelector((state) => state.comment.loadingAddComment);
   const dataComment = useSelector((state) => state.comment.dataComment);
@@ -52,29 +57,29 @@ export default function PlayStory() {
   const [isWishlist, setIsWishlist] = useState(false);
   const [show, setShow] = useState(false);
 
+  const story = [
+    {
+      url: detail_story?.audio[0].link_audio,
+      duration: detail_story?.audio[0].length,
+      title: detail_story.story_name,
+      artist: 'Truyện cổ tích',
+      artwork: detail_story.image,
+    },
+  ];
   // const story = [
   //   {
-  //     url: detail_story?.audio[0].link_audio,
-  //     duration: detail_story?.audio[0].length,
-  //     title: detail_story.story_name,
-  //     artist: 'Truyện cổ tích',
-  //     artwork: detail_story.image,
+  //     title: 'Nàng Tiên Ốc',
+  //     artist: 'Powfu',
+  //     artwork: 'https://pngimg.com/uploads/rainbow/rainbow_PNG5567.png',
+  //     url: 'https://doctruyencotich.vn/upload/file/20201225/conmoilamchunghuongduong3523592.mp3',
+  //     duration: 2 * 60 + 53,
+  //     id: 1,
   //   },
   // ];
   const onBack = () => {
     TrackPlayer.reset();
     NavigationUtils.popShowBottomTab();
   };
-  const story = [
-    {
-      title: 'Nàng Tiên Ốc',
-      artist: 'Powfu',
-      artwork: detail_story.image,
-      url: 'https://doctruyencotich.vn/upload/file/20201225/conmoilamchunghuongduong3523592.mp3',
-      duration: 2 * 60 + 53,
-      id: 1,
-    },
-  ];
 
   const onDeleteSuccess = () => {
     dispatch(CommentActions.getComment(detail_story.id));
@@ -84,10 +89,9 @@ export default function PlayStory() {
     console.log('Delete fail');
   };
 
-  const slider = useRef(null);
-  const isPlayerReady = useRef(false);
-
-  const [, setSongIndex] = useState(0);
+  const [songIndex, setSongIndex] = useState(0);
+  const position = useRef(Animated.divide(scrollX, width)).current;
+  const playbackState = usePlaybackState();
 
   useEffect(() => {
     scrollX.addListener(({ value }) => {
@@ -103,6 +107,18 @@ export default function PlayStory() {
 
       await TrackPlayer.updateOptions(TRACK_PLAYER_CONTROLS_OPTS);
 
+      TrackPlayer.addEventListener(PLAYBACK_TRACK_CHANGED, async (e) => {
+        const trackId = (await TrackPlayer.getCurrentTrack()) - 1;
+
+        if (trackId !== index.current) {
+          setSongIndex(trackId);
+          isItFromUser.current = false;
+          setTimeout(() => {
+            isItFromUser.current = true;
+          }, 200);
+        }
+      });
+
       TrackPlayer.addEventListener(TrackPlayerEvents.REMOTE_DUCK, (e) => {
         if (e.paused) {
           TrackPlayer.pause();
@@ -116,7 +132,8 @@ export default function PlayStory() {
       scrollX.removeAllListeners();
       TrackPlayer.destroy();
     };
-  }, [detail_story.id, dispatch, scrollX, story]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [detail_story.id, dispatch, scrollX]);
 
   async function jumpForward() {
     const offset = 10;
@@ -199,7 +216,7 @@ export default function PlayStory() {
     console.log('Something went wrong');
   };
 
-  const renderItem = ({ index, item }) => {
+  const renderItem = () => {
     return (
       <View>
         <View style={styles.header}>
@@ -238,6 +255,24 @@ export default function PlayStory() {
             useNativeDriver: true,
           })}
         />
+        {/* <View>
+          <View style={styles.header}>
+            <TouchableOpacity onPress={() => onBack()}>
+              <Icon name="angle-left" size={25} />
+            </TouchableOpacity>
+            <Text style={styles.titleHeader}>{detail_story.story_name}</Text>
+          </View>
+          <Animated.View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: width,
+            }}
+          >
+            <Animated.Image source={{ uri: detail_story.image }} style={styles.imageStyle} />
+            <SliderStory />
+          </Animated.View>
+        </View> */}
       </SafeAreaView>
       <ControlItem jumpForward={jumpForward} jumpBackward={jumpBackward} />
 

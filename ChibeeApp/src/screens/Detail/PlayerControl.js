@@ -1,7 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import { View, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import TrackPlayer, { usePlaybackState } from 'react-native-track-player';
+import TrackPlayer, {
+  usePlaybackState,
+  useTrackPlayerEvents,
+  Event,
+} from 'react-native-track-player';
 
 export default function ControlItem({ jumpForward, jumpBackward }) {
   const playbackState = usePlaybackState();
@@ -20,11 +24,11 @@ export default function ControlItem({ jumpForward, jumpBackward }) {
   const returnPlayBtn = () => {
     switch (isPlaying.current) {
       case 'playing':
-        return <Icon color="#000000" name="play-circle" size={45} />;
+        return <Icon color="#000000" name="pause-circle" size={45} />;
       case 'paused':
-        return <Icon color="#000000" name="pause-circle" size={45} />;
+        return <Icon color="#000000" name="play-circle" size={45} />;
       default:
-        return <Icon color="#000000" name="pause-circle" size={45} />;
+        return <ActivityIndicator size={45} color="#000000" />;
     }
   };
 

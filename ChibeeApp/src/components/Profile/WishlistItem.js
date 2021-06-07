@@ -22,7 +22,7 @@ const screenHeight = Dimensions.get('screen').height;
 
 const WishlistItem = (props) => {
   const data = props.data;
-  Moment.locale('en');
+  Moment.locale('vi');
   const [message, setMessage] = useState('');
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
@@ -68,7 +68,7 @@ const WishlistItem = (props) => {
 
   const wishlistLoading = useSelector((state) => state.wishlist.loadingWishlist);
   return (
-    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+    <ScrollView showsVerticalScrollIndicator={false}>
       {data && data.length > 0 ? (
         data.map((item, key) => {
           return (
@@ -117,7 +117,8 @@ export default WishlistItem;
 
 const styles = StyleSheet.create({
   storyContain: {
-    marginTop: 20,
+    width: '100%',
+    marginBottom: 30,
     backgroundColor: '#F5F5F5',
     padding: 10,
     borderRadius: 10,
@@ -126,7 +127,7 @@ const styles = StyleSheet.create({
     borderLeftColor: '#F5F5F5',
     borderTopColor: '#F5F5F5',
     borderWidth: 2,
-    height: 250,
+    height: screenHeight * 0.3,
   },
   imgStory: {
     width: '100%',
@@ -149,8 +150,7 @@ const styles = StyleSheet.create({
   delete: {
     color: 'red',
   },
-  // container: {
-  //   marginBottom: 20,
-  //   backgroundColor: 'pink',
-  // },
+  container: {
+    height: screenHeight * 0.6,
+  },
 });

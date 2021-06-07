@@ -5,8 +5,19 @@ import Swiper from 'react-native-swiper';
 import Images from '../../themes/Images';
 import Type from '../../components/Home/Type';
 import { useSelector } from 'react-redux';
-
 const Home = () => {
+  // React.useEffect(() => {
+  //   messaging()
+  //     .subscribeToTopic('weather')
+  //     .then(() => console.log('Subscribed to topic!'));
+  // });
+  // React.useEffect(() => {
+  //   const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+  //     console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));
+  //   });
+
+  //   return unsubscribe;
+  // }, []);
   const listTypes = useSelector((state) => state.home.dataTypes);
   const isLoading = useSelector((state) => state.home.loadingHome);
   const IMAGE_SLIDE = [

@@ -3,12 +3,6 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import Colors from '../../themes/Colors';
 
 const InviteItem = (props) => {
-  const [isClicked, setIsClicked] = useState();
-
-  const onBtnClicked = () => {
-    // setIsClicked(!isClicked);
-    console.log(props.item.id);
-  };
   return (
     <View style={styles.container}>
       <View style={styles.avatar}>

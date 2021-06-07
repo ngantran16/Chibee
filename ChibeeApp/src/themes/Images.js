@@ -51,6 +51,7 @@ import gmail from '../assets/Images/gmail.png';
 import copy from '../assets/Images/copy.png';
 import down from '../assets/Images/down.png';
 import backgroundLogin from '../assets/Images/backgroundLogin.jpg';
+import backgroundAvatar from '../assets/Images/backgroundAvatar.png';
 
 const Images = {
   intro1,
@@ -106,6 +107,7 @@ const Images = {
   down,
   heartstory,
   backgroundLogin,
+  backgroundAvatar,
 };
 
 export default Images;

@@ -5,7 +5,7 @@ const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 
 const ProfileItem = (props) => {
-  Moment.locale('en');
+  Moment.locale('vi');
   return (
     <View>
       <TouchableOpacity style={styles.storyContain}>
@@ -24,7 +24,7 @@ export default ProfileItem;
 const styles = StyleSheet.create({
   storyContain: {
     flexDirection: 'row',
-    marginTop: 20,
+    marginBottom: 30,
   },
   imgStory: {
     width: screenWidth * 0.45,

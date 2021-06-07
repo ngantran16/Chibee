@@ -4,6 +4,7 @@ import { NavigationUtils } from '../../navigation';
 import LoginTypes from '../../redux/LoginRedux/actions';
 import { useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Colors from '../../themes/Colors';
 
 const SettingProfileItem = (props) => {
   const dispatch = useDispatch();
@@ -21,12 +22,17 @@ const SettingProfileItem = (props) => {
     }
   };
   return (
-    <View style={styles.settingButton}>
-      <Icon name={props.name} size={24} />
-      <TouchableOpacity style={styles.viewText} onPress={() => onInfoPress(props.title)}>
-        <Text style={styles.title}>{props.title}</Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity onPress={() => onInfoPress(props.title)} style={styles.settingButton}>
+      <View style={styles.titleContent}>
+        <Icon name={props.name} size={24} color={Colors.secondary} />
+        <View style={styles.viewText}>
+          <Text style={styles.title}>{props.title}</Text>
+        </View>
+      </View>
+      <View>
+        <Icon name="angle-right" size={24} color="gray" />
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -40,11 +46,20 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
+    fontFamily: 'Cochin',
   },
   settingButton: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 18,
     paddingVertical: 10,
+    borderBottomColor: '#DDDDDD',
+    borderBottomWidth: 0.5,
+    height: 50,
+    marginBottom: 5,
+  },
+  titleContent: {
+    flexDirection: 'row',
   },
 });

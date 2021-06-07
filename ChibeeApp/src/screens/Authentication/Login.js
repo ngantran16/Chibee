@@ -137,11 +137,7 @@ const Login = () => {
                   )}
                 </View>
                 <View style={styles.layoutButton}>
-                  <TouchableOpacity
-                    style={styles.loginButton}
-                    onPress={handleSubmit}
-                    disabled={!isValid}
-                  >
+                  <TouchableOpacity style={styles.loginButton} onPress={handleSubmit}>
                     {isLoading && <ActivityIndicator size="large" color="#FF6600" />}
                     <Text style={styles.textSignUp}>Đăng nhập</Text>
                   </TouchableOpacity>

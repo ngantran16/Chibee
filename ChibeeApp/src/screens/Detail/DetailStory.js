@@ -28,9 +28,6 @@ const DetailStory = (props) => {
   const [showReview, setShowReview] = useState(false);
   const [checkViewAll, setCheckViewAll] = useState(false);
   const token = useSelector((state) => state.login.token);
-
-  console.log('****************************');
-  console.log(token);
   const onViewAll = () => {
     setCheckViewAll(!checkViewAll);
   };
@@ -74,6 +71,16 @@ const DetailStory = (props) => {
     dispatch(DetailActions.userRating(ratingData));
     setReview('');
     setShow(true);
+  };
+  const formatTime = (secs) => {
+    let minutes = Math.floor(secs / 60);
+    let seconds = Math.ceil(secs - minutes * 60);
+
+    if (seconds < 10) {
+      seconds = `0${seconds}`;
+    }
+
+    return `${minutes}:${seconds}`;
   };
   return (
     <ScrollView style={styles.container}>
@@ -126,7 +133,7 @@ const DetailStory = (props) => {
                 {histories.getStoryDetailsResponse?.author[0]?.author_name}
               </Text>
               <Text style={styles.txtContent}>
-                {histories.getStoryDetailsResponse?.audio[0]?.length}
+                {formatTime(histories.getStoryDetailsResponse?.audio[0]?.length)}
               </Text>
               <Text style={styles.txtContent}>
                 {histories.getStoryDetailsResponse?.type[0]?.name}

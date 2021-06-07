@@ -41,8 +41,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: 'gray',
+    fontFamily: 'sans-serif',
   },
   contentContain: {
-    marginTop: 20,
+    marginTop: 10,
   },
 });

@@ -3,12 +3,13 @@ import SignUpFormModel from './validationFormModel';
 
 const { name, email, phone, age, password, confirmPassword } = SignUpFormModel;
 const phoneRegExp = /^(\s*|\d+)$/;
+const nameRegExp = /^[^0-9 *&^$#@!(){}\[\]\\//]+[^0-9*&^$#@!(){}\[\]\\//]+$/;
 
 const SignUpFormValidation = yup.object().shape({
   [name.name]: yup
     .string()
     .required(`${name.errorRequired}`)
-    .matches(/^[A-Za-z ]*$/, `${name.errorFormat}`),
+    .matches(nameRegExp, `${name.errorFormat}`),
 
   [email.name]: yup.string().required(`${email.errorRequired}`).email(`${email.errorFormat}`),
 

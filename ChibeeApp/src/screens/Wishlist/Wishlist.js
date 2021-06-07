@@ -82,6 +82,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
   },
   scrollContain: {
-    marginBottom: 150,
+    marginBottom: 120,
   },
 });

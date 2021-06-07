@@ -34,11 +34,11 @@ const ReadStory = () => {
         </View>
       ) : (
         <View style={styles.story}>
-          <Text style={styles.content} numberOfLines={18}>
+          <Text style={styles.content} numberOfLines={14}>
             {storyDetails.content}
           </Text>
           <TouchableOpacity onPress={() => onViewAll()}>
-            <Text style={styles.viewAll}>Xem thêm</Text>
+            <Text style={styles.viewAll}>Đọc tiếp</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -77,11 +77,12 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   content: {
-    fontSize: 18,
-    lineHeight: 25,
+    fontSize: 20,
+    lineHeight: 30,
     marginTop: 5,
     textAlign: 'justify',
-    color: 'gray',
+    color: 'black',
+    fontFamily: 'Cochin',
   },
   story: {
     marginTop: 15,

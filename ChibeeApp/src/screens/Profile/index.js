@@ -6,7 +6,6 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
-  ActivityIndicator,
   Dimensions,
 } from 'react-native';
 import Colors from '../../themes/Colors';
@@ -19,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ProfileAction from '../../redux/UserRedux/actions';
 import WishlistActions from '../../redux/WishlistRedux/actions';
 const screenHeight = Dimensions.get('screen').height;
+const screenWidth = Dimensions.get('screen').width;
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -29,15 +29,23 @@ const Profile = () => {
   const token = useSelector((state) => state.login.token);
   const user = useSelector((state) => state.user.user);
   const data = useSelector((state) => state.wishlist.dataWishlist);
-  // const isLoading = useSelector((state) => state.wishlist.loadingWishlist);
+  const notifications = useSelector((state) => state.notification.dataNotification);
 
   useEffect(() => {
     dispatch(ProfileAction.userProfile(token));
     dispatch(WishlistActions.getWishlist(token));
   }, [dispatch, token]);
+
+  const formatNumber = (number) => {
+    if (number < 10) {
+      return `0${number}`;
+    }
+    return number;
+  };
   return (
     <View style={styles.container}>
       <View style={styles.con}>
+        <Image source={{ uri: user?.avatar }} style={styles.imgBackground} />
         <View style={styles.header}>
           <TouchableOpacity onPress={onSettingIcon}>
             <Icon name="cog" size={25} style={styles.setting} />
@@ -45,34 +53,57 @@ const Profile = () => {
         </View>
         <View style={styles.nameContain}>
           <Image source={{ uri: user?.avatar }} style={styles.avatar} />
-          <Text style={styles.name}>{user?.full_name}</Text>
+          <View style={styles.nameContainer}>
+            <Text style={styles.name}>{user?.full_name}</Text>
+            <View style={{ flexDirection: 'row' }}>
+              <View style={styles.iconContain}>
+                <Icon
+                  name="headphones"
+                  size={25}
+                  style={styles.iconName}
+                  color={Colors.secondary}
+                />
+                <Text style={styles.textNumber}>{data && formatNumber(data.length)}</Text>
+              </View>
+              <View style={styles.iconContain}>
+                <Icon name="heart" size={20} style={styles.iconName} color="#CC0000" />
+                <Text style={styles.textNumber}>{data && formatNumber(data.length)}</Text>
+              </View>
+              <View style={styles.iconContain}>
+                <Icon name="bell" size={20} style={styles.iconName} color={Colors.primary} />
+                <Text style={styles.textNumber}>
+                  {notifications && formatNumber(notifications.length)}
+                </Text>
+              </View>
+            </View>
+          </View>
         </View>
       </View>
-      <View style={styles.allStory}>
-        <View style={styles.menu}>
-          <TouchableOpacity onPress={() => setSelected('Đã nghe')}>
-            {selected === 'Đã nghe' ? (
-              <Text style={styles.titleMenuSelected}>Đã nghe</Text>
-            ) : (
-              <Text style={styles.titleMenu}>Đã nghe</Text>
-            )}
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setSelected('Yêu thích')}>
-            {selected === 'Yêu thích' ? (
-              <Text style={styles.titleMenuSelected}>Yêu thích</Text>
-            ) : (
-              <Text style={styles.titleMenu}>Yêu thích</Text>
-            )}
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setSelected('Thông báo')}>
-            {selected === 'Thông báo' ? (
-              <Text style={styles.titleMenuSelected}>Thông báo</Text>
-            ) : (
-              <Text style={styles.titleMenu}>Thông báo</Text>
-            )}
-          </TouchableOpacity>
-        </View>
-        {/* {isLoading && <ActivityIndicator size="large" color="#FF6600" />} */}
+      <View style={styles.menu}>
+        <TouchableOpacity
+          onPress={() => setSelected('Đã nghe')}
+          style={selected === 'Đã nghe' ? styles.allStory : styles.allStory2}
+        >
+          <Text style={selected === 'Đã nghe' ? styles.titleMenuSelected : styles.titleMenu}>
+            Đã nghe
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setSelected('Yêu thích')}
+          style={selected === 'Yêu thích' ? styles.allStory : styles.allStory2}
+        >
+          <Text style={selected === 'Yêu thích' ? styles.titleMenuSelected : styles.titleMenu}>
+            Yêu thích
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setSelected('Thông báo')}
+          style={selected === 'Thông báo' ? styles.allStory : styles.allStory2}
+        >
+          <Text style={selected === 'Thông báo' ? styles.titleMenuSelected : styles.titleMenu}>
+            Thông báo
+          </Text>
+        </TouchableOpacity>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false} style={styles.storyContain}>
@@ -103,7 +134,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
   },
   header: {
-    marginTop: 20,
+    marginTop: -screenHeight * 0.18,
     paddingHorizontal: 18,
     flexDirection: 'row',
     justifyContent: 'flex-end',
@@ -116,51 +147,57 @@ const styles = StyleSheet.create({
     marginRight: (Dimensions.get('window').width - 36) / 2 - 60,
   },
   avatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 60,
-    marginLeft: 10,
+    width: screenWidth * 0.25,
+    height: screenWidth * 0.25,
+    borderRadius: (screenWidth * 0.25) / 2,
+    marginLeft: 20,
+    borderWidth: 2,
+    borderColor: 'white',
   },
   nameContain: {
     alignItems: 'center',
     flexDirection: 'row',
-    width: Dimensions.get('window').width - 30,
-    backgroundColor: 'white',
-    borderTopRightRadius: 25,
-    borderTopLeftRadius: 25,
-    height: 110,
-    marginTop: 5,
-    marginLeft: 15,
+    marginTop: screenHeight * 0.09,
   },
   name: {
-    color: 'black',
-    fontSize: 18,
+    color: 'white',
+    fontSize: 30,
     fontWeight: 'bold',
-    marginLeft: 20,
+    marginLeft: 15,
+    marginTop: -10,
+    marginBottom: 10,
+    textShadowColor: 'black',
+    textShadowOffset: { width: -1, height: 0 },
+    textShadowRadius: 10,
   },
   menu: {
     flexDirection: 'row',
-    marginTop: 20,
-    justifyContent: 'space-between',
     alignItems: 'center',
+    width: screenWidth,
   },
   titleMenu: {
-    fontSize: 17,
-    fontWeight: 'bold',
+    fontSize: 16,
     color: 'gray',
+    padding: 5,
   },
   titleMenuSelected: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: 'bold',
-    color: 'gray',
-    borderBottomColor: Colors.secondary,
-    borderBottomWidth: 2,
-  },
-  con: {
-    backgroundColor: Colors.secondary,
+    color: 'black',
+    padding: 5,
   },
   allStory: {
-    paddingHorizontal: 18,
+    width: screenWidth / 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomColor: Colors.secondary,
+    borderBottomWidth: 2,
+    marginBottom: 8,
+  },
+  allStory2: {
+    width: screenWidth / 3,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   message: {
     textAlign: 'center',
@@ -169,6 +206,31 @@ const styles = StyleSheet.create({
   },
   storyContain: {
     paddingHorizontal: 18,
-    marginBottom: 200,
+    marginBottom: screenHeight * 0.3,
+  },
+  imgBackground: {
+    width: screenWidth,
+    height: screenHeight * 0.2,
+    opacity: 0.4,
+    backgroundColor: 'rgba(0,0,0,.87)',
+  },
+  iconContain: {
+    marginLeft: 25,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  iconName: {
+    marginRight: 5,
+  },
+  textNumber: {
+    fontSize: 20,
+    color: '#222222',
+    fontWeight: '600',
+  },
+  setting: {
+    textShadowColor: 'white',
+    textShadowOffset: { width: -1, height: 0 },
+    textShadowRadius: 2,
   },
 });

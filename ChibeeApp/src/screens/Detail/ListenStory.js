@@ -264,11 +264,16 @@ export default function PlayStory() {
           disabled={isWishlist ? true : false}
           style={styles.reactIcon}
         >
-          <Icon name="heart" size={25} color={isWishlist ? '#CC0000' : '#000'} />
+          {/* <Icon name="heart" size={25} color={isWishlist ? '#CC0000' : Colors.secondary} /> */}
+          {isWishlist ? (
+            <Image source={Images.hearted} style={styles.iconHeartStory} />
+          ) : (
+            <Image source={Images.heartstory} style={styles.iconStory} />
+          )}
           <Text style={styles.typeStory}>{isWishlist ? 'Đã thích' : 'Yêu thích'}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={onReadStory} style={styles.reactIcon}>
-          <Image source={Images.book} style={styles.iconStory} />
+          <Image source={Images.book} style={styles.iconStory} color={Colors.secondary} />
           <Text style={styles.typeStory}>Đọc truyện</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={onWatchStory} style={styles.reactIcon}>
@@ -318,7 +323,10 @@ export default function PlayStory() {
           ) : isLoading || addCmtLoading ? (
             <ActivityIndicator size="large" color="#FF6600" />
           ) : (
-            <Text>Câu chuyện này vẫn chưa có bình luận nào</Text>
+            <View style={styles.commentIconContainer}>
+              <Image source={Images.comments} style={styles.commentIcon} />
+              <Text style={styles.message}>Câu chuyện này vẫn chưa có bình luận nào</Text>
+            </View>
           )}
         </View>
       </View>
@@ -391,6 +399,34 @@ const styles = StyleSheet.create({
   iconStory: {
     width: 30,
     height: 30,
+    tintColor: Colors.secondary,
+  },
+  commentIcon: {
+    width: width * 0.3,
+    height: height * 0.1,
+    tintColor: Colors.secondary,
+    resizeMode: 'contain',
+    opacity: 0.5,
+  },
+  commentIconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: height * 0.04,
+  },
+  message: {
+    fontSize: 16,
+    color: 'gray',
+    textAlign: 'center',
+  },
+  iconHeartStory: {
+    width: 30,
+    height: 30,
+    tintColor: 'red',
+  },
+  iconHearted: {
+    width: 30,
+    height: 30,
+    tintColor: Colors.secondary,
   },
   commentContain: {
     width: width - 70,

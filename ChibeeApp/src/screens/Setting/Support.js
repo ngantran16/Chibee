@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     height: '60%',
     resizeMode: 'contain',
     tintColor: Colors.primary,
+    opacity: 0.7,
   },
   txtSupport: {
     fontSize: 20,

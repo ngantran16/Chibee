@@ -82,7 +82,7 @@ const ChangePassword = () => {
 
   const onFail = () => {
     setError('Mật khẩu cũ không đúng');
-    setShow(true);
+    // setShow(true);
   };
   return (
     <ScrollView>

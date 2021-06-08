@@ -114,12 +114,11 @@ const WatchVideo = () => {
             disabled={isWishlist ? true : false}
             onPress={onAddToWishlist}
           >
-            <Icon
-              name="heart"
-              size={25}
-              color={isWishlist ? '#CC0000' : '#000'}
-              style={styles.iconHeart}
-            />
+            {isWishlist ? (
+              <Image source={Images.hearted} style={styles.iconHeartStory} />
+            ) : (
+              <Image source={Images.heartstory} style={styles.iconStory} />
+            )}
             <Text style={styles.nameIcon}>{isWishlist ? 'Đã thích' : 'Yêu thích'}</Text>
           </TouchableOpacity>
 
@@ -127,12 +126,12 @@ const WatchVideo = () => {
             style={[styles.itemCenter, styles.button]}
             onPress={() => setModalVisible(true)}
           >
-            <Icon name="share-square" size={26} style={styles.iconShare} />
+            <Icon name="share-square" size={26} style={styles.iconShare} color={Colors.secondary} />
             <Text style={styles.nameIcon}>Chia sẻ</Text>
           </Pressable>
 
           <View style={styles.itemCenter}>
-            <Icon name="download" size={26} style={styles.iconDown} />
+            <Icon name="download" size={26} style={styles.iconDown} color={Colors.secondary} />
             <Text style={styles.nameIcon}>Tải về</Text>
           </View>
         </View>
@@ -154,7 +153,7 @@ const WatchVideo = () => {
             <Icon name="paper-plane" size={25} />
           </TouchableOpacity>
         </View>
-        {dataComment ? (
+        {dataComment && dataComment.length > 0 ? (
           <View style={styles.listComment}>
             {dataComment.map((item, key) => {
               return (
@@ -180,7 +179,10 @@ const WatchVideo = () => {
         ) : isCommentLoading ? (
           <ActivityIndicator size="large" color="#FF6600" />
         ) : (
-          <Text>This story hasn't had any comment yet</Text>
+          <View style={styles.commentIconContainer}>
+            <Image source={Images.comments} style={styles.commentIcon} />
+            <Text style={styles.message}>Câu chuyện này vẫn chưa có bình luận nào</Text>
+          </View>
         )}
       </View>
       <View style={styles.centeredView}>
@@ -259,10 +261,20 @@ const styles = StyleSheet.create({
   itemVideo: {
     marginTop: 5,
   },
+  iconStory: {
+    width: 30,
+    height: 30,
+    tintColor: Colors.secondary,
+  },
   txtComment: {
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 20,
+  },
+  iconHeartStory: {
+    width: 30,
+    height: 30,
+    tintColor: 'red',
   },
   inputComment: {
     width: '98%',
@@ -411,5 +423,21 @@ const styles = StyleSheet.create({
   iconSize: {
     width: 55,
     height: 55,
+  },
+  commentIcon: {
+    width: screenWidth * 0.3,
+    height: screenHeight * 0.1,
+    tintColor: Colors.secondary,
+    resizeMode: 'contain',
+    opacity: 0.5,
+  },
+  commentIconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: screenHeight * 0.05,
+  },
+  message: {
+    fontSize: 16,
+    color: 'gray',
   },
 });

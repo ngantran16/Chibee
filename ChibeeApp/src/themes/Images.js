@@ -40,6 +40,7 @@ import playstory from '../assets/Images/playstory.png';
 import video from '../assets/Images/video.png';
 import clock from '../assets/Images/clock.png';
 import heart from '../assets/Images/heart2.png';
+import hearted from '../assets/Images/heart.png';
 import heartstory from '../assets/Images/heartstory.png';
 import share from '../assets/Images/share.png';
 import download from '../assets/Images/download.png';
@@ -55,6 +56,7 @@ import backgroundAvatar from '../assets/Images/backgroundAvatar.png';
 import audioFile from '../assets/Images/audio-file.png';
 import wishlistAudio from '../assets/Images/wishlistAudio.png';
 import bells from '../assets/Images/bells.png';
+import comments from '../assets/Images/comments.png';
 
 const Images = {
   intro1,
@@ -114,6 +116,8 @@ const Images = {
   audioFile,
   wishlistAudio,
   bells,
+  hearted,
+  comments,
 };
 
 export default Images;

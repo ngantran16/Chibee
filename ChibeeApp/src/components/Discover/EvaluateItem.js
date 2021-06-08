@@ -13,6 +13,7 @@ import Moment from 'moment';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CommentActions from '../../redux/CommentRedux/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import Colors from '../../themes/Colors';
 const screenWidth = Dimensions.get('screen').width;
 
 const EvaluateItem = (props) => {
@@ -62,14 +63,8 @@ const EvaluateItem = (props) => {
             </View>
             <View>
               <View style={styles.reply}>
-                <TouchableOpacity onPress={() => setIsLiked(!isLiked)}>
-                  {isLiked ? (
-                    <Text style={[styles.txtReply, { color: '#0066FF' }]}>Đã thích</Text>
-                  ) : (
-                    <Text style={styles.txtReply}>Thích</Text>
-                  )}
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => setIsReply(!isReply)}>
+                <TouchableOpacity onPress={() => setIsReply(!isReply)} style={styles.iconComment}>
+                  <Icon name="comment" size={15} color={Colors.secondary} />
                   <Text style={styles.txtReply}>Trả lời</Text>
                 </TouchableOpacity>
                 {props.token === current_token ? (
@@ -227,6 +222,11 @@ const styles = StyleSheet.create({
   txtDeleteReply: {
     fontSize: 11,
     color: 'red',
+  },
+  iconComment: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    // alignItems: 'center',
   },
 });
 export default EvaluateItem;

@@ -1,9 +1,22 @@
 import React, { useEffect } from 'react';
 import NotificationItem from '../../components/Profile/NotificationItem';
-import { ScrollView, ActivityIndicator, Text } from 'react-native';
+import {
+  ScrollView,
+  ActivityIndicator,
+  Text,
+  Image,
+  View,
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import NotificationAction from '../../redux/NotificationRedux/actions';
 import Pusher from 'pusher-js/react-native';
+import Images from '../../themes/Images';
+import Colors from '../../themes/Colors';
+
+const screenHeight = Dimensions.get('screen').height;
+const screenWidth = Dimensions.get('screen').width;
 
 const Notifications = () => {
   const dispatch = useDispatch();
@@ -33,10 +46,31 @@ const Notifications = () => {
       ) : notificationLoading ? (
         <ActivityIndicator size="large" color="#FF6600" />
       ) : (
-        <Text>Bạn chưa có thông báo nào</Text>
+        <View style={styles.iconBellContainer}>
+          <Image source={Images.bells} style={styles.iconBell} />
+          <Text style={styles.message}>Bạn chưa có thông báo nào</Text>
+        </View>
       )}
     </ScrollView>
   );
 };
 
 export default Notifications;
+const styles = StyleSheet.create({
+  iconBellContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  iconBell: {
+    width: screenWidth * 0.6,
+    height: screenHeight * 0.35,
+    resizeMode: 'contain',
+    tintColor: Colors.secondary,
+    opacity: 0.5,
+  },
+  message: {
+    fontSize: 16,
+    marginTop: -screenHeight * 0.09,
+    color: 'gray',
+  },
+});

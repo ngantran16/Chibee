@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileAction from '../../redux/UserRedux/actions';
 import WishlistActions from '../../redux/WishlistRedux/actions';
+import Images from '../../themes/Images';
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 
@@ -114,7 +115,10 @@ const Profile = () => {
                 return <ProfileItem item={item} key={key} />;
               })
             ) : (
-              <Text>Danh sách trống</Text>
+              <View style={styles.audioFileContainer}>
+                <Image source={Images.audioFile} style={styles.audioFile} />
+                <Text style={styles.textMessage}>Danh sách trống</Text>
+              </View>
             )}
           </View>
         ) : selected === 'Yêu thích' && data ? (
@@ -232,5 +236,22 @@ const styles = StyleSheet.create({
     textShadowColor: 'white',
     textShadowOffset: { width: -1, height: 0 },
     textShadowRadius: 2,
+  },
+  audioFile: {
+    width: screenWidth * 0.5,
+    height: screenHeight * 0.25,
+    resizeMode: 'contain',
+    tintColor: Colors.secondary,
+    opacity: 0.5,
+  },
+  audioFileContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: screenHeight * 0.06,
+  },
+  textMessage: {
+    fontSize: 16,
+    marginTop: -screenHeight * 0.04,
+    color: 'gray',
   },
 });

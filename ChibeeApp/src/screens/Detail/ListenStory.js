@@ -255,24 +255,6 @@ export default function PlayStory() {
             useNativeDriver: true,
           })}
         />
-        {/* <View>
-          <View style={styles.header}>
-            <TouchableOpacity onPress={() => onBack()}>
-              <Icon name="angle-left" size={25} />
-            </TouchableOpacity>
-            <Text style={styles.titleHeader}>{detail_story.story_name}</Text>
-          </View>
-          <Animated.View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: width,
-            }}
-          >
-            <Animated.Image source={{ uri: detail_story.image }} style={styles.imageStyle} />
-            <SliderStory />
-          </Animated.View>
-        </View> */}
       </SafeAreaView>
       <ControlItem jumpForward={jumpForward} jumpBackward={jumpBackward} />
 
@@ -336,7 +318,7 @@ export default function PlayStory() {
           ) : isLoading || addCmtLoading ? (
             <ActivityIndicator size="large" color="#FF6600" />
           ) : (
-            <Text>This story hasn't had any comment yet</Text>
+            <Text>Câu chuyện này vẫn chưa có bình luận nào</Text>
           )}
         </View>
       </View>
@@ -375,7 +357,16 @@ const styles = StyleSheet.create({
     width: height * 0.3,
     borderRadius: (height * 0.3) / 2,
     borderColor: '#E8E8E8',
-    borderWidth: 1,
+    borderWidth: 2,
+    shadowColor: '#E8E8E8',
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.39,
+    shadowRadius: 8.3,
+
+    elevation: 13,
   },
   artist: {
     fontSize: 18,

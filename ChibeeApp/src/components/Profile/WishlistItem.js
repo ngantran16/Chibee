@@ -18,7 +18,9 @@ import Colors from '../../themes/Colors';
 import WishlistActions from '../../redux/WishlistRedux/actions';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import ProfileAction from '../../redux/UserRedux/actions';
+import Images from '../../themes/Images';
 const screenHeight = Dimensions.get('screen').height;
+const screenWidth = Dimensions.get('screen').width;
 
 const WishlistItem = (props) => {
   const data = props.data;
@@ -95,7 +97,10 @@ const WishlistItem = (props) => {
       ) : wishlistLoading ? (
         <ActivityIndicator size="large" color="#FF6600" />
       ) : (
-        <Text style={styles.message}>Bạn vẫn chưa có câu chuyện nào trong mục Yêu thích</Text>
+        <View style={styles.imgIconContainer}>
+          <Image source={Images.wishlistAudio} style={styles.imgIcon} />
+          <Text style={styles.message}>Bạn vẫn chưa có câu chuyện nào trong mục Yêu thích</Text>
+        </View>
       )}
       <AwesomeAlert
         show={show}
@@ -152,5 +157,23 @@ const styles = StyleSheet.create({
   },
   container: {
     height: screenHeight * 0.6,
+  },
+  imgIcon: {
+    width: screenWidth * 0.35,
+    height: screenHeight * 0.25,
+    resizeMode: 'contain',
+    tintColor: Colors.secondary,
+  },
+  imgIconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: screenHeight * 0.06,
+    opacity: 0.5,
+  },
+  message: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginTop: -screenHeight * 0.04,
+    color: 'gray',
   },
 });

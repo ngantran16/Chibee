@@ -52,6 +52,9 @@ import copy from '../assets/Images/copy.png';
 import down from '../assets/Images/down.png';
 import backgroundLogin from '../assets/Images/backgroundLogin.jpg';
 import backgroundAvatar from '../assets/Images/backgroundAvatar.png';
+import audioFile from '../assets/Images/audio-file.png';
+import wishlistAudio from '../assets/Images/wishlistAudio.png';
+import bells from '../assets/Images/bells.png';
 
 const Images = {
   intro1,
@@ -108,6 +111,9 @@ const Images = {
   heartstory,
   backgroundLogin,
   backgroundAvatar,
+  audioFile,
+  wishlistAudio,
+  bells,
 };
 
 export default Images;
